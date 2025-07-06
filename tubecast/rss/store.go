@@ -6,7 +6,7 @@ import (
 )
 
 // Atomatically save Station Meta data locally
-func saveStations(path string, stations []metaStation) error {
+func saveMetaStationToLocal(path string, station MetaStation) error {
 	tmp := path + ".tmp"
 
 	f, err := os.Create(tmp)
@@ -17,26 +17,26 @@ func saveStations(path string, stations []metaStation) error {
 	defer os.Remove(tmp)
 	enc := json.NewEncoder(f)
 	enc.SetIndent("", " ")
-	if err := enc.Encode(stations); err != nil {
+	if err := enc.Encode(station); err != nil {
 		return err
 	}
 	return os.Rename(tmp, path)
 }
 
 // Loads Station Meta data from the local
-func loadStations(path string) ([]metaStation, error) {
+func loadMetaStationFromLocal(path string) (MetaStation, error) {
 	f, err := os.Open(path)
 	if os.IsNotExist(err) {
-		return []metaStation{}, nil
+		return MetaStation{}, nil
 	}
 	if err != nil {
-		return nil, err
+		return MetaStation{}, err
 	}
 	defer f.Close()
-	var stations []metaStation
+	var station MetaStation
 	dec := json.NewDecoder(f)
-	if err := dec.Decode(&stations); err != nil {
-		return nil, err
+	if err := dec.Decode(&station); err != nil {
+		return MetaStation{}, err
 	}
-	return stations, nil
+	return station, nil
 }

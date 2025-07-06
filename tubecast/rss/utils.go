@@ -1,5 +1,13 @@
 package rss
 
+// Global Variables
+var STATION_BASE string = "../stations"
+var StationNames Set[string]
+
+type Set[T comparable] struct {
+	set map[T]struct{}
+}
+
 // provide key, a comparable type to create a set
 func NewSet[T comparable]() *Set[T] {
 	return &Set[T]{

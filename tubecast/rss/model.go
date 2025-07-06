@@ -7,33 +7,36 @@ import (
 )
 
 type Station struct {
-	ID          uuid.UUID     `xml:"id"`
-	Name        string        `xml:"name"`
-	Url         string        `xml:"url"`
-	Description string        `xml:"description"`
-	Items       []StationItem `xml:"items"`
+	ID          uuid.UUID     `xml:"id"          json:"id"`
+	Name        string        `xml:"name"        json:"name"`
+	Url         string        `xml:"url"         json:"url"`
+	Description string        `xml:"description" json:"description"`
+	Items       []StationItem `xml:"items"       json:"items"`
 }
 
 type StationItem struct {
-	ID          uuid.UUID `xml:"id"`
-	Name        string    `xml:"name"`
-	Link        string    `xml:"link"`
-	Description string    `xml:"description"`
-	UploadedOn  time.Time `xml:"uploaded_on"`
+	ID          uuid.UUID `xml:"id"          json:"id"`
+	Name        string    `xml:"name"        json:"name"`
+	Link        string    `xml:"link"        json:"link"`
+	Description string    `xml:"description" json:"description"`
+	UploadedOn  time.Time `xml:"uploaded_on" json:"uploaded_on"`
 }
 
-type metaStation struct {
-	station      *Station
-	channelCount uint32
-	items        []metaStationItem
+type MetaStation struct {
+	ID           uuid.UUID         `json:"id"`
+	Name         string            `json:"name"`
+	Url          string            `json:"url"`
+	Description  string            `json:"description"`
+	Items        []MetaStationItem `json:"items"`
+	ChannelCount uint32            `json:"channel_count"`
 }
 
-type metaStationItem struct {
-	stationItem *StationItem
-	channelId   string
-	views       uint32
-}
-
-type Set[T comparable] struct {
-	set map[T]struct{}
+type MetaStationItem struct {
+	ID          uuid.UUID `json:"id"`
+	Name        string    `json:"name"`
+	Link        string    `json:"link"`
+	Description string    `json:"description"`
+	UploadedOn  time.Time `json:"uploaded_on"`
+	ChannelID   string    `json:"channel_id"`
+	Views       uint32    `json:"views"`
 }
