@@ -2,6 +2,7 @@ package rss
 
 import (
 	"encoding/json"
+	"encoding/xml"
 	"os"
 )
 
@@ -40,3 +41,53 @@ func loadMetaStationFromLocal(path string) (MetaStation, error) {
 	}
 	return station, nil
 }
+
+// Atomatically save Station data locally
+func saveXMLToLocal(path string, station Station) error {
+	tmp := path + ".tmp"
+
+	f, err := os.Create(tmp)
+	if err != nil {
+		return err
+	}
+
+	defer f.Close()
+	defer os.Remove(tmp)
+
+	enc := xml.NewEncoder(f)
+	f.WriteString(xml.Header)
+	if err := enc.Encode(station); err != nil {
+		return err
+	}
+	return os.Rename(tmp, path)
+}
+
+// Loads Station data from the local
+func loadXMLfromLocal(path string) (Station, error) {
+	f, err := os.Open(path)
+	if os.IsNotExist(err) {
+		return Station{}, nil
+	}
+	if err != nil {
+		return Station{}, err
+	}
+
+	defer f.Close()
+
+	var station Station
+	dec := xml.NewDecoder(f)
+	if err := dec.Decode(&station); err != nil {
+		return Station{}, err
+	}
+	return station, nil
+}
+
+// Save Station to cloud
+// func UploadStation(station Station) error {
+
+// }
+
+// // Fetch Station from cloud
+// func FetchStation(url string) (Station, error) {
+
+// }

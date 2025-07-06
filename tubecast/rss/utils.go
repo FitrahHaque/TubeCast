@@ -1,5 +1,12 @@
 package rss
 
+import (
+	"bytes"
+	"context"
+	"fmt"
+	"os/exec"
+)
+
 // Global Variables
 var STATION_BASE string = "../stations"
 var StationNames Set[string]
@@ -26,4 +33,15 @@ func (s *Set[T]) Remove(item T) {
 func (s *Set[T]) Has(item T) bool {
 	_, ok := s.set[item]
 	return ok
+}
+
+func run(ctx context.Context, cmd string, args ...string) (string, error) {
+	c := exec.CommandContext(ctx, cmd, args...)
+	var out, err bytes.Buffer
+	c.Stdout = &out
+	c.Stderr = &err
+	if e := c.Run(); e != nil {
+		return "", fmt.Errorf("could not execute the command. Error: %s\n", &err)
+	}
+	return out.String(), nil
 }

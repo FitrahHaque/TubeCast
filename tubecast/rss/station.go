@@ -7,49 +7,54 @@ import (
 	"github.com/google/uuid"
 )
 
-func CreateStation(name, description string) (Station, error) {
-	if metaStation, err := createMetaStation(name, description); err != nil {
+func (user *User) CreateStation(name, description string) (Station, error) {
+	if metaStation, err := user.createMetaStation(name, description); err != nil {
 		return Station{}, err
 	} else {
 		station := Station{
-			ID:          metaStation.ID,
-			Name:        metaStation.Name,
-			Description: metaStation.Description,
-			Url:         metaStation.Url,
-			Items:       getStationItems(metaStation.Items),
+			ID:               metaStation.ID,
+			Name:             metaStation.Name,
+			Description:      metaStation.Description,
+			Url:              metaStation.Url,
+			Items:            getStationItems(metaStation.Items),
+			Language:         metaStation.Language,
+			Copyright:        metaStation.Copyright,
+			ITunesAuthor:     metaStation.ITunesAuthor,
+			ITunesSubtitle:   metaStation.ITunesSubtitle,
+			ITunesSummary:    metaStation.ITunesSummary,
+			ITunesImage:      metaStation.ITunesImage,
+			ITunesExplicit:   metaStation.ITunesExplicit,
+			ITunesCategories: metaStation.ITunesCategories,
+			Owner:            metaStation.Owner,
 		}
 		return station, nil
 	}
 }
 
 func (station *Station) AddToStation(
-	name string,
+	title string,
 	description string,
 	link string,
 	uploadedOn time.Time,
 	views uint32,
-	channelID string,
+	author string,
+	length uint64,
 ) error {
 	metaStation, err := getMetaStation(station.Name)
 	if err != nil {
 		return err
 	}
 
-	id := metaStation.addToStation(
-		name,
+	metaItem := metaStation.addToStation(
+		title,
 		description,
 		link,
-		channelID,
+		author,
 		uploadedOn,
 		views,
+		length,
 	)
-	item := StationItem{
-		ID:          id,
-		Name:        name,
-		Description: description,
-		Link:        link,
-		UploadedOn:  uploadedOn,
-	}
+	item := getStationItem(metaItem)
 	station.Items = append(station.Items, item)
 	return nil
 }
@@ -72,7 +77,7 @@ func GetStation(name string) (Station, error) {
 	}
 }
 
-func createMetaStation(name string, description string) (MetaStation, error) {
+func (user *User) createMetaStation(name string, description string) (MetaStation, error) {
 	if StationNames.Has(name) {
 		return MetaStation{}, fmt.Errorf("there already exists a station named `%s`. Try again with a different name.\n", name)
 	}
@@ -82,6 +87,19 @@ func createMetaStation(name string, description string) (MetaStation, error) {
 		Name:         name,
 		Description:  description,
 		ChannelCount: 0,
+		CreatedOn:    time.Now(),
+		Language:     "English",
+		Copyright:    user.YouTubeID,
+		Owner: ITunesOwner{
+			Name:  user.Name,
+			Email: user.AppleID,
+		},
+		ITunesAuthor:     user.Name,
+		ITunesSubtitle:   "",
+		ITunesSummary:    "",
+		ITunesImage:      "",
+		ITunesExplicit:   "no",
+		ITunesCategories: []Category{},
 	}
 	StationNames.Add(name)
 	return metaStation, saveMetaStationToLocal(fmt.Sprintf("%s/%s.json", STATION_BASE, name), metaStation)
@@ -97,11 +115,19 @@ func getStationItems(metaItems []MetaStationItem) []StationItem {
 
 func getStationItem(metaItem MetaStationItem) StationItem {
 	return StationItem{
-		ID:          metaItem.ID,
-		Name:        metaItem.Name,
-		Link:        metaItem.Link,
-		Description: metaItem.Description,
-		UploadedOn:  metaItem.UploadedOn,
+		ID:                metaItem.ID,
+		Title:             metaItem.Title,
+		EnclosureURL:      metaItem.EnclosureURL,
+		EnclosureLength:   uint64(metaItem.EnclosureLength),
+		EnclosureType:     metaItem.EnclosureType,
+		Description:       metaItem.Description,
+		GUID:              metaItem.GUID,
+		PubDate:           metaItem.PubDate,
+		ITunesDuration:    metaItem.ITunesDuration,
+		ITunesExplicit:    metaItem.ITunesExplicit,
+		ITunesEpisode:     metaItem.ITunesEpisode,
+		ITunesSeason:      metaItem.ITunesSeason,
+		ITunesEpisodeType: metaItem.ITunesEpisodeType,
 	}
 }
 
@@ -113,23 +139,30 @@ func getMetaStation(name string) (MetaStation, error) {
 }
 
 func (station *MetaStation) addToStation(
-	name,
+	title,
 	description,
 	link,
-	channelID string,
+	author string,
 	uploadedOn time.Time,
 	views uint32,
-) uuid.UUID {
+	length uint64,
+) MetaStationItem {
 	id := uuid.New()
 	item := MetaStationItem{
-		ID:          id,
-		Name:        name,
-		Description: description,
-		Link:        link,
-		ChannelID:   channelID,
-		UploadedOn:  uploadedOn,
-		Views:       views,
+		ID:              id,
+		Title:           title,
+		Description:     description,
+		Author:          author,
+		Views:           views,
+		AddedOn:         time.Now(),
+		EnclosureURL:    link,
+		EnclosureLength: length,
+		EnclosureType:   "audio/mpeg",
+		GUID:            "",
+		PubDate:         uploadedOn,
+		ITunesDuration:  fmt.Sprint(length),
+		ITunesExplicit:  "no",
 	}
 	station.Items = append(station.Items, item)
-	return id
+	return item
 }
