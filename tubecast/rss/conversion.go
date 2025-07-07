@@ -3,6 +3,7 @@ package rss
 import (
 	"context"
 	"fmt"
+	"net/http"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -14,7 +15,7 @@ import (
 	"github.com/dropbox/dropbox-sdk-go-unofficial/v6/dropbox/sharing"
 )
 
-func getChannelVideoIDs(ctx context.Context, channelUrl string, limit uint) ([]string, error) {
+func getLatestVideos(ctx context.Context, channelUrl string, limit uint) ([]string, error) {
 	out, err := run(
 		ctx,
 		"yt-dlp",
@@ -37,7 +38,7 @@ func getVideoTitle(ctx context.Context, videoID string) (string, error) {
 		"yt-dlp",
 		"--quiet",
 		"--print",
-		"\"%(title)s\"",
+		"%(title)s",
 		"https://www.youtube.com/watch?v="+videoID,
 	)
 	if err != nil {
@@ -52,7 +53,7 @@ func getVideoDescription(ctx context.Context, videoID string) (string, error) {
 		"yt-dlp",
 		"--quiet",
 		"--print",
-		"\"%(description)s\"",
+		"%(description)s",
 		"https://www.youtube.com/watch?v="+videoID,
 	)
 	if err != nil {
@@ -67,7 +68,7 @@ func getVideoDuration(ctx context.Context, videoID string) (string, error) {
 		"yt-dlp",
 		"--quiet",
 		"--print",
-		"\"%(duration_string)s\"",
+		"%(duration_string)s",
 		"https://www.youtube.com/watch?v="+videoID,
 	)
 	if err != nil {
@@ -82,7 +83,7 @@ func getVideoViews(ctx context.Context, videoID string) (uint32, error) {
 		"yt-dlp",
 		"--quiet",
 		"--print",
-		"\"%(view_count)s\"",
+		"%(view_count)s",
 		"https://www.youtube.com/watch?v="+videoID,
 	)
 	if err != nil {
@@ -101,17 +102,19 @@ func getVideoPubDate(ctx context.Context, videoID string) (string, error) {
 		"yt-dlp",
 		"--quiet",
 		"--print",
-		"\"%(upload_date)s\"",
+		"%(upload_date)s",
 		"https://www.youtube.com/watch?v="+videoID,
 	)
 	if err != nil {
 		return "", err
 	}
-	return formatDate(strings.TrimSpace(out))
+	out = strings.TrimSpace(out)
+	// fmt.Printf("Date: %v\n", out)
+	return formatDate(out)
 }
 
 func saveVideoThumbnail(ctx context.Context, videoID string) error {
-	if err := os.MkdirAll("../thumbnails", 0o755); err != nil {
+	if err := os.MkdirAll(THUMBNAILS_BASE, 0o755); err != nil {
 		return err
 	}
 	_, err := run(
@@ -120,14 +123,15 @@ func saveVideoThumbnail(ctx context.Context, videoID string) error {
 		"--quiet",
 		"--skip-download",
 		"--write-thumbnail",
-		"-o", "../thumbnails/%(id)s.%(ext)s",
+		"-o",
+		THUMBNAILS_BASE+"/%(id)s.%(ext)s",
 		"https://www.youtube.com/watch?v="+videoID,
 	)
 	return err
 }
 
 func saveAudio(ctx context.Context, videoID string) error {
-	if err := os.MkdirAll("../audio", 0o755); err != nil {
+	if err := os.MkdirAll(AUDIO_BASE, 0o755); err != nil {
 		return err
 	}
 	_, err := run(ctx,
@@ -138,7 +142,7 @@ func saveAudio(ctx context.Context, videoID string) error {
 		"mp3",
 		"--audio-quality",
 		"0",
-		"-o", filepath.Join("../audio", "%(id)s.%(ext)s"),
+		"-o", filepath.Join(AUDIO_BASE, "%(id)s.%(ext)s"),
 		"https://www.youtube.com/watch?v="+videoID,
 	)
 	return err
@@ -152,47 +156,56 @@ func formatDate(uploadDate string) (string, error) {
 	return t.Format("Mon, 02 Jan 2006 15:04:05 GMT"), nil
 }
 
-// uploadToDropbox uploads localPath (e.g. "audio/vDWaKVmqznQ.mp3")
-// into your app folder under dropboxPath (e.g. "/PodcastAudio/vDWaKVmqznQ.mp3")
-// and returns the shared link URL.
-func (user *User) UploadToDropbox(localPath, dropboxPath string) (string, error) {
-	// 1) Open the file
+// UploadToDropbox uploads localPath into your app folder under dropboxPath
+// and returns the shared link URL
+func uploadToDropbox(localPath, dropboxPath string) (string, error) {
 	f, err := os.Open(localPath)
 	if err != nil {
 		return "", fmt.Errorf("open file: %w", err)
 	}
 	defer f.Close()
 
-	// 2) Configure the client
 	cfg := dropbox.Config{Token: os.Getenv("DROPBOX_TOKEN")}
 	dbx := files.New(cfg)
 
-	// 3) Upload
 	uploadArg := files.NewUploadArg(dropboxPath)
-	uploadArg.Mode.Tag = "overwrite" // overwrite if it exists
-	uploadArg.Mute = true            // no notifications
+	uploadArg.Mode.Tag = "overwrite"
+	uploadArg.Mute = true
 	_, err = dbx.Upload(uploadArg, f)
 	if err != nil {
 		return "", fmt.Errorf("dropbox upload: %w", err)
 	}
 
-	// 4) Create a shared link (if you want a public URL)
-	// Create a sharing client using the same config
 	sharingClient := sharing.New(cfg)
 
-	// Create the argument for CreateSharedLinkWithSettings
 	shareArg := &sharing.CreateSharedLinkWithSettingsArg{
-		Path: dropboxPath,
-		// Settings can be nil for default settings
+		Path:     dropboxPath,
 		Settings: nil,
 	}
 
 	shareLink, err := sharingClient.CreateSharedLinkWithSettings(shareArg)
 	if err != nil {
-		return "", fmt.Errorf("create shared link: %w", err)
+		if strings.Contains(err.Error(), "shared_link_already_exists") {
+			listArg := &sharing.ListSharedLinksArg{
+				Path:       dropboxPath,
+				DirectOnly: true,
+			}
+
+			listResult, listErr := sharingClient.ListSharedLinks(listArg)
+			if listErr != nil {
+				return "", fmt.Errorf("list shared links: %w", listErr)
+			}
+
+			if len(listResult.Links) == 0 {
+				return "", fmt.Errorf("no shared links found for path: %s", dropboxPath)
+			}
+
+			shareLink = listResult.Links[0]
+		} else {
+			return "", fmt.Errorf("create shared link: %w", err)
+		}
 	}
 
-	// Extract the URL from the response
 	var shareURL string
 	switch link := shareLink.(type) {
 	case *sharing.FileLinkMetadata:
@@ -203,13 +216,36 @@ func (user *User) UploadToDropbox(localPath, dropboxPath string) (string, error)
 		return "", fmt.Errorf("unexpected link type")
 	}
 
-	// By default Dropbox shared links point at a download page.
-	// To get a direct file link, replace ?dl=0 with ?raw=1:
-	// This might not always work depending on the link format
 	if len(shareURL) > 0 {
-		// Simple URL modification for direct download
-		return shareURL + "?raw=1", nil
+		shareURL = shareURL + "?raw=1"
 	}
-
+	// fmt.Printf("share: %v\n", shareURL)
 	return shareURL, nil
+}
+
+func GetChannelFeedUrl(username string) (string, error) {
+	if len(username) == 0 {
+		return "", fmt.Errorf("username is empty")
+	}
+	if username[0] != '@' {
+		username = "@" + username
+	}
+	// https://www.youtube.com/@ThePrimeTimeagen/videos
+	channelFeedUrl := "https://www.youtube.com/" + username + "/videos"
+	if isValidUrl(channelFeedUrl) == false {
+		return "", fmt.Errorf("not valid username\n")
+	}
+	return channelFeedUrl, nil
+}
+
+func isValidUrl(url string) bool {
+	resp, err := http.Get(url)
+	if err != nil {
+		return false
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return false
+	}
+	return true
 }

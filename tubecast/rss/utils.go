@@ -8,8 +8,12 @@ import (
 )
 
 // Global Variables
-var STATION_BASE string = "../stations"
-var StationNames Set[string]
+var STATION_BASE string = "tubecast/stations"
+var StationNames *Set[string]
+var THUMBNAILS_BASE string = "tubecast/thumbnails"
+var AUDIO_BASE string = "tubecast/audio"
+var DROPBOX_AUDIO_BASE string = "/PodcastAudio"
+var DROPBOX_THUMBNAILS_BASE string = "/PodcastThumbnails"
 
 type Set[T comparable] struct {
 	set map[T]struct{}

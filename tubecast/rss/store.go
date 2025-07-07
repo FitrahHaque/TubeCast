@@ -4,12 +4,15 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"os"
+	"path/filepath"
 )
 
 // Atomatically save Station Meta data locally
 func saveMetaStationToLocal(path string, station MetaStation) error {
 	tmp := path + ".tmp"
-
+	if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
+		return err
+	}
 	f, err := os.Create(tmp)
 	if err != nil {
 		return err

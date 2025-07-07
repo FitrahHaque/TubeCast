@@ -31,32 +31,36 @@ func (user *User) CreateStation(name, description string) (Station, error) {
 	}
 }
 
-func (station *Station) AddToStation(
-	title string,
-	description string,
-	link string,
-	uploadedOn string,
-	views uint32,
-	author string,
-	length uint64,
-) error {
-	metaStation, err := getMetaStation(station.Name)
-	if err != nil {
-		return err
-	}
+// func (station *Station) AddToStation(
+// 	title string,
+// 	description string,
+// 	link string,
+// 	uploadedOn string,
+// 	views uint32,
+// 	author string,
+// 	length uint64,
+// ) error {
+// 	metaStation, err := getMetaStation(station.Name)
+// 	if err != nil {
+// 		return err
+// 	}
 
-	metaItem := metaStation.addToStation(
-		title,
-		description,
-		link,
-		author,
-		uploadedOn,
-		views,
-		length,
-	)
-	item := getStationItem(metaItem)
-	station.Items = append(station.Items, item)
-	return nil
+// 	metaItem := metaStation.addToStation(
+// 		title,
+// 		description,
+// 		link,
+// 		author,
+// 		uploadedOn,
+// 		views,
+// 		length,
+// 	)
+// 	item := getStationItem(metaItem)
+// 	station.Items = append(station.Items, item)
+// 	return nil
+// }
+
+func (station *Station) addToStation(stationItem StationItem) {
+	station.Items = append(station.Items, stationItem)
 }
 
 func GetStation(name string) (Station, error) {
@@ -126,6 +130,7 @@ func getStationItem(metaItem MetaStationItem) StationItem {
 		ITunesEpisode:     metaItem.ITunesEpisode,
 		ITunesSeason:      metaItem.ITunesSeason,
 		ITunesEpisodeType: metaItem.ITunesEpisodeType,
+		ThumbnailUrl:      metaItem.ThumbnailUrl,
 	}
 }
 
@@ -136,33 +141,38 @@ func getMetaStation(name string) (MetaStation, error) {
 	return loadMetaStationFromLocal(fmt.Sprintf("%s/%s.json", STATION_BASE, name))
 }
 
-func (station *MetaStation) addToStation(
-	title,
-	description,
-	link,
-	author string,
-	uploadedOn string,
-	views uint32,
-	length uint64,
-) MetaStationItem {
-	id := uuid.New()
-	item := MetaStationItem{
-		ID:          id,
-		Title:       title,
-		Description: description,
-		Author:      author,
-		Views:       views,
-		AddedOn:     time.Now(),
-		Enclosure: Enclosure{
-			URL:    link,
-			Length: length,
-			Type:   "audio/mpeg",
-		},
-		GUID:           "",
-		PubDate:        uploadedOn,
-		ITunesDuration: fmt.Sprint(length),
-		ITunesExplicit: "no",
-	}
-	station.Items = append(station.Items, item)
-	return item
+// func (station *MetaStation) addToStation(
+//
+//	title,
+//	description,
+//	link,
+//	author string,
+//	uploadedOn string,
+//	views uint32,
+//	length uint64,
+//
+//	) MetaStationItem {
+//		id := uuid.New()
+//		item := MetaStationItem{
+//			ID:          id,
+//			Title:       title,
+//			Description: description,
+//			Author:      author,
+//			Views:       views,
+//			AddedOn:     time.Now(),
+//			Enclosure: Enclosure{
+//				URL:    link,
+//				Length: length,
+//				Type:   "audio/mpeg",
+//			},
+//			GUID:           "",
+//			PubDate:        uploadedOn,
+//			ITunesDuration: fmt.Sprint(length),
+//			ITunesExplicit: "no",
+//		}
+//		station.Items = append(station.Items, item)
+//		return item
+//	}
+func (station *MetaStation) addToStation(stationItem MetaStationItem) {
+	station.Items = append(station.Items, stationItem)
 }
