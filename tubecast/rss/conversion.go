@@ -156,6 +156,63 @@ func formatDate(uploadDate string) (string, error) {
 	return t.Format("Mon, 02 Jan 2006 15:04:05 GMT"), nil
 }
 
+func listFileNames(token, path string) ([]string, error) {
+	cfg := dropbox.Config{Token: token}
+	dbx := files.New(cfg)
+
+	arg := files.NewListFolderArg(path)
+	arg.Recursive = false
+	res, err := dbx.ListFolder(arg)
+	if err != nil {
+		return nil, err
+	}
+
+	var names []string
+	for {
+		for _, e := range res.Entries {
+			if f, ok := e.(*files.FileMetadata); ok {
+				names = append(names, f.Name)
+			}
+		}
+		if !res.HasMore {
+			break
+		}
+		// follow the cursor to get the next page
+		res, err = dbx.ListFolderContinue(
+			&files.ListFolderContinueArg{Cursor: res.Cursor})
+		if err != nil {
+			return nil, err
+		}
+	}
+	return names, nil
+}
+
+func dirSize(dbx files.Client, path string) (uint64, error) {
+	arg := files.NewListFolderArg(path)
+	arg.Recursive = true
+
+	res, err := dbx.ListFolder(arg)
+	if err != nil {
+		return 0, err
+	}
+	var total uint64
+	for {
+		for _, entry := range res.Entries {
+			if f, ok := entry.(*files.FileMetadata); ok {
+				total += uint64(f.Size)
+			}
+		}
+		if !res.HasMore {
+			break
+		}
+		res, err = dbx.ListFolderContinue(&files.ListFolderContinueArg{Cursor: res.Cursor})
+		if err != nil {
+			return 0, err
+		}
+	}
+	return total, nil
+}
+
 // UploadToDropbox uploads localPath into your app folder under dropboxPath
 // and returns the shared link URL
 func uploadToDropbox(localPath, dropboxPath string) (string, error) {
@@ -168,6 +225,18 @@ func uploadToDropbox(localPath, dropboxPath string) (string, error) {
 	cfg := dropbox.Config{Token: os.Getenv("DROPBOX_TOKEN")}
 	dbx := files.New(cfg)
 
+	used, err := dirSize(dbx, DROPBOX_AUDIO_BASE)
+	if err != nil {
+		return "", err
+	}
+	stat, err := f.Stat()
+	if err != nil {
+		return "", err
+	}
+	fmt.Printf("used: %vMiB\n", used/1024/1024)
+	if used+uint64(stat.Size()) > MaximumCloudStorage {
+		return "", fmt.Errorf("quote exceeded\n")
+	}
 	uploadArg := files.NewUploadArg(dropboxPath)
 	uploadArg.Mode.Tag = "overwrite"
 	uploadArg.Mute = true

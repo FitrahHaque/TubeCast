@@ -14,6 +14,9 @@ var THUMBNAILS_BASE string = "tubecast/thumbnails"
 var AUDIO_BASE string = "tubecast/audio"
 var DROPBOX_AUDIO_BASE string = "/PodcastAudio"
 var DROPBOX_THUMBNAILS_BASE string = "/PodcastThumbnails"
+var MaximumCloudStorage uint64 = 2 * 1024 * 1024 * 1024
+
+// var DROPBOX_BASE string =
 
 type Set[T comparable] struct {
 	set map[T]struct{}
