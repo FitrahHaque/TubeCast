@@ -7,8 +7,6 @@ import (
 	"path/filepath"
 	"sync"
 	"time"
-
-	"github.com/google/uuid"
 )
 
 func (station *Station) SyncChannel(ChannelFeedUrl string) error {
@@ -28,7 +26,7 @@ func (station *Station) SyncChannel(ChannelFeedUrl string) error {
 	for _, id := range ids {
 		var wg sync.WaitGroup
 		metaStationItem := MetaStationItem{
-			ID:        uuid.New(),
+			ID:        id,
 			AddedOn:   time.Now(),
 			ChannelID: ChannelFeedUrl,
 			Author:    "ThePrimeagen",
@@ -85,13 +83,13 @@ func (station *Station) SyncChannel(ChannelFeedUrl string) error {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			if err := saveVideoThumbnail(ctx, id); err != nil {
+			if err := metaStationItem.saveVideoThumbnail(ctx, id); err != nil {
 				fmt.Printf("Error: %v\n", err)
 				return
 			} else {
-				localPath := filepath.Join(THUMBNAILS_BASE, id+".webp")
+				localPath := filepath.Join(THUMBNAILS_BASE, metaStationItem.ID+".webp")
 				// fmt.Printf("localPath: %v\n", localPath)
-				if share, err := uploadToDropbox(localPath, filepath.Join(DROPBOX_THUMBNAILS_BASE, id+".webp")); err != nil {
+				if share, err := uploadToDropbox(localPath, filepath.Join(DROPBOX_THUMBNAILS_BASE, metaStationItem.ID+".webp")); err != nil {
 					fmt.Printf("Error: %v\n", err)
 					return
 				} else {
@@ -104,12 +102,12 @@ func (station *Station) SyncChannel(ChannelFeedUrl string) error {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			if err := saveAudio(ctx, id); err != nil {
+			if err := metaStationItem.saveAudio(ctx, id); err != nil {
 				fmt.Printf("Error: %v\n", err)
 				return
 			} else {
-				localPath := filepath.Join(AUDIO_BASE, id+".mp3")
-				if share, err := uploadToDropbox(localPath, filepath.Join(DROPBOX_AUDIO_BASE, id+".mp3")); err != nil {
+				localPath := filepath.Join(AUDIO_BASE, metaStationItem.ID+".mp3")
+				if share, err := uploadToDropbox(localPath, filepath.Join(DROPBOX_AUDIO_BASE, metaStationItem.ID+".mp3")); err != nil {
 					fmt.Printf("Error: %v\n", err)
 					return
 				} else {
@@ -160,9 +158,21 @@ func (stationItem *StationItem) Print() {
 	fmt.Printf("PubDate: %v\n", stationItem.PubDate)
 	fmt.Printf("ITunesDuration: %v\n", stationItem.ITunesDuration)
 	fmt.Printf("ITunesExplicit: %v\n", stationItem.ITunesExplicit)
-	fmt.Printf("ITunesEpisode: %v\n", stationItem.ITunesEpisode)
-	fmt.Printf("ITunesSeason: %v\n", stationItem.ITunesSeason)
-	fmt.Printf("ITunesEpisodeType: %v\n", stationItem.ITunesEpisodeType)
+	// fmt.Printf("ITunesEpisode: %v\n", stationItem.ITunesEpisode)
+	// fmt.Printf("ITunesSeason: %v\n", stationItem.ITunesSeason)
+	// fmt.Printf("ITunesEpisodeType: %v\n", stationItem.ITunesEpisodeType)
 	fmt.Printf("ThumbnailUrl: %v\n", stationItem.ThumbnailUrl)
 	fmt.Println("----------------- ---------------------")
+}
+
+func Init() {
+	TOKEN_MANAGER = NewTokenManager(
+		os.Getenv("DROPBOX_APP_KEY"),
+		os.Getenv("DROPBOX_APP_SECRET"),
+		os.Getenv("DROPBOX_REFRESH_TOKEN"),
+	)
+	loadAllMetaStationNames()
+	for i, _ := range StationNames.set {
+		fmt.Printf("key: %v\n", i)
+	}
 }

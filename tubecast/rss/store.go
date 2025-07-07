@@ -5,6 +5,7 @@ import (
 	"encoding/xml"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 // Atomatically save Station Meta data locally
@@ -94,3 +95,16 @@ func loadXMLfromLocal(path string) (Station, error) {
 // func FetchStation(url string) (Station, error) {
 
 // }
+func loadAllMetaStationNames() error {
+	entries, err := os.ReadDir(STATION_BASE)
+	if err != nil {
+		return err
+	}
+	StationNames = NewSet[string]()
+	for _, e := range entries {
+		if !e.IsDir() {
+			StationNames.Add(strings.TrimSuffix(e.Name(), filepath.Ext(e.Name())))
+		}
+	}
+	return nil
+}

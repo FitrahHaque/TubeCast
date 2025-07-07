@@ -9,7 +9,6 @@ import (
 	"net/url"
 	"os"
 	"path"
-	"path/filepath"
 	"slices"
 	"strconv"
 	"strings"
@@ -118,7 +117,7 @@ func getVideoPubDate(ctx context.Context, videoID string) (string, error) {
 	return formatDate(out)
 }
 
-func saveVideoThumbnail(ctx context.Context, videoID string) error {
+func (metaStationItem *MetaStationItem) saveVideoThumbnail(ctx context.Context, videoID string) error {
 	if err := os.MkdirAll(THUMBNAILS_BASE, 0o755); err != nil {
 		return err
 	}
@@ -129,13 +128,13 @@ func saveVideoThumbnail(ctx context.Context, videoID string) error {
 		"--skip-download",
 		"--write-thumbnail",
 		"-o",
-		THUMBNAILS_BASE+"/%(id)s.%(ext)s",
+		THUMBNAILS_BASE+"/"+metaStationItem.ID+".%(ext)s",
 		"https://www.youtube.com/watch?v="+videoID,
 	)
 	return err
 }
 
-func saveAudio(ctx context.Context, videoID string) error {
+func (metaStationItem *MetaStationItem) saveAudio(ctx context.Context, videoID string) error {
 	if err := os.MkdirAll(AUDIO_BASE, 0o755); err != nil {
 		return err
 	}
@@ -147,7 +146,8 @@ func saveAudio(ctx context.Context, videoID string) error {
 		"mp3",
 		"--audio-quality",
 		"0",
-		"-o", filepath.Join(AUDIO_BASE, "%(id)s.%(ext)s"),
+		"-o",
+		AUDIO_BASE+"/"+metaStationItem.ID+".%(ext)s",
 		"https://www.youtube.com/watch?v="+videoID,
 	)
 	return err
@@ -396,12 +396,4 @@ func (tm *TokenManager) GetValidAccessToken() (string, error) {
 		}
 	}
 	return tm.AccessToken, nil
-}
-
-func Init() {
-	TOKEN_MANAGER = NewTokenManager(
-		os.Getenv("DROPBOX_APP_KEY"),
-		os.Getenv("DROPBOX_APP_SECRET"),
-		os.Getenv("DROPBOX_REFRESH_TOKEN"),
-	)
 }

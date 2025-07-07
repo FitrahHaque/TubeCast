@@ -119,18 +119,18 @@ func getStationItems(metaItems []MetaStationItem) []StationItem {
 
 func getStationItem(metaItem MetaStationItem) StationItem {
 	return StationItem{
-		ID:                metaItem.ID,
-		Title:             metaItem.Title,
-		Enclosure:         metaItem.Enclosure,
-		Description:       metaItem.Description,
-		GUID:              metaItem.GUID,
-		PubDate:           metaItem.PubDate,
-		ITunesDuration:    metaItem.ITunesDuration,
-		ITunesExplicit:    metaItem.ITunesExplicit,
-		ITunesEpisode:     metaItem.ITunesEpisode,
-		ITunesSeason:      metaItem.ITunesSeason,
-		ITunesEpisodeType: metaItem.ITunesEpisodeType,
-		ThumbnailUrl:      metaItem.ThumbnailUrl,
+		ID:             metaItem.ID,
+		Title:          metaItem.Title,
+		Enclosure:      metaItem.Enclosure,
+		Description:    metaItem.Description,
+		GUID:           metaItem.GUID,
+		PubDate:        metaItem.PubDate,
+		ITunesDuration: metaItem.ITunesDuration,
+		ITunesExplicit: metaItem.ITunesExplicit,
+		// ITunesEpisode:     metaItem.ITunesEpisode,
+		// ITunesSeason:      metaItem.ITunesSeason,
+		// ITunesEpisodeType: metaItem.ITunesEpisodeType,
+		ThumbnailUrl: metaItem.ThumbnailUrl,
 	}
 }
 
@@ -175,4 +175,5 @@ func getMetaStation(name string) (MetaStation, error) {
 //	}
 func (station *MetaStation) addToStation(stationItem MetaStationItem) {
 	station.Items = append(station.Items, stationItem)
+	saveMetaStationToLocal(fmt.Sprintf("%s/%s.json", STATION_BASE, station.Name), *station)
 }

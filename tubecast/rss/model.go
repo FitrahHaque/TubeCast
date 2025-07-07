@@ -34,18 +34,18 @@ type ITunesOwner struct {
 }
 
 type StationItem struct {
-	ID                uuid.UUID `xml:"id,attr"                      json:"id"`
-	Title             string    `xml:"title"                        json:"title"`
-	Enclosure         Enclosure `xml:"enclosure"                    json:"enclosure"`
-	GUID              string    `xml:"guid"                         json:"guid"`
-	Description       string    `xml:"description"                  json:"description"`
-	PubDate           string    `xml:"pubDate"                      json:"pubDate"`
-	ITunesDuration    string    `xml:"itunes:duration"              json:"itunes_duration"`
-	ITunesExplicit    string    `xml:"itunes:explicit"              json:"itunes_explicit"`
-	ITunesEpisode     int       `xml:"itunes:episode,omitempty"     json:"itunes_episode"`
-	ITunesSeason      int       `xml:"itunes:season,omitempty"      json:"itunes_season"`
-	ITunesEpisodeType string    `xml:"itunes:episodeType"           json:"itunes_episode_type"`
-	ThumbnailUrl      string    `xml:"thumbnail_url"                json:"thumbnail_url"`
+	ID             string    `xml:"id,attr"                      json:"id"`
+	Title          string    `xml:"title"                        json:"title"`
+	Enclosure      Enclosure `xml:"enclosure"                    json:"enclosure"`
+	GUID           string    `xml:"guid"                         json:"guid"`
+	Description    string    `xml:"description"                  json:"description"`
+	PubDate        string    `xml:"pubDate"                      json:"pubDate"`
+	ITunesDuration string    `xml:"itunes:duration"              json:"itunes_duration"`
+	ITunesExplicit string    `xml:"itunes:explicit"              json:"itunes_explicit"`
+	// ITunesEpisode     int       `xml:"itunes:episode,omitempty"     json:"itunes_episode"`
+	// ITunesSeason      int       `xml:"itunes:season,omitempty"      json:"itunes_season"`
+	// ITunesEpisodeType string    `xml:"itunes:episodeType"           json:"itunes_episode_type"`
+	ThumbnailUrl string `xml:"thumbnail_url"                json:"thumbnail_url"`
 }
 
 type Enclosure struct {
@@ -74,22 +74,22 @@ type MetaStation struct {
 }
 
 type MetaStationItem struct {
-	ID                uuid.UUID `json:"id"`
-	Title             string    `json:"title"`
-	Description       string    `json:"description"`
-	Author            string    `json:"author"`
-	ChannelID         string    `json:"channel_id"`
-	Views             uint32    `json:"views"`
-	AddedOn           time.Time `json:"added_on"`
-	Enclosure         Enclosure `json:"enclosure"`
-	GUID              string    `json:"guid"`
-	PubDate           string    `json:"pubDate"`
-	ITunesDuration    string    `json:"itunes_duration"`
-	ITunesExplicit    string    `json:"itunes_explicit"`
-	ITunesEpisode     int       `json:"itunes_episode"`
-	ITunesSeason      int       `json:"itunes_season"`
-	ITunesEpisodeType string    `json:"itunes_episode_type"`
-	ThumbnailUrl      string    `json:"thumbnail_url"`
+	ID             string    `json:"id"`
+	Title          string    `json:"title"`
+	Description    string    `json:"description"`
+	Author         string    `json:"author"`
+	ChannelID      string    `json:"channel_id"`
+	Views          uint32    `json:"views"`
+	AddedOn        time.Time `json:"added_on"`
+	Enclosure      Enclosure `json:"enclosure"`
+	GUID           string    `json:"guid"`
+	PubDate        string    `json:"pubDate"`
+	ITunesDuration string    `json:"itunes_duration"`
+	ITunesExplicit string    `json:"itunes_explicit"`
+	// ITunesEpisode     int       `json:"itunes_episode"`
+	// ITunesSeason      int       `json:"itunes_season"`
+	// ITunesEpisodeType string    `json:"itunes_episode_type"`
+	ThumbnailUrl string `json:"thumbnail_url"`
 }
 
 type User struct {
