@@ -2,10 +2,15 @@ package rss
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
+	"net/url"
 	"os"
+	"path"
 	"path/filepath"
+	"slices"
 	"strconv"
 	"strings"
 	"time"
@@ -177,7 +182,6 @@ func listFileNames(token, path string) ([]string, error) {
 		if !res.HasMore {
 			break
 		}
-		// follow the cursor to get the next page
 		res, err = dbx.ListFolderContinue(
 			&files.ListFolderContinueArg{Cursor: res.Cursor})
 		if err != nil {
@@ -222,7 +226,12 @@ func uploadToDropbox(localPath, dropboxPath string) (string, error) {
 	}
 	defer f.Close()
 
-	cfg := dropbox.Config{Token: os.Getenv("DROPBOX_TOKEN")}
+	accessToken, err := TOKEN_MANAGER.GetValidAccessToken()
+	if err != nil {
+		return "", fmt.Errorf("failed to get valid access token: %w", err)
+	}
+
+	cfg := dropbox.Config{Token: accessToken}
 	dbx := files.New(cfg)
 
 	used, err := dirSize(dbx, DROPBOX_AUDIO_BASE)
@@ -235,14 +244,25 @@ func uploadToDropbox(localPath, dropboxPath string) (string, error) {
 	}
 	fmt.Printf("used: %vMiB\n", used/1024/1024)
 	if used+uint64(stat.Size()) > MaximumCloudStorage {
-		return "", fmt.Errorf("quote exceeded\n")
+		return "", fmt.Errorf("quota exceeded\n")
 	}
-	uploadArg := files.NewUploadArg(dropboxPath)
-	uploadArg.Mode.Tag = "overwrite"
-	uploadArg.Mute = true
-	_, err = dbx.Upload(uploadArg, f)
+
+	existingFiles, err := listFileNames(accessToken, DROPBOX_AUDIO_BASE)
 	if err != nil {
-		return "", fmt.Errorf("dropbox upload: %w", err)
+		return "", fmt.Errorf("failed to list files: %w", err)
+	}
+	fmt.Println("Files:", existingFiles)
+
+	file := path.Base(dropboxPath)
+	if !slices.Contains(existingFiles, file) {
+		fmt.Printf("uploading %v\n", dropboxPath)
+		uploadArg := files.NewUploadArg(dropboxPath)
+		uploadArg.Mode.Tag = "overwrite"
+		uploadArg.Mute = true
+		_, err = dbx.Upload(uploadArg, f)
+		if err != nil {
+			return "", fmt.Errorf("dropbox upload: %w", err)
+		}
 	}
 
 	sharingClient := sharing.New(cfg)
@@ -288,7 +308,7 @@ func uploadToDropbox(localPath, dropboxPath string) (string, error) {
 	if len(shareURL) > 0 {
 		shareURL = shareURL + "?raw=1"
 	}
-	// fmt.Printf("share: %v\n", shareURL)
+
 	return shareURL, nil
 }
 
@@ -299,7 +319,6 @@ func GetChannelFeedUrl(username string) (string, error) {
 	if username[0] != '@' {
 		username = "@" + username
 	}
-	// https://www.youtube.com/@ThePrimeTimeagen/videos
 	channelFeedUrl := "https://www.youtube.com/" + username + "/videos"
 	if isValidUrl(channelFeedUrl) == false {
 		return "", fmt.Errorf("not valid username\n")
@@ -317,4 +336,72 @@ func isValidUrl(url string) bool {
 		return false
 	}
 	return true
+}
+
+// NewTokenManager creates a new token manager
+func NewTokenManager(appKey, appSecret, refreshToken string) *TokenManager {
+	return &TokenManager{
+		AppKey:       appKey,
+		AppSecret:    appSecret,
+		RefreshToken: refreshToken,
+	}
+}
+
+// RefreshAccessToken gets a new access token using the refresh token
+func (tm *TokenManager) RefreshAccessToken() error {
+	data := url.Values{}
+	data.Set("grant_type", "refresh_token")
+	data.Set("refresh_token", tm.RefreshToken)
+
+	req, err := http.NewRequest("POST", "https://api.dropbox.com/oauth2/token", strings.NewReader(data.Encode()))
+	if err != nil {
+		return fmt.Errorf("failed to create request: %w", err)
+	}
+
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	req.SetBasicAuth(tm.AppKey, tm.AppSecret)
+
+	client := &http.Client{Timeout: 30 * time.Second}
+	resp, err := client.Do(req)
+	if err != nil {
+		return fmt.Errorf("failed to refresh token: %w", err)
+	}
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return fmt.Errorf("failed to read response: %w", err)
+	}
+
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("refresh token failed: %s - %s", resp.Status, string(body))
+	}
+
+	var tokenResp DropboxTokenResponse
+	if err := json.Unmarshal(body, &tokenResp); err != nil {
+		return fmt.Errorf("failed to parse token response: %w", err)
+	}
+
+	tm.AccessToken = tokenResp.AccessToken
+	tm.ExpiresAt = time.Now().Add(time.Duration(tokenResp.ExpiresIn) * time.Second)
+
+	return nil
+}
+
+// GetValidAccessToken returns a valid access token, refreshing if necessary
+func (tm *TokenManager) GetValidAccessToken() (string, error) {
+	if tm.AccessToken == "" || time.Now().Add(5*time.Minute).After(tm.ExpiresAt) {
+		if err := tm.RefreshAccessToken(); err != nil {
+			return "", err
+		}
+	}
+	return tm.AccessToken, nil
+}
+
+func Init() {
+	TOKEN_MANAGER = NewTokenManager(
+		os.Getenv("DROPBOX_APP_KEY"),
+		os.Getenv("DROPBOX_APP_SECRET"),
+		os.Getenv("DROPBOX_REFRESH_TOKEN"),
+	)
 }

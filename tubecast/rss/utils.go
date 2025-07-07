@@ -15,6 +15,7 @@ var AUDIO_BASE string = "tubecast/audio"
 var DROPBOX_AUDIO_BASE string = "/PodcastAudio"
 var DROPBOX_THUMBNAILS_BASE string = "/PodcastThumbnails"
 var MaximumCloudStorage uint64 = 2 * 1024 * 1024 * 1024
+var TOKEN_MANAGER *TokenManager
 
 // var DROPBOX_BASE string =
 

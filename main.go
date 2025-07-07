@@ -9,6 +9,7 @@ import (
 
 func main() {
 	godotenv.Load()
+	rss.Init()
 	rss.StationNames = rss.NewSet[string]()
 	var user rss.User
 	station, err := user.CreateStation("test", "test-Station")
