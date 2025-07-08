@@ -8,8 +8,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"path"
-	"slices"
+	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
@@ -19,7 +18,7 @@ import (
 	"github.com/dropbox/dropbox-sdk-go-unofficial/v6/dropbox/sharing"
 )
 
-func getLatestVideos(ctx context.Context, channelUrl string, limit uint) ([]string, error) {
+func (station *Station) getLatestVideos(ctx context.Context, channelUrl string, limit uint) ([]string, error) {
 	out, err := run(
 		ctx,
 		"yt-dlp",
@@ -32,8 +31,14 @@ func getLatestVideos(ctx context.Context, channelUrl string, limit uint) ([]stri
 		return nil, err
 	}
 	ids := strings.Split(strings.TrimSpace(out), "\n")
-	fmt.Printf("%#v\n", ids)
-	return ids, nil
+	// fmt.Printf("%#v\n", ids)
+	var videoIds []string
+	for _, id := range ids {
+		if !station.HasItem(id) {
+			videoIds = append(videoIds, id)
+		}
+	}
+	return videoIds, nil
 }
 
 func getVideoTitle(ctx context.Context, videoID string) (string, error) {
@@ -219,7 +224,30 @@ func dirSize(dbx files.Client, path string) (uint64, error) {
 
 // UploadToDropbox uploads localPath into your app folder under dropboxPath
 // and returns the shared link URL
-func uploadToDropbox(localPath, dropboxPath string) (string, error) {
+func (station *Station) uploadToDropbox(fileType FileType, id string) (string, error) {
+	if stationItem, ok := station.GetStationItem(id); ok {
+		switch fileType {
+		case THUMBNAIL:
+			return stationItem.ThumbnailUrl, nil
+		case AUDIO:
+			return stationItem.Enclosure.URL, nil
+		case RSS:
+			return "", nil
+		}
+	}
+	fmt.Printf("aaa gaya\n")
+	var localPath, dropboxPath string
+	switch fileType {
+	case THUMBNAIL:
+		localPath = filepath.Join(THUMBNAILS_BASE, id+".webp")
+		dropboxPath = filepath.Join(DROPBOX_THUMBNAILS_BASE, id+".webp")
+	case AUDIO:
+		localPath = filepath.Join(AUDIO_BASE, id+".mp3")
+		dropboxPath = filepath.Join(DROPBOX_AUDIO_BASE, id+".mp3")
+	case RSS:
+		// localPath = filepath.Join(THUMBNAILS_BASE, id+".webp")
+		// dropboxPath = filepath.Join(DROPBOX_THUMBNAILS_BASE, id+".webp")
+	}
 	f, err := os.Open(localPath)
 	if err != nil {
 		return "", fmt.Errorf("open file: %w", err)
@@ -247,22 +275,13 @@ func uploadToDropbox(localPath, dropboxPath string) (string, error) {
 		return "", fmt.Errorf("quota exceeded\n")
 	}
 
-	existingFiles, err := listFileNames(accessToken, DROPBOX_AUDIO_BASE)
+	fmt.Printf("uploading %v\n", dropboxPath)
+	uploadArg := files.NewUploadArg(dropboxPath)
+	uploadArg.Mode.Tag = "overwrite"
+	uploadArg.Mute = true
+	_, err = dbx.Upload(uploadArg, f)
 	if err != nil {
-		return "", fmt.Errorf("failed to list files: %w", err)
-	}
-	fmt.Println("Files:", existingFiles)
-
-	file := path.Base(dropboxPath)
-	if !slices.Contains(existingFiles, file) {
-		fmt.Printf("uploading %v\n", dropboxPath)
-		uploadArg := files.NewUploadArg(dropboxPath)
-		uploadArg.Mode.Tag = "overwrite"
-		uploadArg.Mute = true
-		_, err = dbx.Upload(uploadArg, f)
-		if err != nil {
-			return "", fmt.Errorf("dropbox upload: %w", err)
-		}
+		return "", fmt.Errorf("dropbox upload: %w", err)
 	}
 
 	sharingClient := sharing.New(cfg)
@@ -308,7 +327,7 @@ func uploadToDropbox(localPath, dropboxPath string) (string, error) {
 	if len(shareURL) > 0 {
 		shareURL = shareURL + "?raw=1"
 	}
-
+	os.Remove(localPath)
 	return shareURL, nil
 }
 

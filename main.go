@@ -10,9 +10,9 @@ import (
 func main() {
 	godotenv.Load()
 	rss.Init()
-	rss.StationNames = rss.NewSet[string]()
-	var user rss.User
-	station, err := user.CreateStation("test", "test-Station")
+	// var user rss.User
+	// station, err := user.CreateStation("test", "test-Station")
+	station, err := rss.GetStation("test")
 	if err != nil {
 		fmt.Printf("%v\n", err)
 		return
@@ -26,5 +26,5 @@ func main() {
 		fmt.Printf("%v\n", err)
 		return
 	}
-	station.Print()
+	// station.Print()
 }

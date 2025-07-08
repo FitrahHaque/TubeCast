@@ -17,6 +17,14 @@ var DROPBOX_THUMBNAILS_BASE string = "/PodcastThumbnails"
 var MaximumCloudStorage uint64 = 2 * 1024 * 1024 * 1024
 var TOKEN_MANAGER *TokenManager
 
+type FileType int
+
+const (
+	THUMBNAIL FileType = iota
+	AUDIO
+	RSS
+)
+
 // var DROPBOX_BASE string =
 
 type Set[T comparable] struct {

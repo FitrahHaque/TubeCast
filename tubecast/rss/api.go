@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"os"
-	"path/filepath"
 	"sync"
 	"time"
 )
@@ -13,11 +12,10 @@ func (station *Station) SyncChannel(ChannelFeedUrl string) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 	defer cancel()
 
-	ids, err := getLatestVideos(ctx, ChannelFeedUrl, 2)
+	ids, err := station.getLatestVideos(ctx, ChannelFeedUrl, 2)
 	if err != nil {
 		return err
 	}
-
 	fmt.Println("Latest video urls: ", ids)
 	metaStation, err := getMetaStation(station.Name)
 	if err != nil {
@@ -87,15 +85,12 @@ func (station *Station) SyncChannel(ChannelFeedUrl string) error {
 				fmt.Printf("Error: %v\n", err)
 				return
 			} else {
-				localPath := filepath.Join(THUMBNAILS_BASE, metaStationItem.ID+".webp")
-				// fmt.Printf("localPath: %v\n", localPath)
-				if share, err := uploadToDropbox(localPath, filepath.Join(DROPBOX_THUMBNAILS_BASE, metaStationItem.ID+".webp")); err != nil {
+				if share, err := station.uploadToDropbox(THUMBNAIL, metaStationItem.ID); err != nil {
 					fmt.Printf("Error: %v\n", err)
 					return
 				} else {
 					fmt.Println(share)
 					metaStationItem.ThumbnailUrl = share
-					os.Remove(localPath)
 				}
 			}
 		}()
@@ -106,8 +101,7 @@ func (station *Station) SyncChannel(ChannelFeedUrl string) error {
 				fmt.Printf("Error: %v\n", err)
 				return
 			} else {
-				localPath := filepath.Join(AUDIO_BASE, metaStationItem.ID+".mp3")
-				if share, err := uploadToDropbox(localPath, filepath.Join(DROPBOX_AUDIO_BASE, metaStationItem.ID+".mp3")); err != nil {
+				if share, err := station.uploadToDropbox(AUDIO, metaStationItem.ID); err != nil {
 					fmt.Printf("Error: %v\n", err)
 					return
 				} else {
@@ -115,7 +109,6 @@ func (station *Station) SyncChannel(ChannelFeedUrl string) error {
 						URL:  share,
 						Type: "audio/mpeg",
 					}
-					os.Remove(localPath)
 				}
 			}
 		}()
@@ -172,7 +165,7 @@ func Init() {
 		os.Getenv("DROPBOX_REFRESH_TOKEN"),
 	)
 	loadAllMetaStationNames()
-	for i, _ := range StationNames.set {
-		fmt.Printf("key: %v\n", i)
-	}
+	// for i := range StationNames.set {
+	// 	fmt.Printf("key:|%v|\n", i)
+	// }
 }

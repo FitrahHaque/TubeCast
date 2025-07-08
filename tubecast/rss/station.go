@@ -2,6 +2,7 @@ package rss
 
 import (
 	"fmt"
+	"path/filepath"
 	"time"
 
 	"github.com/google/uuid"
@@ -138,7 +139,7 @@ func getMetaStation(name string) (MetaStation, error) {
 	if !StationNames.Has(name) {
 		return MetaStation{}, fmt.Errorf("station `%s` does not exist\n", name)
 	}
-	return loadMetaStationFromLocal(fmt.Sprintf("%s/%s.json", STATION_BASE, name))
+	return loadMetaStationFromLocal(filepath.Join(STATION_BASE, name+".json"))
 }
 
 // func (station *MetaStation) addToStation(
@@ -173,7 +174,26 @@ func getMetaStation(name string) (MetaStation, error) {
 //		station.Items = append(station.Items, item)
 //		return item
 //	}
+
 func (station *MetaStation) addToStation(stationItem MetaStationItem) {
 	station.Items = append(station.Items, stationItem)
 	saveMetaStationToLocal(fmt.Sprintf("%s/%s.json", STATION_BASE, station.Name), *station)
+}
+
+func (station *Station) HasItem(id string) bool {
+	for _, item := range station.Items {
+		if item.ID == id {
+			return true
+		}
+	}
+	return false
+}
+
+func (station *Station) GetStationItem(id string) (StationItem, bool) {
+	for _, item := range station.Items {
+		if item.ID == id {
+			return item, true
+		}
+	}
+	return StationItem{}, false
 }
