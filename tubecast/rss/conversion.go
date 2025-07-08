@@ -19,19 +19,24 @@ import (
 )
 
 func (station *Station) getLatestVideos(ctx context.Context, channelUrl string, limit uint) ([]string, error) {
-	out, err := run(
-		ctx,
-		"yt-dlp",
+	// Build the arguments so that each option gets the right argument:
+	args := []string{
 		"--get-id",
-		"--playlist-end",
-		fmt.Sprint(limit),
+		"--match-filter", "live_status!='is_upcoming'",
+		"--playlist-end", fmt.Sprint(limit),
 		channelUrl,
-	)
+	}
+
+	out, err := run(ctx, "yt-dlp", args...)
 	if err != nil {
+		// Handle the “Premieres in…” message if needed:
+		if strings.Contains(err.Error(), "Premieres in") {
+			return nil, nil
+		}
 		return nil, err
 	}
+
 	ids := strings.Split(strings.TrimSpace(out), "\n")
-	// fmt.Printf("%#v\n", ids)
 	var videoIds []string
 	for _, id := range ids {
 		if !station.HasItem(id) {
@@ -259,6 +264,19 @@ func (station *Station) uploadItemMediaToDropbox(fileType FileType, id string) (
 	}
 }
 
+// fetchFinalURL follows redirects and returns the ultimate URL as a string.
+func fetchFinalURL(rawURL string) (string, error) {
+	client := &http.Client{
+		Timeout: 15 * time.Second,
+	}
+	resp, err := client.Get(rawURL)
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+	return resp.Request.URL.String(), nil
+}
+
 func dropboxUpload(localPath, dropboxPath string, deleteLocal bool) (string, error) {
 	f, err := os.Open(localPath)
 	if err != nil {
@@ -337,12 +355,17 @@ func dropboxUpload(localPath, dropboxPath string, deleteLocal bool) (string, err
 	}
 
 	if len(shareURL) > 0 {
-		shareURL = shareURL + "?raw=1"
+		// u := strings.ReplaceAll(shareURL, "\u0026", "&")
+		shareURL = strings.Split(shareURL, "dl=0")[0] + "raw=1"
+		if shareURL, err = fetchFinalURL(shareURL); err != nil {
+			return shareURL, err
+		}
+		if deleteLocal {
+			os.Remove(localPath)
+		}
+		return shareURL, nil
 	}
-	if deleteLocal {
-		os.Remove(localPath)
-	}
-	return shareURL, nil
+	return shareURL, fmt.Errorf("empty url\n")
 }
 
 func (station *Station) updateFeed() error {
@@ -359,6 +382,7 @@ func (station *Station) updateFeed() error {
 		} else {
 			metaStation.Url = share
 			station.Url = share
+			fmt.Println("Feed updated")
 			return metaStation.saveMetaStationToLocal()
 		}
 	}

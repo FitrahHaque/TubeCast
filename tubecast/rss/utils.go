@@ -46,6 +46,11 @@ const (
 	DPI      = 72
 )
 
+var dpi float64 = 72.0
+var inchToMeter float64 = 39.37007874 // inches per meter
+var physChunkName string = "pHYs"
+var pngSignature string = "\x89PNG\r\n\x1a\n"
+
 // ImageFormat represents supported output formats
 type ImageFormat int
 
@@ -261,7 +266,9 @@ func ConvertImageToCorrectFormat(base_path, name string) {
 	} else {
 		fmt.Println("Successfully converted to PNG")
 	}
-
+	// if err = setPNG72DPI(dest); err != nil {
+	// 	fmt.Printf("error: %v\n", err)
+	// }
 	// Example 3: Validate the output
 	err = validatePodcastImage(dest)
 	if err != nil {
@@ -272,3 +279,155 @@ func ConvertImageToCorrectFormat(base_path, name string) {
 		// os.Rename(src, dest)
 	}
 }
+
+// // setPNG72DPI reads infile, sets or replaces its pHYs chunk to 72 DPI, and writes to outfile.
+// // If outfile is empty, it overwrites infile.
+// func setPNG72DPI(infile string) error {
+// 	outfile := infile + ".tmp"
+// 	defer os.Remove(outfile)
+// 	// Open input
+// 	in, err := os.Open(infile)
+// 	if err != nil {
+// 		return err
+// 	}
+// 	defer in.Close()
+
+// 	// Create output
+// 	out, err := os.Create(outfile)
+// 	if err != nil {
+// 		return err
+// 	}
+// 	defer out.Close()
+
+// 	// Write PNG signature
+// 	sig := make([]byte, len(pngSignature))
+// 	if _, err := io.ReadFull(in, sig); err != nil {
+// 		return fmt.Errorf("reading PNG signature: %w", err)
+// 	}
+// 	if string(sig) != pngSignature {
+// 		return fmt.Errorf("invalid PNG signature")
+// 	}
+// 	if _, err := out.Write(sig); err != nil {
+// 		return err
+// 	}
+
+// 	// Compute pixels-per-unit for 72 DPI
+// 	ppum := uint32(dpi*inchToMeter + 0.5)
+
+// 	// Copy chunks, inserting pHYs after IHDR and skipping any existing pHYs
+// 	for {
+// 		// Read chunk length (4 bytes)
+// 		var length uint32
+// 		if err := binary.Read(in, binary.BigEndian, &length); err != nil {
+// 			return fmt.Errorf("reading chunk length: %w", err)
+// 		}
+// 		// Read chunk type (4 bytes)
+// 		typ := make([]byte, 4)
+// 		if _, err := io.ReadFull(in, typ); err != nil {
+// 			return fmt.Errorf("reading chunk type: %w", err)
+// 		}
+
+// 		// Read chunk data and CRC
+// 		data := make([]byte, length)
+// 		if _, err := io.ReadFull(in, data); err != nil {
+// 			return fmt.Errorf("reading chunk data: %w", err)
+// 		}
+// 		crc := make([]byte, 4)
+// 		if _, err := io.ReadFull(in, crc); err != nil {
+// 			return fmt.Errorf("reading chunk CRC: %w", err)
+// 		}
+
+// 		// Write IHDR, then insert new pHYs
+// 		if string(typ) == "IHDR" {
+// 			// Write IHDR as-is
+// 			if err := writeChunk(out, typ, data); err != nil {
+// 				return err
+// 			}
+// 			// Build and write pHYs chunk
+// 			physData := make([]byte, 9)
+// 			binary.BigEndian.PutUint32(physData[0:4], ppum)
+// 			binary.BigEndian.PutUint32(physData[4:8], ppum)
+// 			physData[8] = 1 // unit: meter
+// 			if err := writeChunk(out, []byte(physChunkName), physData); err != nil {
+// 				return err
+// 			}
+// 		} else if string(typ) == physChunkName {
+// 			// Skip existing pHYs chunk
+// 			// do nothing
+// 		} else {
+// 			// Write other chunks unchanged
+// 			if err := writeChunk(out, typ, data); err != nil {
+// 				return err
+// 			}
+// 		}
+
+// 		// Stop at IEND
+// 		if string(typ) == "IEND" {
+// 			break
+// 		}
+// 	}
+
+// 	if err := os.Rename(outfile, infile); err != nil {
+// 		return err
+// 	}
+// 	return nil
+// }
+
+// // writeChunk writes a single PNG chunk (length, type, data, crc) to w.
+// func writeChunk(w io.Writer, typ, data []byte) error {
+// 	length := uint32(len(data))
+// 	// Write length
+// 	if err := binary.Write(w, binary.BigEndian, length); err != nil {
+// 		return err
+// 	}
+// 	// Write type and data
+// 	if _, err := w.Write(typ); err != nil {
+// 		return err
+// 	}
+// 	if _, err := w.Write(data); err != nil {
+// 		return err
+// 	}
+// 	// Compute and write CRC
+// 	crc := crc32.NewIEEE()
+// 	crc.Write(typ)
+// 	crc.Write(data)
+// 	if err := binary.Write(w, binary.BigEndian, crc.Sum32()); err != nil {
+// 		return err
+// 	}
+// 	return nil
+// }
+
+// func embedCover(name string) error {
+// 	mp3path := filepath.Join(AUDIO_BASE, name+".mp3")
+// 	imgpath := filepath.Join(THUMBNAILS_BASE, name+".png")
+// 	tag, err := id3v2.Open(mp3path, id3v2.Options{Parse: true})
+// 	if err != nil {
+// 		return fmt.Errorf("error opening mp3 file: %w", err)
+// 	}
+// 	defer tag.Close()
+
+// 	imgData, err := os.ReadFile(imgpath)
+// 	if err != nil {
+// 		return fmt.Errorf("error reading image file: %w", err)
+// 	}
+
+// 	// Set the correct MIME type for your image
+// 	mimeType := "image/png"
+// 	// if len(imgData) > 4 && imgData[1] == 'P' && imgData[2] == 'N' && imgData[3] == 'G' {
+// 	// 	mimeType = "image/png"
+// 	// }
+
+// 	pic := id3v2.PictureFrame{
+// 		Encoding:    id3v2.EncodingUTF8,
+// 		MimeType:    mimeType,
+// 		PictureType: id3v2.PTFrontCover,
+// 		Description: "Episode cover",
+// 		Picture:     imgData,
+// 	}
+// 	tag.AddAttachedPicture(pic)
+
+// 	if err := tag.Save(); err != nil {
+// 		return fmt.Errorf("error saving tag: %w", err)
+// 	}
+// 	return nil
+// }

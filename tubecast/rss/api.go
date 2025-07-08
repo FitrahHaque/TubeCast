@@ -9,14 +9,14 @@ import (
 )
 
 func (station *Station) SyncChannel(username string) error {
-	ChannelFeedUrl, err := GetChannelFeedUrl("@ThePrimeTimeagen")
+	ChannelFeedUrl, err := GetChannelFeedUrl(username)
 	if err != nil {
 		fmt.Printf("%v\n", err)
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 	defer cancel()
 
-	ids, err := station.getLatestVideos(ctx, ChannelFeedUrl, 2)
+	ids, err := station.getLatestVideos(ctx, ChannelFeedUrl, 3)
 	if err != nil {
 		return err
 	}
@@ -110,6 +110,11 @@ func (station *Station) SyncChannel(username string) error {
 				fmt.Printf("Error: %v\n", err)
 				return
 			} else {
+				// time.Sleep(5 * time.Second)
+				// if err := embedCover(id); err != nil {
+				// 	fmt.Printf("Error: %v\n", err)
+				// 	return
+				// }
 				if share, err := station.uploadItemMediaToDropbox(AUDIO, metaStationItem.ID); err != nil {
 					fmt.Printf("Error: %v\n", err)
 					return

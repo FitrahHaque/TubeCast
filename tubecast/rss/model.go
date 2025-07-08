@@ -12,6 +12,7 @@ type Station struct {
 	ID               uuid.UUID     `xml:"id"                     json:"id"`
 	Title            string        `xml:"title"                  json:"title"`
 	Url              string        `xml:"url"                    json:"url"`
+	ITunesImage      ITunesImage   `xml:"itunes:image"           json:"itunes_image"`
 	Description      string        `xml:"description"            json:"description"`
 	Items            []StationItem `xml:"item"                   json:"item"`
 	Language         string        `xml:"language"               json:"language"`
@@ -19,7 +20,6 @@ type Station struct {
 	ITunesAuthor     string        `xml:"itunes:author"          json:"itunes_author"`
 	ITunesSubtitle   string        `xml:"itunes:subtitle"        json:"itunes_subtitle"`
 	ITunesSummary    string        `xml:"itunes:summary"         json:"itunes_summary"`
-	ITunesImage      ITunesImage   `xml:"itunes:image"           json:"itunes_image"`
 	ITunesExplicit   string        `xml:"itunes:explicit"        json:"itunes_explicit"`
 	ITunesCategories []Category    `xml:"itunes:category"        json:"itunes_categories"`
 	Owner            ITunesOwner   `xml:"itunes:owner"           json:"itunes_owner"`
@@ -41,11 +41,11 @@ type StationItem struct {
 	GUID           string      `xml:"guid"                         json:"guid"`
 	Title          string      `xml:"title"                        json:"title"`
 	Enclosure      Enclosure   `xml:"enclosure"                    json:"enclosure"`
+	ITunesImage    ITunesImage `xml:"itunes:image"                 json:"itunes_image"`
 	Description    string      `xml:"description"                  json:"description"`
 	PubDate        string      `xml:"pubDate"                      json:"pubDate"`
 	ITunesDuration string      `xml:"itunes:duration"              json:"itunes_duration"`
 	ITunesExplicit string      `xml:"itunes:explicit"              json:"itunes_explicit"`
-	ITunesImage    ITunesImage `xml:"itunes:image"                 json:"itunes_image"`
 	ITunesAuthor   string      `xml:"itunes:author"                json:"itunes_author"`
 	ITunesSubtitle string      `xml:"itunes:subtitle"              json:"itunes_subtitle"`
 	ITunesSummary  string      `xml:"itunes:summary"               json:"itunes_summary"`
