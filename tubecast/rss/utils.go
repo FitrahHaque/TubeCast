@@ -12,8 +12,10 @@ var STATION_BASE string = "tubecast/stations"
 var StationNames *Set[string]
 var THUMBNAILS_BASE string = "tubecast/thumbnails"
 var AUDIO_BASE string = "tubecast/audio"
+var FEED_BASE string = "tubecast/feed"
 var DROPBOX_AUDIO_BASE string = "/PodcastAudio"
 var DROPBOX_THUMBNAILS_BASE string = "/PodcastThumbnails"
+var DROPBOX_FEED_BASE string = "/PodcastRSSFeed"
 var MaximumCloudStorage uint64 = 2 * 1024 * 1024 * 1024
 var TOKEN_MANAGER *TokenManager
 
@@ -22,7 +24,6 @@ type FileType int
 const (
 	THUMBNAIL FileType = iota
 	AUDIO
-	RSS
 )
 
 // var DROPBOX_BASE string =

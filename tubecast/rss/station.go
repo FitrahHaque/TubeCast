@@ -62,21 +62,32 @@ func (user *User) CreateStation(name, description string) (Station, error) {
 
 func (station *Station) addToStation(stationItem StationItem) {
 	station.Items = append(station.Items, stationItem)
+	station.saveXMLToLocal()
 }
 
 func GetStation(name string) (Station, error) {
 	if !StationNames.Has(name) {
-		return Station{}, fmt.Errorf("station `%s` does not exist\n", name)
+		var user User //change this
+		return user.CreateStation(name, "name:name")
 	}
 	if metaStation, err := getMetaStation(name); err != nil {
 		return Station{}, err
 	} else {
 		station := Station{
-			ID:          metaStation.ID,
-			Name:        metaStation.Name,
-			Url:         metaStation.Url,
-			Description: metaStation.Description,
-			Items:       getStationItems(metaStation.Items),
+			ID:               metaStation.ID,
+			Name:             metaStation.Name,
+			Url:              metaStation.Url,
+			Description:      metaStation.Description,
+			Items:            getStationItems(metaStation.Items),
+			Language:         metaStation.Language,
+			Copyright:        metaStation.Copyright,
+			ITunesAuthor:     metaStation.ITunesAuthor,
+			ITunesSubtitle:   metaStation.ITunesSummary,
+			ITunesSummary:    metaStation.ITunesSummary,
+			ITunesImage:      metaStation.ITunesImage,
+			ITunesExplicit:   metaStation.ITunesExplicit,
+			ITunesCategories: metaStation.ITunesCategories,
+			Owner:            metaStation.Owner,
 		}
 		return station, nil
 	}
@@ -88,26 +99,26 @@ func (user *User) createMetaStation(name string, description string) (MetaStatio
 	}
 
 	metaStation := MetaStation{
-		ID:           uuid.New(),
-		Name:         name,
-		Description:  description,
-		ChannelCount: 0,
-		CreatedOn:    time.Now(),
-		Language:     "English",
-		Copyright:    user.YouTubeID,
+		ID:               uuid.New(),
+		Name:             name,
+		Description:      description,
+		ChannelCount:     0,
+		CreatedOn:        time.Now(),
+		Language:         "English",
+		Copyright:        user.YouTubeID,
+		ITunesAuthor:     user.Name,
+		ITunesSubtitle:   "",
+		ITunesSummary:    description,
+		ITunesImage:      ITunesImage{},
+		ITunesExplicit:   "no",
+		ITunesCategories: []Category{},
 		Owner: ITunesOwner{
 			Name:  user.Name,
 			Email: user.AppleID,
 		},
-		ITunesAuthor:     user.Name,
-		ITunesSubtitle:   "",
-		ITunesSummary:    "",
-		ITunesImage:      "",
-		ITunesExplicit:   "no",
-		ITunesCategories: []Category{},
 	}
 	StationNames.Add(name)
-	return metaStation, saveMetaStationToLocal(fmt.Sprintf("%s/%s.json", STATION_BASE, name), metaStation)
+	return metaStation, metaStation.saveMetaStationToLocal()
 }
 
 func getStationItems(metaItems []MetaStationItem) []StationItem {
@@ -128,10 +139,13 @@ func getStationItem(metaItem MetaStationItem) StationItem {
 		PubDate:        metaItem.PubDate,
 		ITunesDuration: metaItem.ITunesDuration,
 		ITunesExplicit: metaItem.ITunesExplicit,
+		ITunesImage:    metaItem.ITunesImage,
+		ITunesAuthor:   metaItem.ITunesAuthor,
+		ITunesSubtitle: metaItem.ITunesSubtitle,
+		ITunesSummary:  metaItem.ITunesSummary,
 		// ITunesEpisode:     metaItem.ITunesEpisode,
 		// ITunesSeason:      metaItem.ITunesSeason,
 		// ITunesEpisodeType: metaItem.ITunesEpisodeType,
-		ThumbnailUrl: metaItem.ThumbnailUrl,
 	}
 }
 
@@ -175,9 +189,9 @@ func getMetaStation(name string) (MetaStation, error) {
 //		return item
 //	}
 
-func (station *MetaStation) addToStation(stationItem MetaStationItem) {
-	station.Items = append(station.Items, stationItem)
-	saveMetaStationToLocal(fmt.Sprintf("%s/%s.json", STATION_BASE, station.Name), *station)
+func (metaStation *MetaStation) addToStation(stationItem MetaStationItem) {
+	metaStation.Items = append(metaStation.Items, stationItem)
+	metaStation.saveMetaStationToLocal()
 }
 
 func (station *Station) HasItem(id string) bool {

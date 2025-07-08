@@ -8,7 +8,11 @@ import (
 	"time"
 )
 
-func (station *Station) SyncChannel(ChannelFeedUrl string) error {
+func (station *Station) SyncChannel(username string) error {
+	ChannelFeedUrl, err := GetChannelFeedUrl("@ThePrimeTimeagen")
+	if err != nil {
+		fmt.Printf("%v\n", err)
+	}
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 	defer cancel()
 
@@ -24,10 +28,12 @@ func (station *Station) SyncChannel(ChannelFeedUrl string) error {
 	for _, id := range ids {
 		var wg sync.WaitGroup
 		metaStationItem := MetaStationItem{
-			ID:        id,
-			AddedOn:   time.Now(),
-			ChannelID: ChannelFeedUrl,
-			Author:    "ThePrimeagen",
+			ID:             id,
+			GUID:           id,
+			ITunesAuthor:   username,
+			ChannelID:      ChannelFeedUrl,
+			AddedOn:        time.Now(),
+			ITunesExplicit: "no",
 		}
 		wg.Add(1)
 		go func() {
@@ -46,6 +52,7 @@ func (station *Station) SyncChannel(ChannelFeedUrl string) error {
 				return
 			} else {
 				metaStationItem.Description = description
+				metaStationItem.ITunesSubtitle = description
 			}
 		}()
 		wg.Add(1)
@@ -90,14 +97,16 @@ func (station *Station) SyncChannel(ChannelFeedUrl string) error {
 					return
 				} else {
 					fmt.Println(share)
-					metaStationItem.ThumbnailUrl = share
+					metaStationItem.ITunesImage = ITunesImage{
+						Href: share,
+					}
 				}
 			}
 		}()
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			if err := metaStationItem.saveAudio(ctx, id); err != nil {
+			if size, err := metaStationItem.saveAudio(ctx, id); err != nil {
 				fmt.Printf("Error: %v\n", err)
 				return
 			} else {
@@ -106,8 +115,9 @@ func (station *Station) SyncChannel(ChannelFeedUrl string) error {
 					return
 				} else {
 					metaStationItem.Enclosure = Enclosure{
-						URL:  share,
-						Type: "audio/mpeg",
+						URL:    share,
+						Type:   "audio/mpeg",
+						Length: size,
 					}
 				}
 			}
@@ -117,7 +127,7 @@ func (station *Station) SyncChannel(ChannelFeedUrl string) error {
 		stationItem := getStationItem(metaStationItem)
 		station.addToStation(stationItem)
 	}
-	return nil
+	return station.updateFeed()
 }
 
 func (station *Station) Print() {
@@ -154,7 +164,6 @@ func (stationItem *StationItem) Print() {
 	// fmt.Printf("ITunesEpisode: %v\n", stationItem.ITunesEpisode)
 	// fmt.Printf("ITunesSeason: %v\n", stationItem.ITunesSeason)
 	// fmt.Printf("ITunesEpisodeType: %v\n", stationItem.ITunesEpisodeType)
-	fmt.Printf("ThumbnailUrl: %v\n", stationItem.ThumbnailUrl)
 	fmt.Println("----------------- ---------------------")
 }
 
