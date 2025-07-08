@@ -136,6 +136,7 @@ func (metaStationItem *MetaStationItem) saveVideoThumbnail(ctx context.Context, 
 		THUMBNAILS_BASE+"/"+metaStationItem.ID+".%(ext)s",
 		"https://www.youtube.com/watch?v="+videoID,
 	)
+	ConvertImageToCorrectFormat(THUMBNAILS_BASE, metaStationItem.ID)
 	return err
 }
 
@@ -232,7 +233,7 @@ func dirSize(dbx files.Client, path string) (uint64, error) {
 
 // UploadToDropbox uploads localPath into your app folder under dropboxPath
 // and returns the shared link URL
-func (station *Station) uploadToDropbox(fileType FileType, id string) (string, error) {
+func (station *Station) uploadItemMediaToDropbox(fileType FileType, id string) (string, error) {
 	if stationItem, ok := station.GetStationItem(id); ok {
 		switch fileType {
 		case THUMBNAIL:
@@ -244,21 +245,21 @@ func (station *Station) uploadToDropbox(fileType FileType, id string) (string, e
 	var localPath, dropboxPath string
 	switch fileType {
 	case THUMBNAIL:
-		localPath = filepath.Join(THUMBNAILS_BASE, id+".webp")
-		dropboxPath = filepath.Join(DROPBOX_THUMBNAILS_BASE, id+".webp")
+		localPath = filepath.Join(THUMBNAILS_BASE, id+".png")
+		dropboxPath = filepath.Join(DROPBOX_THUMBNAILS_BASE, id+".png")
 	case AUDIO:
 		localPath = filepath.Join(AUDIO_BASE, id+".mp3")
 		dropboxPath = filepath.Join(DROPBOX_AUDIO_BASE, id+".mp3")
 	}
-	if share, err := dropboxUpload(localPath, dropboxPath); err != nil {
+
+	if share, err := dropboxUpload(localPath, dropboxPath, true); err != nil {
 		return "", err
 	} else {
-		os.Remove(localPath)
 		return share, nil
 	}
 }
 
-func dropboxUpload(localPath, dropboxPath string) (string, error) {
+func dropboxUpload(localPath, dropboxPath string, deleteLocal bool) (string, error) {
 	f, err := os.Open(localPath)
 	if err != nil {
 		return "", fmt.Errorf("open file: %w", err)
@@ -338,6 +339,9 @@ func dropboxUpload(localPath, dropboxPath string) (string, error) {
 	if len(shareURL) > 0 {
 		shareURL = shareURL + "?raw=1"
 	}
+	if deleteLocal {
+		os.Remove(localPath)
+	}
 	return shareURL, nil
 }
 
@@ -345,12 +349,12 @@ func (station *Station) updateFeed() error {
 	if err := station.saveXMLToLocal(); err != nil {
 		return err
 	}
-	localPath := filepath.Join(FEED_BASE, station.Name+".xml")
-	dropboxPath := filepath.Join(DROPBOX_FEED_BASE, station.Name+".xml")
-	if share, err := dropboxUpload(localPath, dropboxPath); err != nil {
+	localPath := filepath.Join(FEED_BASE, station.Title+".xml")
+	dropboxPath := filepath.Join(DROPBOX_FEED_BASE, station.Title+".xml")
+	if share, err := dropboxUpload(localPath, dropboxPath, false); err != nil {
 		return err
 	} else {
-		if metaStation, err := getMetaStation(station.Name); err != nil {
+		if metaStation, err := getMetaStation(station.Title); err != nil {
 			return err
 		} else {
 			metaStation.Url = share

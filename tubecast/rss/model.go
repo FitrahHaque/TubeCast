@@ -1,14 +1,16 @@
 package rss
 
 import (
+	"encoding/xml"
 	"time"
 
 	"github.com/google/uuid"
 )
 
 type Station struct {
+	XMLName          xml.Name      `xml:"channel"                json:"channel"`
 	ID               uuid.UUID     `xml:"id"                     json:"id"`
-	Name             string        `xml:"name"                   json:"name"`
+	Title            string        `xml:"title"                  json:"title"`
 	Url              string        `xml:"url"                    json:"url"`
 	Description      string        `xml:"description"            json:"description"`
 	Items            []StationItem `xml:"item"                   json:"item"`
@@ -34,10 +36,11 @@ type ITunesOwner struct {
 }
 
 type StationItem struct {
-	ID             string      `xml:"id,attr"                      json:"id"`
+	// ID             string      `xml:"id,attr"                      json:"id"`
+	// ITunesTitle    string      `xml:"itunes:title"                 json:"itunes_title"`
+	GUID           string      `xml:"guid"                         json:"guid"`
 	Title          string      `xml:"title"                        json:"title"`
 	Enclosure      Enclosure   `xml:"enclosure"                    json:"enclosure"`
-	GUID           string      `xml:"guid"                         json:"guid"`
 	Description    string      `xml:"description"                  json:"description"`
 	PubDate        string      `xml:"pubDate"                      json:"pubDate"`
 	ITunesDuration string      `xml:"itunes:duration"              json:"itunes_duration"`
@@ -62,7 +65,7 @@ type Enclosure struct {
 
 type MetaStation struct {
 	ID               uuid.UUID         `json:"id"`
-	Name             string            `json:"name"`
+	Title            string            `json:"title"`
 	Url              string            `json:"url"`
 	Description      string            `json:"description"`
 	Items            []MetaStationItem `json:"item"`

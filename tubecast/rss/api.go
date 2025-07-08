@@ -21,7 +21,7 @@ func (station *Station) SyncChannel(username string) error {
 		return err
 	}
 	fmt.Println("Latest video urls: ", ids)
-	metaStation, err := getMetaStation(station.Name)
+	metaStation, err := getMetaStation(station.Title)
 	if err != nil {
 		return err
 	}
@@ -92,7 +92,7 @@ func (station *Station) SyncChannel(username string) error {
 				fmt.Printf("Error: %v\n", err)
 				return
 			} else {
-				if share, err := station.uploadToDropbox(THUMBNAIL, metaStationItem.ID); err != nil {
+				if share, err := station.uploadItemMediaToDropbox(THUMBNAIL, metaStationItem.ID); err != nil {
 					fmt.Printf("Error: %v\n", err)
 					return
 				} else {
@@ -110,7 +110,7 @@ func (station *Station) SyncChannel(username string) error {
 				fmt.Printf("Error: %v\n", err)
 				return
 			} else {
-				if share, err := station.uploadToDropbox(AUDIO, metaStationItem.ID); err != nil {
+				if share, err := station.uploadItemMediaToDropbox(AUDIO, metaStationItem.ID); err != nil {
 					fmt.Printf("Error: %v\n", err)
 					return
 				} else {
@@ -133,7 +133,7 @@ func (station *Station) SyncChannel(username string) error {
 func (station *Station) Print() {
 	fmt.Println("------ Station Print ------")
 	fmt.Printf("ID: %v\n", station.ID)
-	fmt.Printf("Name: %v\n", station.Name)
+	fmt.Printf("Name: %v\n", station.Title)
 	fmt.Printf("Url: %v\n", station.Url)
 	fmt.Printf("Description: %v\n", station.Description)
 	fmt.Printf("Language: %v\n", station.Language)
@@ -153,7 +153,6 @@ func (station *Station) Print() {
 
 func (stationItem *StationItem) Print() {
 	fmt.Println("--------- Station Item ---------")
-	fmt.Printf("ID: %v\n", stationItem.ID)
 	fmt.Printf("Title: %v\n", stationItem.Title)
 	fmt.Printf("Enclosure: %v\n", stationItem.Enclosure)
 	fmt.Printf("GUID: %v\n", stationItem.GUID)

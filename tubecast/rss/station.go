@@ -14,7 +14,7 @@ func (user *User) CreateStation(name, description string) (Station, error) {
 	} else {
 		station := Station{
 			ID:               metaStation.ID,
-			Name:             metaStation.Name,
+			Title:            metaStation.Title,
 			Description:      metaStation.Description,
 			Url:              metaStation.Url,
 			Items:            getStationItems(metaStation.Items),
@@ -75,7 +75,7 @@ func GetStation(name string) (Station, error) {
 	} else {
 		station := Station{
 			ID:               metaStation.ID,
-			Name:             metaStation.Name,
+			Title:            metaStation.Title,
 			Url:              metaStation.Url,
 			Description:      metaStation.Description,
 			Items:            getStationItems(metaStation.Items),
@@ -97,21 +97,28 @@ func (user *User) createMetaStation(name string, description string) (MetaStatio
 	if StationNames.Has(name) {
 		return MetaStation{}, fmt.Errorf("there already exists a station named `%s`. Try again with a different name.\n", name)
 	}
-
+	coverImage, err := getCoverImage(name)
+	if err != nil {
+		return MetaStation{}, err
+	}
 	metaStation := MetaStation{
-		ID:               uuid.New(),
-		Name:             name,
-		Description:      description,
-		ChannelCount:     0,
-		CreatedOn:        time.Now(),
-		Language:         "English",
-		Copyright:        user.YouTubeID,
-		ITunesAuthor:     user.Name,
-		ITunesSubtitle:   "",
-		ITunesSummary:    description,
-		ITunesImage:      ITunesImage{},
-		ITunesExplicit:   "no",
-		ITunesCategories: []Category{},
+		ID:             uuid.New(),
+		Title:          name,
+		Description:    description,
+		ChannelCount:   0,
+		CreatedOn:      time.Now(),
+		Language:       "English",
+		Copyright:      user.YouTubeID,
+		ITunesAuthor:   user.Name,
+		ITunesSubtitle: "",
+		ITunesSummary:  description,
+		ITunesImage:    coverImage,
+		ITunesExplicit: "no",
+		ITunesCategories: []Category{
+			{
+				Text: "Technology",
+			},
+		},
 		Owner: ITunesOwner{
 			Name:  user.Name,
 			Email: user.AppleID,
@@ -131,7 +138,6 @@ func getStationItems(metaItems []MetaStationItem) []StationItem {
 
 func getStationItem(metaItem MetaStationItem) StationItem {
 	return StationItem{
-		ID:             metaItem.ID,
 		Title:          metaItem.Title,
 		Enclosure:      metaItem.Enclosure,
 		Description:    metaItem.Description,
@@ -196,7 +202,7 @@ func (metaStation *MetaStation) addToStation(stationItem MetaStationItem) {
 
 func (station *Station) HasItem(id string) bool {
 	for _, item := range station.Items {
-		if item.ID == id {
+		if item.GUID == id {
 			return true
 		}
 	}
@@ -205,7 +211,7 @@ func (station *Station) HasItem(id string) bool {
 
 func (station *Station) GetStationItem(id string) (StationItem, bool) {
 	for _, item := range station.Items {
-		if item.ID == id {
+		if item.GUID == id {
 			return item, true
 		}
 	}

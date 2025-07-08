@@ -10,7 +10,7 @@ import (
 
 // Atomatically save Station Meta data locally
 func (metaStation *MetaStation) saveMetaStationToLocal() error {
-	path := filepath.Join(STATION_BASE, metaStation.Name+".json")
+	path := filepath.Join(STATION_BASE, metaStation.Title+".json")
 	tmp := path + ".tmp"
 	if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
 		return err
@@ -52,7 +52,7 @@ func (station *Station) saveXMLToLocal() error {
 	if err := os.MkdirAll(FEED_BASE, 0o755); err != nil {
 		return err
 	}
-	path := filepath.Join(FEED_BASE, station.Name+".xml")
+	path := filepath.Join(FEED_BASE, station.Title+".xml")
 	tmp := path + ".tmp"
 
 	f, err := os.Create(tmp)
@@ -66,9 +66,12 @@ func (station *Station) saveXMLToLocal() error {
 	enc := xml.NewEncoder(f)
 	enc.Indent("", "  ")
 	f.WriteString(xml.Header)
+	f.WriteString("<rss xmlns:itunes=\"http://www.itunes.com/dtds/podcast-1.0.dtd\" xmlns:podcast=\"https://podcastindex.org/namespace/1.0\" version=\"2.0\">\n  ")
+	// f.WriteString("<rss xmlns:itunes=\"http://www.itunes.com/dtds/podcast-1.0.dtd\" version=\"2.0\">")
 	if err := enc.Encode(station); err != nil {
 		return err
 	}
+	f.WriteString("\n</rss>")
 	return os.Rename(tmp, path)
 }
 
@@ -113,4 +116,17 @@ func loadAllMetaStationNames() error {
 		}
 	}
 	return nil
+}
+
+func getCoverImage(name string) (ITunesImage, error) {
+	ConvertImageToCorrectFormat(COVER_BASE, name)
+	localPath := filepath.Join(COVER_BASE, name+".png")
+	dropboxPath := filepath.Join(DROPBOX_COVER_BASE, name+".png")
+	if share, err := dropboxUpload(localPath, dropboxPath, false); err != nil {
+		return ITunesImage{}, err
+	} else {
+		return ITunesImage{
+			Href: share,
+		}, nil
+	}
 }

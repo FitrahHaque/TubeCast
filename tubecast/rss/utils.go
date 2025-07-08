@@ -4,7 +4,17 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"image"
+	"image/draw"
+	"image/jpeg"
+	"image/png"
+	"os"
 	"os/exec"
+	"path/filepath"
+	"strings"
+
+	"github.com/nfnt/resize"
+	"golang.org/x/image/webp"
 )
 
 // Global Variables
@@ -13,9 +23,11 @@ var StationNames *Set[string]
 var THUMBNAILS_BASE string = "tubecast/thumbnails"
 var AUDIO_BASE string = "tubecast/audio"
 var FEED_BASE string = "tubecast/feed"
+var COVER_BASE string = "tubecast/cover"
 var DROPBOX_AUDIO_BASE string = "/PodcastAudio"
 var DROPBOX_THUMBNAILS_BASE string = "/PodcastThumbnails"
 var DROPBOX_FEED_BASE string = "/PodcastRSSFeed"
+var DROPBOX_COVER_BASE string = "/PodcastCover"
 var MaximumCloudStorage uint64 = 2 * 1024 * 1024 * 1024
 var TOKEN_MANAGER *TokenManager
 
@@ -24,6 +36,22 @@ type FileType int
 const (
 	THUMBNAIL FileType = iota
 	AUDIO
+	COVER
+	FEED
+)
+const (
+	// Apple Podcasts artwork requirements
+	MIN_SIZE = 1400
+	MAX_SIZE = 3000
+	DPI      = 72
+)
+
+// ImageFormat represents supported output formats
+type ImageFormat int
+
+const (
+	JPEG ImageFormat = iota
+	PNG
 )
 
 // var DROPBOX_BASE string =
@@ -61,4 +89,186 @@ func run(ctx context.Context, cmd string, args ...string) (string, error) {
 		return "", fmt.Errorf("could not execute the command. Error: %s\n", &err)
 	}
 	return out.String(), nil
+}
+
+// convertImageForPodcast converts a local image file to JPEG or PNG format
+// with proper sizing for Apple Podcasts (1400x1400 to 3000x3000 pixels)
+func convertImageForPodcast(inputPath, outputPath string, format ImageFormat, quality int) error {
+	// Open the input file
+	file, err := os.Open(inputPath)
+	if err != nil {
+		if file, err = os.Open(outputPath); err == nil {
+			fmt.Println("No need for image formatting")
+			file.Close()
+			return nil
+		}
+		return fmt.Errorf("failed to open input file: %w", err)
+	}
+	defer file.Close()
+
+	// Decode the image based on file extension
+	var img image.Image
+	ext := strings.ToLower(filepath.Ext(inputPath))
+
+	switch ext {
+	case ".webp":
+		img, err = webp.Decode(file)
+		if err != nil {
+			return fmt.Errorf("failed to decode WebP image: %w", err)
+		}
+	case ".png":
+		img, err = png.Decode(file)
+		if err != nil {
+			return fmt.Errorf("failed to decode PNG image: %w", err)
+		}
+	case ".jpg", ".jpeg":
+		img, err = jpeg.Decode(file)
+		if err != nil {
+			return fmt.Errorf("failed to decode JPEG image: %w", err)
+		}
+	default:
+		return fmt.Errorf("unsupported input format: %s", ext)
+	}
+
+	// Process the image (resize and make square)
+	processedImg := processForPodcast(img)
+
+	// Create output file
+	outFile, err := os.Create(outputPath)
+	if err != nil {
+		return fmt.Errorf("failed to create output file: %w", err)
+	}
+	defer outFile.Close()
+
+	// Encode based on desired format
+	switch format {
+	case JPEG:
+		options := &jpeg.Options{
+			Quality: quality,
+		}
+		err = jpeg.Encode(outFile, processedImg, options)
+		if err != nil {
+			return fmt.Errorf("failed to encode JPEG: %w", err)
+		}
+	case PNG:
+		// fmt.Printf("here I am png\n")
+		err = png.Encode(outFile, processedImg)
+		if err != nil {
+			return fmt.Errorf("failed to encode PNG: %w", err)
+		}
+	default:
+		return fmt.Errorf("unsupported output format")
+	}
+
+	return nil
+}
+
+// processForPodcast resizes and crops image to meet Apple Podcasts requirements
+func processForPodcast(img image.Image) image.Image {
+	bounds := img.Bounds()
+	width := bounds.Dx()
+	height := bounds.Dy()
+
+	// Make the image square by cropping to the smaller dimension
+	var size int
+	if width < height {
+		size = width
+	} else {
+		size = height
+	}
+
+	// Create a square crop from the center
+	squareImg := cropCenter(img, size, size)
+
+	// Resize to appropriate size for podcasts
+	var targetSize uint
+	if size < MIN_SIZE {
+		targetSize = MIN_SIZE
+	} else if size > MAX_SIZE {
+		targetSize = MAX_SIZE
+	} else {
+		targetSize = uint(size)
+	}
+
+	// Resize using high-quality Lanczos resampling
+	resizedImg := resize.Resize(targetSize, targetSize, squareImg, resize.Lanczos3)
+
+	return resizedImg
+}
+
+// cropCenter crops an image to the specified dimensions from the center
+func cropCenter(img image.Image, width, height int) image.Image {
+	bounds := img.Bounds()
+	imgWidth := bounds.Dx()
+	imgHeight := bounds.Dy()
+
+	// Calculate crop coordinates
+	startX := (imgWidth - width) / 2
+	startY := (imgHeight - height) / 2
+
+	// Create destination image
+	dst := image.NewRGBA(image.Rect(0, 0, width, height))
+
+	// Crop using draw package
+	draw.Draw(dst, dst.Bounds(), img, image.Pt(startX, startY), draw.Src)
+
+	return dst
+}
+
+// getImageDimensions returns the width and height of an image file
+func getImageDimensions(imagePath string) (int, int, error) {
+	file, err := os.Open(imagePath)
+	if err != nil {
+		return 0, 0, err
+	}
+	defer file.Close()
+
+	config, _, err := image.DecodeConfig(file)
+	if err != nil {
+		return 0, 0, err
+	}
+
+	return config.Width, config.Height, nil
+}
+
+// validatePodcastImage checks if an image meets Apple Podcasts requirements
+func validatePodcastImage(imagePath string) error {
+	width, height, err := getImageDimensions(imagePath)
+	if err != nil {
+		return err
+	}
+
+	// Check if image is square
+	if width != height {
+		return fmt.Errorf("image must be square, got %dx%d", width, height)
+	}
+
+	// Check size requirements
+	if width < MIN_SIZE || width > MAX_SIZE {
+		return fmt.Errorf("image size must be between %dx%d and %dx%d pixels, got %dx%d",
+			MIN_SIZE, MIN_SIZE, MAX_SIZE, MAX_SIZE, width, height)
+	}
+
+	return nil
+}
+
+func ConvertImageToCorrectFormat(base_path, name string) {
+	src := filepath.Join(base_path, name+".webp")
+	dest := filepath.Join(base_path, name+".png")
+	err := convertImageForPodcast(src, dest, PNG, 0)
+	if err != nil {
+		fmt.Printf("Error converting to PNG: %v\n", err)
+	} else {
+		fmt.Println("Successfully converted to PNG")
+	}
+
+	// Example 3: Validate the output
+	err = validatePodcastImage(dest)
+	if err != nil {
+		fmt.Printf("Validation failed: %v\n", err)
+	} else {
+		fmt.Println("Image meets Apple Podcasts requirements!")
+		os.Remove(src)
+		// os.Rename(src, dest)
+	}
 }
