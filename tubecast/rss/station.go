@@ -247,7 +247,6 @@ func (station *Station) makeSpace(sizeInBytes uint64) bool {
 		fmt.Println(used+sizeInBytes, MaximumCloudStorage)
 		if used+sizeInBytes < MaximumCloudStorage {
 			// return "", fmt.Errorf("quota exceeded\n")
-			station.updateFeed()
 			return true
 		} else if !station.removeOldestItem(accessToken, &metaStation) {
 			return false
@@ -256,11 +255,9 @@ func (station *Station) makeSpace(sizeInBytes uint64) bool {
 }
 
 func (station *Station) removeOldestItem(accessToken string, metaStation *MetaStation) bool {
-	fmt.Printf("came here 1\n")
 	if len(station.Items) == 0 {
 		return false
 	}
-	fmt.Printf("came here 2\n")
 	oldest := metaStation.Items[0].AddedOn
 	oldestIndex := 0
 	for i, item := range metaStation.Items {
@@ -270,8 +267,8 @@ func (station *Station) removeOldestItem(accessToken string, metaStation *MetaSt
 		}
 	}
 	id := metaStation.Items[oldestIndex].GUID
-	audioPath := filepath.Join(AUDIO_BASE, station.Title, id+".mp3")
-	thumbnailPath := filepath.Join(THUMBNAILS_BASE, station.Title, id+".png")
+	audioPath := filepath.Join(DROPBOX_AUDIO_BASE, station.Title, id+".mp3")
+	thumbnailPath := filepath.Join(DROPBOX_THUMBNAILS_BASE, station.Title, id+".png")
 	if err := deleteDropboxFile(accessToken, audioPath); err != nil {
 		fmt.Printf("error-1: %v\n", err)
 		return false
@@ -280,9 +277,10 @@ func (station *Station) removeOldestItem(accessToken string, metaStation *MetaSt
 		fmt.Printf("error-2: %v\n", err)
 		return false
 	}
-	metaStation.Items = append(metaStation.Items[:oldestIndex], metaStation.Items[oldestIndex+1:]...)
 	if station.Items[oldestIndex].GUID == metaStation.Items[oldestIndex].GUID {
+		metaStation.Items = append(metaStation.Items[:oldestIndex], metaStation.Items[oldestIndex+1:]...)
 		station.Items = append(station.Items[:oldestIndex], station.Items[oldestIndex+1:]...)
+		station.updateFeed()
 	} else {
 		fmt.Println("not in order with meta")
 	}

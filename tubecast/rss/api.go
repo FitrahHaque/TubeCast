@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 	"sync"
 	"time"
 )
@@ -36,7 +37,6 @@ func (station *Station) AddVideo(videoUrl string) (string, error) {
 	defer cancel()
 
 	id, err := getVideoId(ctx, videoUrl)
-	fmt.Printf("id: %v\n", id)
 	if err != nil {
 		return "", err
 	}
@@ -133,7 +133,13 @@ func (station *Station) addItemToStation(ctx context.Context, id, username, chan
 			fmt.Printf("Error: %v\n", err)
 			return
 		} else {
-			station.makeSpace(size)
+			if ok := station.makeSpace(size); !ok {
+				audioPath := filepath.Join(AUDIO_BASE, station.Title, metaStationItem.GUID+".mp3")
+				thumbnailPath := filepath.Join(THUMBNAILS_BASE, station.Title, metaStationItem.GUID+".png")
+				os.Remove(audioPath)
+				os.Remove(thumbnailPath)
+				return
+			}
 			if share, err := station.uploadItemMediaToDropbox(AUDIO, metaStationItem.GUID); err != nil {
 				fmt.Printf("Error: %v\n", err)
 				return

@@ -73,7 +73,6 @@ func getVideoUsername(ctx context.Context, link string) (string, error) {
 }
 
 func getVideoTitle(ctx context.Context, link string) (string, error) {
-	fmt.Printf("Link: %v\n", link)
 	out, err := run(
 		ctx,
 		"yt-dlp",
