@@ -22,7 +22,7 @@ var STATION_BASE string = "tubecast/stations"
 var StationNames *Set[string]
 var THUMBNAILS_BASE string = "tubecast/thumbnails"
 var AUDIO_BASE string = "tubecast/audio"
-var FEED_BASE string = "tubecast/feed"
+var FEED_BASE string = "docs/feed"
 var COVER_BASE string = "tubecast/cover"
 var DROPBOX_AUDIO_BASE string = "/PodcastAudio"
 var DROPBOX_THUMBNAILS_BASE string = "/PodcastThumbnails"
