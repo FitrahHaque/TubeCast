@@ -22,14 +22,15 @@ func (station *Station) getLatestVideos(ctx context.Context, channelUrl string, 
 	// Build the arguments so that each option gets the right argument:
 	args := []string{
 		"--get-id",
-		"--match-filter", "live_status!='is_upcoming'",
-		"--playlist-end", fmt.Sprint(limit),
+		"--match-filter",
+		"live_status!='is_upcoming'",
+		"--playlist-end",
+		fmt.Sprint(limit),
 		channelUrl,
 	}
 
 	out, err := run(ctx, "yt-dlp", args...)
 	if err != nil {
-		// Handle the “Premieres in…” message if needed:
 		if strings.Contains(err.Error(), "Premieres in") {
 			return nil, nil
 		}
@@ -37,22 +38,48 @@ func (station *Station) getLatestVideos(ctx context.Context, channelUrl string, 
 	}
 
 	ids := strings.Split(strings.TrimSpace(out), "\n")
-	var videoIds []string
-	for _, id := range ids {
-		if !station.HasItem(id) {
-			videoIds = append(videoIds, id)
-		}
-	}
+	videoIds := station.filter(ids)
 	return videoIds, nil
 }
 
-func getVideoTitle(ctx context.Context, link string) (string, error) {
+func getVideoId(ctx context.Context, link string) (string, error) {
 	out, err := run(
 		ctx,
 		"yt-dlp",
 		"--quiet",
 		"--print",
-		"%(title)s",
+		"id",
+		link,
+	)
+	if err != nil {
+		return "", err
+	}
+	return strings.TrimSpace(out), nil
+}
+
+func getVideoUsername(ctx context.Context, link string) (string, error) {
+	out, err := run(
+		ctx,
+		"yt-dlp",
+		"--quiet",
+		"--print",
+		"uploader_id",
+		link,
+	)
+	if err != nil {
+		return "", err
+	}
+	return strings.TrimSpace(out), nil
+}
+
+func getVideoTitle(ctx context.Context, link string) (string, error) {
+	fmt.Printf("Link: %v\n", link)
+	out, err := run(
+		ctx,
+		"yt-dlp",
+		"--quiet",
+		"--print",
+		"title",
 		link,
 	)
 	if err != nil {
@@ -67,7 +94,7 @@ func getVideoDescription(ctx context.Context, link string) (string, error) {
 		"yt-dlp",
 		"--quiet",
 		"--print",
-		"%(description)s",
+		"description",
 		link,
 	)
 	if err != nil {
@@ -82,7 +109,7 @@ func getVideoDuration(ctx context.Context, link string) (string, error) {
 		"yt-dlp",
 		"--quiet",
 		"--print",
-		"%(duration_string)s",
+		"duration_string",
 		link,
 	)
 	if err != nil {
@@ -97,7 +124,7 @@ func getVideoViews(ctx context.Context, link string) (uint32, error) {
 		"yt-dlp",
 		"--quiet",
 		"--print",
-		"%(view_count)s",
+		"view_count",
 		link,
 	)
 	if err != nil {
@@ -116,7 +143,7 @@ func getVideoPubDate(ctx context.Context, link string) (string, error) {
 		"yt-dlp",
 		"--quiet",
 		"--print",
-		"%(upload_date)s",
+		"upload_date",
 		link,
 	)
 	if err != nil {
@@ -138,10 +165,10 @@ func (metaStationItem *MetaStationItem) saveVideoThumbnail(ctx context.Context, 
 		"--skip-download",
 		"--write-thumbnail",
 		"-o",
-		THUMBNAILS_BASE+"/"+stationName+"/"+metaStationItem.ID+".%(ext)s",
+		THUMBNAILS_BASE+"/"+stationName+"/"+metaStationItem.GUID+".%(ext)s",
 		link,
 	)
-	ConvertImageToCorrectFormat(THUMBNAILS_BASE+"/"+stationName, metaStationItem.ID)
+	ConvertImageToCorrectFormat(THUMBNAILS_BASE+"/"+stationName, metaStationItem.GUID)
 	return err
 }
 
@@ -158,13 +185,13 @@ func (metaStationItem *MetaStationItem) saveAudio(ctx context.Context, stationNa
 		"--audio-quality",
 		"0",
 		"-o",
-		AUDIO_BASE+"/"+stationName+"/"+metaStationItem.ID+".%(ext)s",
+		AUDIO_BASE+"/"+stationName+"/"+metaStationItem.GUID+".%(ext)s",
 		link,
 	)
 	if err != nil {
 		return 0, err
 	}
-	path := filepath.Join(AUDIO_BASE, stationName, metaStationItem.ID+".mp3")
+	path := filepath.Join(AUDIO_BASE, stationName, metaStationItem.GUID+".mp3")
 	if info, err := os.Stat(path); err != nil {
 		return 0, err
 	} else {

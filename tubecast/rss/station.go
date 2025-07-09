@@ -61,7 +61,6 @@ func (user *User) CreateStation(name, description string) (Station, error) {
 
 func (station *Station) addToStation(stationItem StationItem) {
 	station.Items = append(station.Items, stationItem)
-	station.saveXMLToLocal()
 }
 
 func GetStation(name string) (Station, error) {
@@ -136,14 +135,15 @@ func getStationItems(metaItems []MetaStationItem) []StationItem {
 
 func getStationItem(metaItem MetaStationItem) StationItem {
 	return StationItem{
+		GUID:           metaItem.GUID,
 		Title:          metaItem.Title,
 		Enclosure:      metaItem.Enclosure,
+		ITunesImage:    metaItem.ITunesImage,
 		Description:    metaItem.Description,
-		GUID:           metaItem.GUID,
+		Link:           metaItem.Link,
 		PubDate:        metaItem.PubDate,
 		ITunesDuration: metaItem.ITunesDuration,
 		ITunesExplicit: metaItem.ITunesExplicit,
-		ITunesImage:    metaItem.ITunesImage,
 		ITunesAuthor:   metaItem.ITunesAuthor,
 		ITunesSubtitle: metaItem.ITunesSubtitle,
 		ITunesSummary:  metaItem.ITunesSummary,
@@ -214,4 +214,14 @@ func (station *Station) GetStationItem(id string) (StationItem, bool) {
 		}
 	}
 	return StationItem{}, false
+}
+
+func (station *Station) filter(ids []string) []string {
+	var videoIds []string
+	for _, id := range ids {
+		if !station.HasItem(id) {
+			videoIds = append(videoIds, id)
+		}
+	}
+	return videoIds
 }

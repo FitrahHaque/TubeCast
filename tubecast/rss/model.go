@@ -83,7 +83,6 @@ type MetaStation struct {
 }
 
 type MetaStationItem struct {
-	ID             string      `json:"id"`
 	GUID           string      `json:"guid"`
 	ITunesAuthor   string      `json:"itunes_author"`
 	ChannelID      string      `json:"channel_id"`

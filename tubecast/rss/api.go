@@ -2,138 +2,168 @@ package rss
 
 import (
 	"context"
+	"errors"
 	"fmt"
+	"log"
 	"os"
 	"sync"
 	"time"
 )
 
 func (station *Station) SyncChannel(username string) (string, error) {
-	ChannelFeedUrl, err := GetChannelFeedUrl(username)
+	channelFeedUrl, err := GetChannelFeedUrl(username)
 	if err != nil {
-		fmt.Printf("%v\n", err)
+		return "", err
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 	defer cancel()
 
-	ids, err := station.getLatestVideos(ctx, ChannelFeedUrl, 3)
+	ids, err := station.getLatestVideos(ctx, channelFeedUrl, 1)
 	if err != nil {
 		return "", err
 	}
-	fmt.Println("Latest video urls: ", ids)
-	metaStation, err := getMetaStation(station.Title)
-	if err != nil {
-		return "", err
-	}
+	fmt.Println("Latest video urls to be uploaded: ", ids)
 	for _, id := range ids {
-		var wg sync.WaitGroup
-		metaStationItem := MetaStationItem{
-			ID:             id,
-			GUID:           id,
-			ITunesAuthor:   username,
-			ChannelID:      ChannelFeedUrl,
-			AddedOn:        time.Now(),
-			ITunesExplicit: "no",
-			Link:           "https://www.youtube.com/watch?v=" + id,
+		if _, err := station.addItemToStation(ctx, id, username, channelFeedUrl); err != nil {
+			log.Printf("error downloading video %s, error: %v\n", id, err)
 		}
-		wg.Add(1)
-		go func() {
-			defer wg.Done()
-			if title, err := getVideoTitle(ctx, metaStationItem.Link); err != nil {
-				return
-			} else {
-				metaStationItem.Title = title
-			}
-		}()
-		wg.Add(1)
-		go func() {
-			defer wg.Done()
-			if description, err := getVideoDescription(ctx, metaStationItem.Link); err != nil {
-				fmt.Printf("Error: %v\n", err)
-				return
-			} else {
-				metaStationItem.Description = description
-				metaStationItem.ITunesSubtitle = description
-			}
-		}()
-		wg.Add(1)
-		go func() {
-			wg.Done()
-			if duration, err := getVideoDuration(ctx, metaStationItem.Link); err != nil {
-				fmt.Printf("Error: %v\n", err)
-				return
-			} else {
-				metaStationItem.ITunesDuration = duration
-			}
-		}()
-		wg.Add(1)
-		go func() {
-			defer wg.Done()
-			if views, err := getVideoViews(ctx, metaStationItem.Link); err != nil {
-				fmt.Printf("Error: %v\n", err)
-				return
-			} else {
-				metaStationItem.Views = views
-			}
-		}()
-		wg.Add(1)
-		go func() {
-			defer wg.Done()
-			if pubDate, err := getVideoPubDate(ctx, metaStationItem.Link); err != nil {
-				fmt.Printf("Error: %v\n", err)
-				return
-			} else {
-				metaStationItem.PubDate = pubDate
-			}
-		}()
-		wg.Add(1)
-		go func() {
-			defer wg.Done()
-			if err := metaStationItem.saveVideoThumbnail(ctx, station.Title, metaStationItem.Link); err != nil {
-				fmt.Printf("Error: %v\n", err)
-				return
-			} else {
-				if share, err := station.uploadItemMediaToDropbox(THUMBNAIL, metaStationItem.ID); err != nil {
-					fmt.Printf("Error: %v\n", err)
-					return
-				} else {
-					fmt.Println(share)
-					metaStationItem.ITunesImage = ITunesImage{
-						Href: share,
-					}
-				}
-			}
-		}()
-		wg.Add(1)
-		go func() {
-			defer wg.Done()
-			if size, err := metaStationItem.saveAudio(ctx, station.Title, metaStationItem.Link); err != nil {
-				fmt.Printf("Error: %v\n", err)
-				return
-			} else {
-				// time.Sleep(5 * time.Second)
-				// if err := embedCover(id); err != nil {
-				// 	fmt.Printf("Error: %v\n", err)
-				// 	return
-				// }
-				if share, err := station.uploadItemMediaToDropbox(AUDIO, metaStationItem.ID); err != nil {
-					fmt.Printf("Error: %v\n", err)
-					return
-				} else {
-					metaStationItem.Enclosure = Enclosure{
-						URL:    share,
-						Type:   "audio/mpeg",
-						Length: size,
-					}
-				}
-			}
-		}()
-		wg.Wait()
-		metaStation.addToStation(metaStationItem)
-		stationItem := getStationItem(metaStationItem)
-		station.addToStation(stationItem)
 	}
 	return station.updateFeed()
+}
+
+func (station *Station) AddVideo(videoUrl string) (string, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
+	defer cancel()
+
+	id, err := getVideoId(ctx, videoUrl)
+	fmt.Printf("id: %v\n", id)
+	if err != nil {
+		return "", err
+	}
+	ids := station.filter([]string{id})
+	if len(ids) == 0 {
+		return "", errors.New("video already exists in the channel")
+	}
+	username, err := getVideoUsername(ctx, videoUrl)
+	if err != nil {
+		return "", err
+	}
+	channelFeedUrl, err := GetChannelFeedUrl(username)
+	if err != nil {
+		return "", err
+	}
+	if _, err := station.addItemToStation(ctx, id, username, channelFeedUrl); err != nil {
+		return "", err
+	}
+	return station.updateFeed()
+}
+
+func (station *Station) addItemToStation(ctx context.Context, id, username, channelFeedUrl string) (StationItem, error) {
+	metaStationItem := MetaStationItem{
+		GUID:           id,
+		ITunesAuthor:   username,
+		ChannelID:      channelFeedUrl,
+		AddedOn:        time.Now(),
+		ITunesExplicit: "no",
+		Link:           "https://www.youtube.com/watch?v=" + id,
+	}
+	var wg sync.WaitGroup
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		if title, err := getVideoTitle(ctx, metaStationItem.Link); err != nil {
+			return
+		} else {
+			metaStationItem.Title = title
+		}
+	}()
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		if description, err := getVideoDescription(ctx, metaStationItem.Link); err != nil {
+			fmt.Printf("Error: %v\n", err)
+			return
+		} else {
+			metaStationItem.Description = description
+			metaStationItem.ITunesSubtitle = description
+		}
+	}()
+	wg.Add(1)
+	go func() {
+		wg.Done()
+		if duration, err := getVideoDuration(ctx, metaStationItem.Link); err != nil {
+			fmt.Printf("Error: %v\n", err)
+			return
+		} else {
+			metaStationItem.ITunesDuration = duration
+		}
+	}()
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		if views, err := getVideoViews(ctx, metaStationItem.Link); err != nil {
+			fmt.Printf("Error: %v\n", err)
+			return
+		} else {
+			metaStationItem.Views = views
+		}
+	}()
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		if pubDate, err := getVideoPubDate(ctx, metaStationItem.Link); err != nil {
+			fmt.Printf("Error: %v\n", err)
+			return
+		} else {
+			metaStationItem.PubDate = pubDate
+		}
+	}()
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		if err := metaStationItem.saveVideoThumbnail(ctx, station.Title, metaStationItem.Link); err != nil {
+			fmt.Printf("Error: %v\n", err)
+			return
+		} else {
+			if share, err := station.uploadItemMediaToDropbox(THUMBNAIL, metaStationItem.GUID); err != nil {
+				fmt.Printf("Error: %v\n", err)
+				return
+			} else {
+				fmt.Println(share)
+				metaStationItem.ITunesImage = ITunesImage{
+					Href: share,
+				}
+			}
+		}
+	}()
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		if size, err := metaStationItem.saveAudio(ctx, station.Title, metaStationItem.Link); err != nil {
+			fmt.Printf("Error: %v\n", err)
+			return
+		} else {
+			if share, err := station.uploadItemMediaToDropbox(AUDIO, metaStationItem.GUID); err != nil {
+				fmt.Printf("Error: %v\n", err)
+				return
+			} else {
+				metaStationItem.Enclosure = Enclosure{
+					URL:    share,
+					Type:   "audio/mpeg",
+					Length: size,
+				}
+			}
+		}
+	}()
+	wg.Wait()
+	metaStation, err := getMetaStation(station.Title)
+	if err != nil {
+		return StationItem{}, err
+	}
+	metaStation.addToStation(metaStationItem)
+	stationItem := getStationItem(metaStationItem)
+	station.addToStation(stationItem)
+	return stationItem, nil
 }
 
 func (station *Station) Print() {
