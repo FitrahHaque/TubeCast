@@ -4,11 +4,12 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"path/filepath"
 	"sync"
 	"time"
 )
 
-func (station *Station) SyncChannel(username string) error {
+func (station *Station) SyncChannel(username string) (string, error) {
 	ChannelFeedUrl, err := GetChannelFeedUrl(username)
 	if err != nil {
 		fmt.Printf("%v\n", err)
@@ -16,14 +17,14 @@ func (station *Station) SyncChannel(username string) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 	defer cancel()
 
-	ids, err := station.getLatestVideos(ctx, ChannelFeedUrl, 3)
+	ids, err := station.getLatestVideos(ctx, ChannelFeedUrl, 2)
 	if err != nil {
-		return err
+		return "", err
 	}
 	fmt.Println("Latest video urls: ", ids)
 	metaStation, err := getMetaStation(station.Title)
 	if err != nil {
-		return err
+		return "", err
 	}
 	for _, id := range ids {
 		var wg sync.WaitGroup
@@ -34,11 +35,12 @@ func (station *Station) SyncChannel(username string) error {
 			ChannelID:      ChannelFeedUrl,
 			AddedOn:        time.Now(),
 			ITunesExplicit: "no",
+			Link:           "https://www.youtube.com/watch?v=" + id,
 		}
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			if title, err := getVideoTitle(ctx, id); err != nil {
+			if title, err := getVideoTitle(ctx, metaStationItem.Link); err != nil {
 				return
 			} else {
 				metaStationItem.Title = title
@@ -47,7 +49,7 @@ func (station *Station) SyncChannel(username string) error {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			if description, err := getVideoDescription(ctx, id); err != nil {
+			if description, err := getVideoDescription(ctx, metaStationItem.Link); err != nil {
 				fmt.Printf("Error: %v\n", err)
 				return
 			} else {
@@ -58,7 +60,7 @@ func (station *Station) SyncChannel(username string) error {
 		wg.Add(1)
 		go func() {
 			wg.Done()
-			if duration, err := getVideoDuration(ctx, id); err != nil {
+			if duration, err := getVideoDuration(ctx, metaStationItem.Link); err != nil {
 				fmt.Printf("Error: %v\n", err)
 				return
 			} else {
@@ -68,7 +70,7 @@ func (station *Station) SyncChannel(username string) error {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			if views, err := getVideoViews(ctx, id); err != nil {
+			if views, err := getVideoViews(ctx, metaStationItem.Link); err != nil {
 				fmt.Printf("Error: %v\n", err)
 				return
 			} else {
@@ -78,7 +80,7 @@ func (station *Station) SyncChannel(username string) error {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			if pubDate, err := getVideoPubDate(ctx, id); err != nil {
+			if pubDate, err := getVideoPubDate(ctx, metaStationItem.Link); err != nil {
 				fmt.Printf("Error: %v\n", err)
 				return
 			} else {
@@ -88,7 +90,7 @@ func (station *Station) SyncChannel(username string) error {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			if err := metaStationItem.saveVideoThumbnail(ctx, id); err != nil {
+			if err := metaStationItem.saveVideoThumbnail(ctx, station.Title, metaStationItem.Link); err != nil {
 				fmt.Printf("Error: %v\n", err)
 				return
 			} else {
@@ -106,7 +108,7 @@ func (station *Station) SyncChannel(username string) error {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			if size, err := metaStationItem.saveAudio(ctx, id); err != nil {
+			if size, err := metaStationItem.saveAudio(ctx, station.Title, metaStationItem.Link); err != nil {
 				fmt.Printf("Error: %v\n", err)
 				return
 			} else {
@@ -139,7 +141,6 @@ func (station *Station) Print() {
 	fmt.Println("------ Station Print ------")
 	fmt.Printf("ID: %v\n", station.ID)
 	fmt.Printf("Name: %v\n", station.Title)
-	fmt.Printf("Url: %v\n", station.Url)
 	fmt.Printf("Description: %v\n", station.Description)
 	fmt.Printf("Language: %v\n", station.Language)
 	fmt.Printf("Copyright: %v\n", station.Copyright)
@@ -181,4 +182,15 @@ func Init() {
 	// for i := range StationNames.set {
 	// 	fmt.Printf("key:|%v|\n", i)
 	// }
+}
+
+func UploadRSS(name string) {
+	localPath := filepath.Join(FEED_BASE, name+".xml")
+	dropboxPath := filepath.Join(DROPBOX_FEED_BASE, name+".xml")
+	if share, err := dropboxUpload(localPath, dropboxPath, false); err != nil {
+		return
+	} else {
+		fmt.Printf("link:\n%v\n", share)
+	}
+
 }

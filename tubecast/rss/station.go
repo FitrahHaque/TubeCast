@@ -16,7 +16,6 @@ func (user *User) CreateStation(name, description string) (Station, error) {
 			ID:               metaStation.ID,
 			Title:            metaStation.Title,
 			Description:      metaStation.Description,
-			Url:              metaStation.Url,
 			Items:            getStationItems(metaStation.Items),
 			Language:         metaStation.Language,
 			Copyright:        metaStation.Copyright,
@@ -76,7 +75,6 @@ func GetStation(name string) (Station, error) {
 		station := Station{
 			ID:               metaStation.ID,
 			Title:            metaStation.Title,
-			Url:              metaStation.Url,
 			Description:      metaStation.Description,
 			Items:            getStationItems(metaStation.Items),
 			Language:         metaStation.Language,

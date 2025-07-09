@@ -46,14 +46,14 @@ func (station *Station) getLatestVideos(ctx context.Context, channelUrl string, 
 	return videoIds, nil
 }
 
-func getVideoTitle(ctx context.Context, videoID string) (string, error) {
+func getVideoTitle(ctx context.Context, link string) (string, error) {
 	out, err := run(
 		ctx,
 		"yt-dlp",
 		"--quiet",
 		"--print",
 		"%(title)s",
-		"https://www.youtube.com/watch?v="+videoID,
+		link,
 	)
 	if err != nil {
 		return "", err
@@ -61,14 +61,14 @@ func getVideoTitle(ctx context.Context, videoID string) (string, error) {
 	return strings.TrimSpace(out), nil
 }
 
-func getVideoDescription(ctx context.Context, videoID string) (string, error) {
+func getVideoDescription(ctx context.Context, link string) (string, error) {
 	out, err := run(
 		ctx,
 		"yt-dlp",
 		"--quiet",
 		"--print",
 		"%(description)s",
-		"https://www.youtube.com/watch?v="+videoID,
+		link,
 	)
 	if err != nil {
 		return "", err
@@ -76,14 +76,14 @@ func getVideoDescription(ctx context.Context, videoID string) (string, error) {
 	return strings.TrimSpace(out), nil
 }
 
-func getVideoDuration(ctx context.Context, videoID string) (string, error) {
+func getVideoDuration(ctx context.Context, link string) (string, error) {
 	out, err := run(
 		ctx,
 		"yt-dlp",
 		"--quiet",
 		"--print",
 		"%(duration_string)s",
-		"https://www.youtube.com/watch?v="+videoID,
+		link,
 	)
 	if err != nil {
 		return "", err
@@ -91,14 +91,14 @@ func getVideoDuration(ctx context.Context, videoID string) (string, error) {
 	return strings.TrimSpace(out), nil
 }
 
-func getVideoViews(ctx context.Context, videoID string) (uint32, error) {
+func getVideoViews(ctx context.Context, link string) (uint32, error) {
 	out, err := run(
 		ctx,
 		"yt-dlp",
 		"--quiet",
 		"--print",
 		"%(view_count)s",
-		"https://www.youtube.com/watch?v="+videoID,
+		link,
 	)
 	if err != nil {
 		return 0, err
@@ -110,14 +110,14 @@ func getVideoViews(ctx context.Context, videoID string) (uint32, error) {
 	return uint32(n), nil
 }
 
-func getVideoPubDate(ctx context.Context, videoID string) (string, error) {
+func getVideoPubDate(ctx context.Context, link string) (string, error) {
 	out, err := run(
 		ctx,
 		"yt-dlp",
 		"--quiet",
 		"--print",
 		"%(upload_date)s",
-		"https://www.youtube.com/watch?v="+videoID,
+		link,
 	)
 	if err != nil {
 		return "", err
@@ -127,7 +127,7 @@ func getVideoPubDate(ctx context.Context, videoID string) (string, error) {
 	return formatDate(out)
 }
 
-func (metaStationItem *MetaStationItem) saveVideoThumbnail(ctx context.Context, videoID string) error {
+func (metaStationItem *MetaStationItem) saveVideoThumbnail(ctx context.Context, stationName string, link string) error {
 	if err := os.MkdirAll(THUMBNAILS_BASE, 0o755); err != nil {
 		return err
 	}
@@ -138,15 +138,15 @@ func (metaStationItem *MetaStationItem) saveVideoThumbnail(ctx context.Context, 
 		"--skip-download",
 		"--write-thumbnail",
 		"-o",
-		THUMBNAILS_BASE+"/"+metaStationItem.ID+".%(ext)s",
-		"https://www.youtube.com/watch?v="+videoID,
+		THUMBNAILS_BASE+"/"+stationName+"/"+metaStationItem.ID+".%(ext)s",
+		link,
 	)
-	ConvertImageToCorrectFormat(THUMBNAILS_BASE, metaStationItem.ID)
+	ConvertImageToCorrectFormat(THUMBNAILS_BASE+"/"+stationName, metaStationItem.ID)
 	return err
 }
 
-func (metaStationItem *MetaStationItem) saveAudio(ctx context.Context, videoID string) (uint64, error) {
-	if err := os.MkdirAll(AUDIO_BASE, 0o755); err != nil {
+func (metaStationItem *MetaStationItem) saveAudio(ctx context.Context, stationName string, link string) (uint64, error) {
+	if err := os.MkdirAll(AUDIO_BASE+"/"+stationName, 0o755); err != nil {
 		return 0, err
 	}
 	_, err := run(ctx,
@@ -158,13 +158,13 @@ func (metaStationItem *MetaStationItem) saveAudio(ctx context.Context, videoID s
 		"--audio-quality",
 		"0",
 		"-o",
-		AUDIO_BASE+"/"+metaStationItem.ID+".%(ext)s",
-		"https://www.youtube.com/watch?v="+videoID,
+		AUDIO_BASE+"/"+stationName+"/"+metaStationItem.ID+".%(ext)s",
+		link,
 	)
 	if err != nil {
 		return 0, err
 	}
-	path := filepath.Join(AUDIO_BASE, metaStationItem.ID+".mp3")
+	path := filepath.Join(AUDIO_BASE, stationName, metaStationItem.ID+".mp3")
 	if info, err := os.Stat(path); err != nil {
 		return 0, err
 	} else {
@@ -180,35 +180,35 @@ func formatDate(uploadDate string) (string, error) {
 	return t.Format("Mon, 02 Jan 2006 15:04:05 GMT"), nil
 }
 
-func listFileNames(token, path string) ([]string, error) {
-	cfg := dropbox.Config{Token: token}
-	dbx := files.New(cfg)
+// func listFileNames(token, path string) ([]string, error) {
+// 	cfg := dropbox.Config{Token: token}
+// 	dbx := files.New(cfg)
 
-	arg := files.NewListFolderArg(path)
-	arg.Recursive = false
-	res, err := dbx.ListFolder(arg)
-	if err != nil {
-		return nil, err
-	}
+// 	arg := files.NewListFolderArg(path)
+// 	arg.Recursive = false
+// 	res, err := dbx.ListFolder(arg)
+// 	if err != nil {
+// 		return nil, err
+// 	}
 
-	var names []string
-	for {
-		for _, e := range res.Entries {
-			if f, ok := e.(*files.FileMetadata); ok {
-				names = append(names, f.Name)
-			}
-		}
-		if !res.HasMore {
-			break
-		}
-		res, err = dbx.ListFolderContinue(
-			&files.ListFolderContinueArg{Cursor: res.Cursor})
-		if err != nil {
-			return nil, err
-		}
-	}
-	return names, nil
-}
+// 	var names []string
+// 	for {
+// 		for _, e := range res.Entries {
+// 			if f, ok := e.(*files.FileMetadata); ok {
+// 				names = append(names, f.Name)
+// 			}
+// 		}
+// 		if !res.HasMore {
+// 			break
+// 		}
+// 		res, err = dbx.ListFolderContinue(
+// 			&files.ListFolderContinueArg{Cursor: res.Cursor})
+// 		if err != nil {
+// 			return nil, err
+// 		}
+// 	}
+// 	return names, nil
+// }
 
 func dirSize(dbx files.Client, path string) (uint64, error) {
 	arg := files.NewListFolderArg(path)
@@ -250,11 +250,11 @@ func (station *Station) uploadItemMediaToDropbox(fileType FileType, id string) (
 	var localPath, dropboxPath string
 	switch fileType {
 	case THUMBNAIL:
-		localPath = filepath.Join(THUMBNAILS_BASE, id+".png")
-		dropboxPath = filepath.Join(DROPBOX_THUMBNAILS_BASE, id+".png")
+		localPath = filepath.Join(THUMBNAILS_BASE, station.Title, id+".png")
+		dropboxPath = filepath.Join(DROPBOX_THUMBNAILS_BASE, station.Title, id+".png")
 	case AUDIO:
-		localPath = filepath.Join(AUDIO_BASE, id+".mp3")
-		dropboxPath = filepath.Join(DROPBOX_AUDIO_BASE, id+".mp3")
+		localPath = filepath.Join(AUDIO_BASE, station.Title, id+".mp3")
+		dropboxPath = filepath.Join(DROPBOX_AUDIO_BASE, station.Title, id+".mp3")
 	}
 
 	if share, err := dropboxUpload(localPath, dropboxPath, true); err != nil {
@@ -300,7 +300,7 @@ func dropboxUpload(localPath, dropboxPath string, deleteLocal bool) (string, err
 	if err != nil {
 		return "", err
 	}
-	fmt.Printf("used: %vMiB\n", used/1024/1024)
+	// fmt.Printf("used: %vMiB\n", used/1024/1024)
 	if used+uint64(stat.Size()) > MaximumCloudStorage {
 		return "", fmt.Errorf("quota exceeded\n")
 	}
@@ -368,22 +368,24 @@ func dropboxUpload(localPath, dropboxPath string, deleteLocal bool) (string, err
 	return shareURL, fmt.Errorf("empty url\n")
 }
 
-func (station *Station) updateFeed() error {
+func (station *Station) updateFeed() (string, error) {
 	if err := station.saveXMLToLocal(); err != nil {
-		return err
+		return "", err
 	}
 	localPath := filepath.Join(FEED_BASE, station.Title+".xml")
 	dropboxPath := filepath.Join(DROPBOX_FEED_BASE, station.Title+".xml")
 	if share, err := dropboxUpload(localPath, dropboxPath, false); err != nil {
-		return err
+		return "", err
 	} else {
 		if metaStation, err := getMetaStation(station.Title); err != nil {
-			return err
+			return "", err
 		} else {
 			metaStation.Url = share
-			station.Url = share
 			fmt.Println("Feed updated")
-			return metaStation.saveMetaStationToLocal()
+			if err = metaStation.saveMetaStationToLocal(); err != nil {
+				return "", err
+			}
+			return share, nil
 		}
 	}
 }

@@ -12,15 +12,17 @@ func main() {
 	rss.Init()
 	// var user rss.User
 	// station, err := user.CreateStation("test", "testing...")
-	station, err := rss.GetStation("test")
+	station, err := rss.GetStation("test-1")
 	if err != nil {
 		fmt.Printf("%v\n", err)
 		return
 	}
 	username := "@ThePrimeTimeagen"
-	if err = station.SyncChannel(username); err != nil {
+	if share, err := station.SyncChannel(username); err != nil {
 		fmt.Printf("%v\n", err)
-		return
+	} else {
+		fmt.Printf("RSSFeed URL:\n%v\n", share)
 	}
+	// rss.UploadRSS("test-1")
 	// station.Print()
 }

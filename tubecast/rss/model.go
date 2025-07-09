@@ -11,7 +11,6 @@ type Station struct {
 	XMLName          xml.Name      `xml:"channel"                json:"channel"`
 	ID               uuid.UUID     `xml:"id"                     json:"id"`
 	Title            string        `xml:"title"                  json:"title"`
-	Url              string        `xml:"url"                    json:"url"`
 	ITunesImage      ITunesImage   `xml:"itunes:image"           json:"itunes_image"`
 	Description      string        `xml:"description"            json:"description"`
 	Items            []StationItem `xml:"item"                   json:"item"`
@@ -43,6 +42,7 @@ type StationItem struct {
 	Enclosure      Enclosure   `xml:"enclosure"                    json:"enclosure"`
 	ITunesImage    ITunesImage `xml:"itunes:image"                 json:"itunes_image"`
 	Description    string      `xml:"description"                  json:"description"`
+	Link           string      `xml:"link"                         json:"link"`
 	PubDate        string      `xml:"pubDate"                      json:"pubDate"`
 	ITunesDuration string      `xml:"itunes:duration"              json:"itunes_duration"`
 	ITunesExplicit string      `xml:"itunes:explicit"              json:"itunes_explicit"`
@@ -98,6 +98,7 @@ type MetaStationItem struct {
 	ITunesImage    ITunesImage `json:"itunes_image"`
 	Enclosure      Enclosure   `json:"enclosure"`
 	ITunesSubtitle string      `json:"itunes_subtitle"`
+	Link           string      `json:"link"`
 	// ITunesEpisode     int       `json:"itunes_episode"`
 	// ITunesSeason      int       `json:"itunes_season"`
 	// ITunesEpisodeType string    `json:"itunes_episode_type"`
