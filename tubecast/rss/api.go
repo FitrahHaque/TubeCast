@@ -41,9 +41,11 @@ func (station *Station) AddVideo(videoUrl string) (string, error) {
 		return "", err
 	}
 	ids := station.filter([]string{id})
+	// fmt.Printf("ids...\n")
 	if len(ids) == 0 {
 		return "", errors.New("video already exists in the channel")
 	}
+	// fmt.Printf("username starting...\n")
 	username, err := getVideoUsername(ctx, videoUrl)
 	if err != nil {
 		return "", err

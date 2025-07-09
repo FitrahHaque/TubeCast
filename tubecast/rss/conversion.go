@@ -28,9 +28,10 @@ func (station *Station) getLatestVideos(ctx context.Context, channelUrl string, 
 		fmt.Sprint(limit),
 		channelUrl,
 	}
-
+	// fmt.Printf("1\n")
 	out, err := run(ctx, "yt-dlp", args...)
 	if err != nil {
+		// fmt.Printf("s2\n")
 		if strings.Contains(err.Error(), "Premieres in") {
 			return nil, nil
 		}
@@ -51,6 +52,7 @@ func getVideoId(ctx context.Context, link string) (string, error) {
 		"id",
 		link,
 	)
+	// fmt.Printf("asas\n")
 	if err != nil {
 		return "", err
 	}
@@ -58,6 +60,7 @@ func getVideoId(ctx context.Context, link string) (string, error) {
 }
 
 func getVideoUsername(ctx context.Context, link string) (string, error) {
+	// fmt.Println("username 1")
 	out, err := run(
 		ctx,
 		"yt-dlp",
@@ -66,6 +69,7 @@ func getVideoUsername(ctx context.Context, link string) (string, error) {
 		"uploader_id",
 		link,
 	)
+	// fmt.Println("username 2")
 	if err != nil {
 		return "", err
 	}
@@ -73,6 +77,7 @@ func getVideoUsername(ctx context.Context, link string) (string, error) {
 }
 
 func getVideoTitle(ctx context.Context, link string) (string, error) {
+	// fmt.Printf("Link:%v\n", link)
 	out, err := run(
 		ctx,
 		"yt-dlp",
@@ -81,6 +86,7 @@ func getVideoTitle(ctx context.Context, link string) (string, error) {
 		"title",
 		link,
 	)
+	// fmt.Printf("Video title\n")
 	if err != nil {
 		return "", err
 	}
