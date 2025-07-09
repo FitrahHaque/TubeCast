@@ -22,7 +22,7 @@ func (metaStation *MetaStation) saveMetaStationToLocal() error {
 	defer f.Close()
 	defer os.Remove(tmp)
 	enc := json.NewEncoder(f)
-	enc.SetIndent("", " ")
+	enc.SetIndent("", "  ")
 	if err := enc.Encode(metaStation); err != nil {
 		return err
 	}

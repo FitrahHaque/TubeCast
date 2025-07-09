@@ -20,7 +20,7 @@ func main() {
 	// username := "@ThePrimeTimeagen"
 	// if share, err := station.SyncChannel(username); err != nil {
 	// https://www.youtube.com/watch?v=xTgO6PpMnhk
-	if share, err := station.AddVideo("https://youtu.be/-_6dHIPVoTM?si=EbiR3clivQKvUmY2"); err != nil {
+	if share, err := station.AddVideo("https://youtu.be/hwG89HH0VcM?si=Rz-ufpJD6MpVIewV"); err != nil {
 		fmt.Printf("%v\n", err)
 	} else {
 		fmt.Printf("RSSFeed URL:\n%v\n", share)

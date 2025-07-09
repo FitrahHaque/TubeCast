@@ -5,6 +5,8 @@ import (
 	"path/filepath"
 	"time"
 
+	"github.com/dropbox/dropbox-sdk-go-unofficial/v6/dropbox"
+	"github.com/dropbox/dropbox-sdk-go-unofficial/v6/dropbox/files"
 	"github.com/google/uuid"
 )
 
@@ -224,4 +226,66 @@ func (station *Station) filter(ids []string) []string {
 		}
 	}
 	return videoIds
+}
+
+func (station *Station) makeSpace(sizeInBytes uint64) bool {
+	accessToken, err := TOKEN_MANAGER.GetValidAccessToken()
+	if err != nil {
+		return false
+	}
+	cfg := dropbox.Config{Token: accessToken}
+	dbx := files.New(cfg)
+	metaStation, err := getMetaStation(station.Title)
+	if err != nil {
+		return false
+	}
+	for {
+		used, err := dirSize(dbx, DROPBOX_AUDIO_BASE)
+		if err != nil {
+			return false
+		}
+		fmt.Println(used+sizeInBytes, MaximumCloudStorage)
+		if used+sizeInBytes < MaximumCloudStorage {
+			// return "", fmt.Errorf("quota exceeded\n")
+			station.updateFeed()
+			return true
+		} else if !station.removeOldestItem(accessToken, &metaStation) {
+			return false
+		}
+	}
+}
+
+func (station *Station) removeOldestItem(accessToken string, metaStation *MetaStation) bool {
+	fmt.Printf("came here 1\n")
+	if len(station.Items) == 0 {
+		return false
+	}
+	fmt.Printf("came here 2\n")
+	oldest := metaStation.Items[0].AddedOn
+	oldestIndex := 0
+	for i, item := range metaStation.Items {
+		if item.AddedOn.Before(oldest) {
+			oldest = item.AddedOn
+			oldestIndex = i
+		}
+	}
+	id := metaStation.Items[oldestIndex].GUID
+	audioPath := filepath.Join(AUDIO_BASE, station.Title, id+".mp3")
+	thumbnailPath := filepath.Join(THUMBNAILS_BASE, station.Title, id+".png")
+	if err := deleteDropboxFile(accessToken, audioPath); err != nil {
+		fmt.Printf("error-1: %v\n", err)
+		return false
+	}
+	if err := deleteDropboxFile(accessToken, thumbnailPath); err != nil {
+		fmt.Printf("error-2: %v\n", err)
+		return false
+	}
+	metaStation.Items = append(metaStation.Items[:oldestIndex], metaStation.Items[oldestIndex+1:]...)
+	if station.Items[oldestIndex].GUID == metaStation.Items[oldestIndex].GUID {
+		station.Items = append(station.Items[:oldestIndex], station.Items[oldestIndex+1:]...)
+	} else {
+		fmt.Println("not in order with meta")
+	}
+	fmt.Printf("file deleted with id %v\n", id)
+	return true
 }

@@ -124,16 +124,6 @@ func (station *Station) addItemToStation(ctx context.Context, id, username, chan
 		if err := metaStationItem.saveVideoThumbnail(ctx, station.Title, metaStationItem.Link); err != nil {
 			fmt.Printf("Error: %v\n", err)
 			return
-		} else {
-			if share, err := station.uploadItemMediaToDropbox(THUMBNAIL, metaStationItem.GUID); err != nil {
-				fmt.Printf("Error: %v\n", err)
-				return
-			} else {
-				fmt.Println(share)
-				metaStationItem.ITunesImage = ITunesImage{
-					Href: share,
-				}
-			}
 		}
 	}()
 	wg.Add(1)
@@ -143,6 +133,7 @@ func (station *Station) addItemToStation(ctx context.Context, id, username, chan
 			fmt.Printf("Error: %v\n", err)
 			return
 		} else {
+			station.makeSpace(size)
 			if share, err := station.uploadItemMediaToDropbox(AUDIO, metaStationItem.GUID); err != nil {
 				fmt.Printf("Error: %v\n", err)
 				return
@@ -152,10 +143,22 @@ func (station *Station) addItemToStation(ctx context.Context, id, username, chan
 					Type:   "audio/mpeg",
 					Length: size,
 				}
+				if share, err := station.uploadItemMediaToDropbox(THUMBNAIL, metaStationItem.GUID); err != nil {
+					fmt.Printf("Error: %v\n", err)
+					return
+				} else {
+					fmt.Println(share)
+					metaStationItem.ITunesImage = ITunesImage{
+						Href: share,
+					}
+				}
 			}
 		}
 	}()
 	wg.Wait()
+	if len(metaStationItem.Enclosure.URL) == 0 {
+		return StationItem{}, errors.New("could not upload audio")
+	}
 	metaStation, err := getMetaStation(station.Title)
 	if err != nil {
 		return StationItem{}, err

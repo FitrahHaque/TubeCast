@@ -318,19 +318,7 @@ func dropboxUpload(localPath, dropboxPath string, deleteLocal bool) (string, err
 
 	cfg := dropbox.Config{Token: accessToken}
 	dbx := files.New(cfg)
-
-	used, err := dirSize(dbx, DROPBOX_AUDIO_BASE)
-	if err != nil {
-		return "", err
-	}
-	stat, err := f.Stat()
-	if err != nil {
-		return "", err
-	}
 	// fmt.Printf("used: %vMiB\n", used/1024/1024)
-	if used+uint64(stat.Size()) > MaximumCloudStorage {
-		return "", fmt.Errorf("quota exceeded\n")
-	}
 
 	fmt.Printf("uploading %v\n", dropboxPath)
 	uploadArg := files.NewUploadArg(dropboxPath)
@@ -396,6 +384,11 @@ func dropboxUpload(localPath, dropboxPath string, deleteLocal bool) (string, err
 }
 
 func (station *Station) updateFeed() (string, error) {
+	metaStation, err := getMetaStation(station.Title)
+	if err != nil {
+		return "", err
+	}
+	metaStation.saveMetaStationToLocal()
 	return station.saveXMLToLocal()
 }
 
@@ -483,4 +476,19 @@ func (tm *TokenManager) GetValidAccessToken() (string, error) {
 		}
 	}
 	return tm.AccessToken, nil
+}
+
+func deleteDropboxFile(accessToken, dropboxPath string) error {
+	cfg := dropbox.Config{Token: accessToken}
+	dbx := files.New(cfg)
+
+	arg := &files.DeleteArg{Path: dropboxPath}
+
+	_, err := dbx.DeleteV2(arg)
+	if err != nil {
+		return fmt.Errorf("failed to delete %q: %w", dropboxPath, err)
+	}
+
+	fmt.Printf("Deleted file at %s\n", dropboxPath)
+	return nil
 }
