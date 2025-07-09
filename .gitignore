@@ -4,5 +4,4 @@ tubecast/audio/
 tubecast/thumbnails/
 tubecast/stations/
 tubecast/cover/
-# tubecast/feed/
 *.txt

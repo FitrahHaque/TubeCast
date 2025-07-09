@@ -26,7 +26,6 @@ var FEED_BASE string = "docs/feed"
 var COVER_BASE string = "tubecast/cover"
 var DROPBOX_AUDIO_BASE string = "/PodcastAudio"
 var DROPBOX_THUMBNAILS_BASE string = "/PodcastThumbnails"
-var DROPBOX_FEED_BASE string = "/PodcastRSSFeed"
 var DROPBOX_COVER_BASE string = "/PodcastCover"
 var MaximumCloudStorage uint64 = 2 * 1024 * 1024 * 1024
 var TOKEN_MANAGER *TokenManager

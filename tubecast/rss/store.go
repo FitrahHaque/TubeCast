@@ -48,16 +48,16 @@ func loadMetaStationFromLocal(path string) (MetaStation, error) {
 }
 
 // Atomatically save Station data locally
-func (station *Station) saveXMLToLocal() error {
+func (station *Station) saveXMLToLocal() (string, error) {
 	if err := os.MkdirAll(FEED_BASE, 0o755); err != nil {
-		return err
+		return "", err
 	}
 	path := filepath.Join(FEED_BASE, station.Title+".xml")
 	tmp := path + ".tmp"
 
 	f, err := os.Create(tmp)
 	if err != nil {
-		return err
+		return "", err
 	}
 
 	defer f.Close()
@@ -69,10 +69,13 @@ func (station *Station) saveXMLToLocal() error {
 	f.WriteString("<rss xmlns:itunes=\"http://www.itunes.com/dtds/podcast-1.0.dtd\" xmlns:podcast=\"https://podcastindex.org/namespace/1.0\" version=\"2.0\">\n  ")
 	// f.WriteString("<rss xmlns:itunes=\"http://www.itunes.com/dtds/podcast-1.0.dtd\" version=\"2.0\">")
 	if err := enc.Encode(station); err != nil {
-		return err
+		return "", err
 	}
 	f.WriteString("\n</rss>")
-	return os.Rename(tmp, path)
+	if err = os.Rename(tmp, path); err != nil {
+		return "", err
+	}
+	return path, nil
 }
 
 // Loads Station data from the local

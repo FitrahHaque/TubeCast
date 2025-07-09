@@ -369,25 +369,7 @@ func dropboxUpload(localPath, dropboxPath string, deleteLocal bool) (string, err
 }
 
 func (station *Station) updateFeed() (string, error) {
-	if err := station.saveXMLToLocal(); err != nil {
-		return "", err
-	}
-	localPath := filepath.Join(FEED_BASE, station.Title+".xml")
-	dropboxPath := filepath.Join(DROPBOX_FEED_BASE, station.Title+".xml")
-	if share, err := dropboxUpload(localPath, dropboxPath, false); err != nil {
-		return "", err
-	} else {
-		if metaStation, err := getMetaStation(station.Title); err != nil {
-			return "", err
-		} else {
-			metaStation.Url = share
-			fmt.Println("Feed updated")
-			if err = metaStation.saveMetaStationToLocal(); err != nil {
-				return "", err
-			}
-			return share, nil
-		}
-	}
+	return station.saveXMLToLocal()
 }
 
 func GetChannelFeedUrl(username string) (string, error) {
