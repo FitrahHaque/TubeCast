@@ -19,7 +19,7 @@ func (station *Station) SyncChannel(username string) (string, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 	defer cancel()
 
-	ids, err := station.getLatestVideos(ctx, channelFeedUrl, 1)
+	ids, err := station.getLatestVideos(ctx, channelFeedUrl, 2)
 	if err != nil {
 		return "", err
 	}

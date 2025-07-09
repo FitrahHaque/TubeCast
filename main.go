@@ -17,11 +17,10 @@ func main() {
 		fmt.Printf("%v\n", err)
 		return
 	}
-	fmt.Printf("Eg\n")
-	// username := "@ThePrimeTimeagen"
-	// if share, err := station.SyncChannel(username); err != nil {
-	// https://www.youtube.com/watch?v=xTgO6PpMnhk
-	if share, err := station.AddVideo("https://youtu.be/M9UWgw_aW28?si=0gmIvShVf2_xsEg6"); err != nil {
+	username := "@ThePrimeTimeagen"
+	if share, err := station.SyncChannel(username); err != nil {
+		// https://www.youtube.com/watch?v=xTgO6PpMnhk
+		// if share, err := station.AddVideo("https://youtu.be/M9UWgw_aW28?si=0gmIvShVf2_xsEg6"); err != nil {
 
 		fmt.Printf("%v\n", err)
 	} else {
