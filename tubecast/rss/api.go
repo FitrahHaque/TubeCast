@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"path/filepath"
 	"sync"
 	"time"
 )
@@ -19,7 +18,7 @@ func (station *Station) SyncChannel(username string) (string, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 	defer cancel()
 
-	ids, err := station.getLatestVideos(ctx, channelFeedUrl, 2)
+	ids, err := station.getLatestVideos(ctx, channelFeedUrl, 1)
 	if err != nil {
 		return "", err
 	}
@@ -131,19 +130,12 @@ func (station *Station) addItemToStation(ctx context.Context, id, username, chan
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		if size, err := metaStationItem.saveAudio(ctx, station.Title, metaStationItem.Link); err != nil {
+		if size, err := metaStationItem.saveAudio(ctx, station.Title, metaStationItem.Link, 0); err != nil {
 			fmt.Printf("Error: %v\n", err)
 			return
 		} else {
-			if ok := station.makeSpace(size); !ok {
-				audioPath := filepath.Join(AUDIO_BASE, station.Title, metaStationItem.GUID+".mp3")
-				thumbnailPath := filepath.Join(THUMBNAILS_BASE, station.Title, metaStationItem.GUID+".png")
-				os.Remove(audioPath)
-				os.Remove(thumbnailPath)
-				return
-			}
-			if share, err := station.uploadItemMediaToDropbox(AUDIO, metaStationItem.GUID); err != nil {
-				fmt.Printf("Error: %v\n", err)
+			station.makeSpace(ctx, size)
+			if share, err := Megh.upload(ctx, metaStationItem.GUID, station.Title, AUDIO); err != nil {
 				return
 			} else {
 				metaStationItem.Enclosure = Enclosure{
@@ -151,15 +143,14 @@ func (station *Station) addItemToStation(ctx context.Context, id, username, chan
 					Type:   "audio/mpeg",
 					Length: size,
 				}
-				if share, err := station.uploadItemMediaToDropbox(THUMBNAIL, metaStationItem.GUID); err != nil {
-					fmt.Printf("Error: %v\n", err)
+				if share, err := Megh.upload(ctx, metaStationItem.GUID, station.Title, THUMBNAIL); err != nil {
 					return
 				} else {
-					fmt.Println(share)
 					metaStationItem.ITunesImage = ITunesImage{
 						Href: share,
 					}
 				}
+
 			}
 		}
 	}()
@@ -212,14 +203,16 @@ func (stationItem *StationItem) Print() {
 	fmt.Println("----------------- ---------------------")
 }
 
-func Init() {
-	TOKEN_MANAGER = NewTokenManager(
-		os.Getenv("DROPBOX_APP_KEY"),
-		os.Getenv("DROPBOX_APP_SECRET"),
-		os.Getenv("DROPBOX_REFRESH_TOKEN"),
-	)
+func Init() User {
+	var user User
+	user.Username = os.Getenv("USERNAME")
+
+	Megh = Cloud{
+		ArchiveId:      user.getArchiveIdentifier(),
+		FeedUrlPrefix:  user.getFeedUrlPrefix(),
+		MaximumStorage: 2 * 1024 * 1024 * 1024, //2 GiB
+	}
+	Megh.ArchiveUrlPrefix = fmt.Sprintf("https://archive.org/download/%s/", Megh.ArchiveId)
 	loadAllMetaStationNames()
-	// for i := range StationNames.set {
-	// 	fmt.Printf("key:|%v|\n", i)
-	// }
+	return user
 }

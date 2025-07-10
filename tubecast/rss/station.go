@@ -1,12 +1,11 @@
 package rss
 
 import (
+	"context"
 	"fmt"
-	"path/filepath"
+	"os"
 	"time"
 
-	"github.com/dropbox/dropbox-sdk-go-unofficial/v6/dropbox"
-	"github.com/dropbox/dropbox-sdk-go-unofficial/v6/dropbox/files"
 	"github.com/google/uuid"
 )
 
@@ -32,34 +31,6 @@ func (user *User) CreateStation(name, description string) (Station, error) {
 		return station, nil
 	}
 }
-
-// func (station *Station) AddToStation(
-// 	title string,
-// 	description string,
-// 	link string,
-// 	uploadedOn string,
-// 	views uint32,
-// 	author string,
-// 	length uint64,
-// ) error {
-// 	metaStation, err := getMetaStation(station.Name)
-// 	if err != nil {
-// 		return err
-// 	}
-
-// 	metaItem := metaStation.addToStation(
-// 		title,
-// 		description,
-// 		link,
-// 		author,
-// 		uploadedOn,
-// 		views,
-// 		length,
-// 	)
-// 	item := getStationItem(metaItem)
-// 	station.Items = append(station.Items, item)
-// 	return nil
-// }
 
 func (station *Station) addToStation(stationItem StationItem) {
 	station.Items = append(station.Items, stationItem)
@@ -92,26 +63,27 @@ func GetStation(name string) (Station, error) {
 	}
 }
 
-func (user *User) createMetaStation(name string, description string) (MetaStation, error) {
-	if StationNames.Has(name) {
-		return MetaStation{}, fmt.Errorf("there already exists a station named `%s`. Try again with a different name.\n", name)
+func (user *User) createMetaStation(title string, description string) (MetaStation, error) {
+	if StationNames.Has(title) {
+		return MetaStation{}, fmt.Errorf("there already exists a station named `%s`. Try again with a different name.\n", title)
 	}
-	coverImage, err := getCoverImage(name)
-	if err != nil {
-		return MetaStation{}, err
-	}
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
+	defer cancel()
+	coverImage, _ := Megh.upload(ctx, "", title, COVER)
 	metaStation := MetaStation{
 		ID:             uuid.New(),
-		Title:          name,
+		Title:          title,
 		Description:    description,
 		ChannelCount:   0,
 		CreatedOn:      time.Now(),
 		Language:       "English",
-		Copyright:      user.YouTubeID,
+		Copyright:      user.Username,
 		ITunesAuthor:   user.Name,
 		ITunesSubtitle: "",
 		ITunesSummary:  description,
-		ITunesImage:    coverImage,
+		ITunesImage: ITunesImage{
+			Href: coverImage,
+		},
 		ITunesExplicit: "no",
 		ITunesCategories: []Category{
 			{
@@ -120,10 +92,10 @@ func (user *User) createMetaStation(name string, description string) (MetaStatio
 		},
 		Owner: ITunesOwner{
 			Name:  user.Name,
-			Email: user.AppleID,
+			Email: user.EmailId,
 		},
 	}
-	StationNames.Add(name)
+	StationNames.Add(title)
 	return metaStation, metaStation.saveMetaStationToLocal()
 }
 
@@ -155,45 +127,12 @@ func getStationItem(metaItem MetaStationItem) StationItem {
 	}
 }
 
-func getMetaStation(name string) (MetaStation, error) {
-	if !StationNames.Has(name) {
-		return MetaStation{}, fmt.Errorf("station `%s` does not exist\n", name)
+func getMetaStation(title string) (MetaStation, error) {
+	if !StationNames.Has(title) {
+		return MetaStation{}, fmt.Errorf("station `%s` does not exist\n", title)
 	}
-	return loadMetaStationFromLocal(filepath.Join(STATION_BASE, name+".json"))
+	return loadMetaStationFromLocal(Megh.getLocalStationFilepath(title))
 }
-
-// func (station *MetaStation) addToStation(
-//
-//	title,
-//	description,
-//	link,
-//	author string,
-//	uploadedOn string,
-//	views uint32,
-//	length uint64,
-//
-//	) MetaStationItem {
-//		id := uuid.New()
-//		item := MetaStationItem{
-//			ID:          id,
-//			Title:       title,
-//			Description: description,
-//			Author:      author,
-//			Views:       views,
-//			AddedOn:     time.Now(),
-//			Enclosure: Enclosure{
-//				URL:    link,
-//				Length: length,
-//				Type:   "audio/mpeg",
-//			},
-//			GUID:           "",
-//			PubDate:        uploadedOn,
-//			ITunesDuration: fmt.Sprint(length),
-//			ITunesExplicit: "no",
-//		}
-//		station.Items = append(station.Items, item)
-//		return item
-//	}
 
 func (metaStation *MetaStation) addToStation(stationItem MetaStationItem) {
 	metaStation.Items = append(metaStation.Items, stationItem)
@@ -228,33 +167,27 @@ func (station *Station) filter(ids []string) []string {
 	return videoIds
 }
 
-func (station *Station) makeSpace(sizeInBytes uint64) bool {
-	accessToken, err := TOKEN_MANAGER.GetValidAccessToken()
-	if err != nil {
-		return false
-	}
-	cfg := dropbox.Config{Token: accessToken}
-	dbx := files.New(cfg)
+func (station *Station) makeSpace(ctx context.Context, size uint64) bool {
 	metaStation, err := getMetaStation(station.Title)
 	if err != nil {
 		return false
 	}
 	for {
-		used, err := dirSize(dbx, DROPBOX_AUDIO_BASE)
+		usage, err := Megh.getUsage(ctx)
 		if err != nil {
 			return false
 		}
-		fmt.Println(used+sizeInBytes, MaximumCloudStorage)
-		if used+sizeInBytes < MaximumCloudStorage {
+		// fmt.Println(used+sizeInBytes, MaximumStorage)
+		if usage.TotalSizeBytes+size < Megh.MaximumStorage {
 			// return "", fmt.Errorf("quota exceeded\n")
 			return true
-		} else if !station.removeOldestItem(accessToken, &metaStation) {
+		} else if !station.removeOldestItem(&metaStation) {
 			return false
 		}
 	}
 }
 
-func (station *Station) removeOldestItem(accessToken string, metaStation *MetaStation) bool {
+func (station *Station) removeOldestItem(metaStation *MetaStation) bool {
 	if len(station.Items) == 0 {
 		return false
 	}
@@ -267,13 +200,13 @@ func (station *Station) removeOldestItem(accessToken string, metaStation *MetaSt
 		}
 	}
 	id := metaStation.Items[oldestIndex].GUID
-	audioPath := filepath.Join(DROPBOX_AUDIO_BASE, station.Title, id+".mp3")
-	thumbnailPath := filepath.Join(DROPBOX_THUMBNAILS_BASE, station.Title, id+".png")
-	if err := deleteDropboxFile(accessToken, audioPath); err != nil {
+	audioPath := Megh.getLocalAudioFilepath(id, station.Title)
+	thumbnailPath := Megh.getLocalThumbnailFilepath(id, station.Title)
+	if err := os.Remove(audioPath); err != nil {
 		fmt.Printf("error-1: %v\n", err)
 		return false
 	}
-	if err := deleteDropboxFile(accessToken, thumbnailPath); err != nil {
+	if err := os.Remove(thumbnailPath); err != nil {
 		fmt.Printf("error-2: %v\n", err)
 		return false
 	}

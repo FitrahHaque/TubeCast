@@ -1,42 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:podcast="https://podcastindex.org/namespace/1.0" version="2.0">
   <channel>
-  <id>3a4f7007-2d12-4ea5-8ea6-ab00d7b54f14</id>
+  <id>bab9ffdb-f1a2-4376-868a-cdbb7a4889b9</id>
   <title>test-1</title>
-  <itunes:image href="https://ucf7ff96b698812f0da9ae122d97.dl.dropboxusercontent.com/cd/0/inline/CtITkGZy8HFIKsRsv9wJ8bObQmcqmepQKB_5-Rf8J3YoISEpSlBvRoK4LcnScZyDMWm_krzZ4VTgvlZp6rSAprkiiyZfotNg3hv78WXOIbXAH5lXsAl5_OYeAovKcGP5m6lNOii_6BMDqnml0-gTLEwd/file"></itunes:image>
+  <itunes:image href=""></itunes:image>
   <description>name:name</description>
   <item>
-    <guid>M9UWgw_aW28</guid>
-    <title>Why is the Rust Compiler So SLOW?</title>
-    <enclosure url="https://uca44798525ae6b2f65c27e9708f.dl.dropboxusercontent.com/cd/0/inline/CtJ3YRxMeowh14SZK5eoGbu6nFd-FPLHYv_Y1Xfk-Rwbt_ulI2JGMwR-XUF6Q0lt2AizEN91rQq3GKVnNifnwHnDFH78Ib5jxcudcaswlIRXNXRhPxtp169wTnal0CKuAlxo4MD18WQ8Yekx5xTe9mh7/file" length="90744188" type="audio/mpeg"></enclosure>
-    <itunes:image href="https://ucfc2ba9abbd0fd7bfc8c9791081.dl.dropboxusercontent.com/cd/0/inline/CtL7z-OrJra2HLppl2ni9a1hWVi1DEPg4w9ii1-2RZZSjKmgR8X3IRoVvzExQ16ZF-xIrlSmHXKMqOKmuWZGeI3T8V8STHlOx0K4mOLTgRDYxam_u1qmFRMPzw1xsC_a82MM4_g8XWI3X0UYvSX20wMr/file"></itunes:image>
-    <description>Twitch https://twitch.tv/ThePrimeagen&#xA;Discord https://discord.gg/ThePrimeagen&#xA;&#xA;Become Backend Dev: https://boot.dev/prime&#xA;(plus i make courses for them)&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;### LINKS &#xA; -- https://sharnoff.io/blog/why-rust-compiler-slow&#xA;By: Em Sharnoff&#xA;&#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis</description>
-    <link>https://www.youtube.com/watch?v=M9UWgw_aW28</link>
-    <pubDate>Wed, 09 Jul 2025 00:00:00 GMT</pubDate>
-    <itunes:duration>57:07</itunes:duration>
+    <guid>hEIBsqP63Pg</guid>
+    <title>Did Zig Fix Async / Await?</title>
+    <enclosure url="https://ia600909.us.archive.org/35/items/fitrahhaque_tubecast/audio_test-1_hEIBsqP63Pg.mp3" length="49197116" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://ia800909.us.archive.org/35/items/fitrahhaque_tubecast/thumbnail_test-1_hEIBsqP63Pg.png"></itunes:image>
+    <description>Twitch https://twitch.tv/ThePrimeagen&#xA;Discord https://discord.gg/ThePrimeagen&#xA;&#xA;Become Backend Dev: https://boot.dev/prime&#xA;(plus i make courses for them)&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;### LINKS &#xA;https://www.youtube.com/watch?v=x3hOiOcbgeA&#xA;&#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis</description>
+    <link>https://www.youtube.com/watch?v=hEIBsqP63Pg</link>
+    <pubDate>Thu, 10 Jul 2025 00:00:00 GMT</pubDate>
+    <itunes:duration>34:37</itunes:duration>
     <itunes:explicit>no</itunes:explicit>
     <itunes:author>@ThePrimeTimeagen</itunes:author>
-    <itunes:subtitle>Twitch https://twitch.tv/ThePrimeagen&#xA;Discord https://discord.gg/ThePrimeagen&#xA;&#xA;Become Backend Dev: https://boot.dev/prime&#xA;(plus i make courses for them)&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;### LINKS &#xA; -- https://sharnoff.io/blog/why-rust-compiler-slow&#xA;By: Em Sharnoff&#xA;&#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis</itunes:subtitle>
-    <itunes:summary></itunes:summary>
-  </item>
-  <item>
-    <guid>dh6BCSzaF6g</guid>
-    <title>WTF Typescript</title>
-    <enclosure url="https://ucc7954e8c5d46ea5c7175a14224.dl.dropboxusercontent.com/cd/0/inline/CtIyuubXZXGznJK1XXT4BBld6Bad1Ybq-wO8W5XiKPPK3YK5ny15zVrGvoPXSnqht4-ddaI-VNcGtq9JSGQPzyyd303peKG5IKG8188oE3QNDTmny6HoJ2nI19SyX8vWyUPpA6wO4iWmjEWptPAZ6THB/file" length="106722548" type="audio/mpeg"></enclosure>
-    <itunes:image href="https://uccedc240a49c19d15696070d79f.dl.dropboxusercontent.com/cd/0/inline/CtK9MlRXtBLSh-V2smXMReGyy85Y30envMMlyXPQE4bEAhx58kMk8MXGnCaTJ1TBTnReaqpTD4r6YrRHVvtJyWNiUUgypY9v3MJXowF3In6ckQmAb-UWAqfFmSQiyzN6nQ3wsWn8Qr3rUgp1BEcVJNbe/file"></itunes:image>
-    <description>🔗 Sponsored by Sentry https://sentry.io | Code breaks, fix it faster&#xA;&#xA;📌 Chapters:&#xA;&#xA;00:00:00 - Intro&#xA;00:00:42 - Who’s actually a “web developer”?&#xA;00:02:31 - Trash’s live intro &amp; TypeScript presentation setup&#xA;00:03:59 - Sentry #ad&#xA;00:04:38 - Excess property checks in TS&#xA;00:09:42 - WTF: Object spreads silence type errors&#xA;00:14:30 - React prop spreading madness&#xA;00:18:22 - Structural vs duck typing debate&#xA;00:24:00 - WTF: Enums and why everyone hates them&#xA;00:27:45 - Enum strings vs numbers behavior&#xA;00:33:10 - Why enums in Node are cursed&#xA;00:36:55 - Safer enum alternatives using const objects&#xA;00:43:10 - TS quirks: Boolean filter keeps undefined in types&#xA;00:46:40 - TSReset: The “CSS reset” for TypeScript&#xA;00:49:01 - WTF: Empty object {} lets everything through&#xA;00:52:32 - Doom rendered in TypeScript type system&#xA;00:54:00 - Type-level math in TS (it’s real)&#xA;00:56:33 - Scaling hell: TS performance bottlenecks&#xA;01:00:01 - Flamegraphs and fighting TS perf without docs&#xA;01:04:55 - TS inference vs explicit typing in large codebases&#xA;01:09:30 - Prime’s favorite TS bug strikes again&#xA;01:14:01 - Casey breaks down the compiler logic&#xA;01:17:50 - Is this a TypeScript bug or a feature?&#xA;01:22:44 - Final thoughts and community love&#xA;&#xA;---&#xA;&#xA;**Topics Covered:**&#xA;&#xA; • TypeScript excess property checks&#xA; • Enums vs object literals&#xA; • Structural vs duck typing&#xA; • TS compiler edge cases&#xA; • WTFs that break your mental model&#xA; • Type-level math&#xA; • Performance debugging hell&#xA; • Massive monorepo pain points&#xA; • The one TypeScript bug Prime can’t let go</description>
-    <link>https://www.youtube.com/watch?v=dh6BCSzaF6g</link>
-    <pubDate>Tue, 08 Jul 2025 00:00:00 GMT</pubDate>
-    <itunes:duration>1:25:06</itunes:duration>
-    <itunes:explicit>no</itunes:explicit>
-    <itunes:author>@ThePrimeTimeagen</itunes:author>
-    <itunes:subtitle>🔗 Sponsored by Sentry https://sentry.io | Code breaks, fix it faster&#xA;&#xA;📌 Chapters:&#xA;&#xA;00:00:00 - Intro&#xA;00:00:42 - Who’s actually a “web developer”?&#xA;00:02:31 - Trash’s live intro &amp; TypeScript presentation setup&#xA;00:03:59 - Sentry #ad&#xA;00:04:38 - Excess property checks in TS&#xA;00:09:42 - WTF: Object spreads silence type errors&#xA;00:14:30 - React prop spreading madness&#xA;00:18:22 - Structural vs duck typing debate&#xA;00:24:00 - WTF: Enums and why everyone hates them&#xA;00:27:45 - Enum strings vs numbers behavior&#xA;00:33:10 - Why enums in Node are cursed&#xA;00:36:55 - Safer enum alternatives using const objects&#xA;00:43:10 - TS quirks: Boolean filter keeps undefined in types&#xA;00:46:40 - TSReset: The “CSS reset” for TypeScript&#xA;00:49:01 - WTF: Empty object {} lets everything through&#xA;00:52:32 - Doom rendered in TypeScript type system&#xA;00:54:00 - Type-level math in TS (it’s real)&#xA;00:56:33 - Scaling hell: TS performance bottlenecks&#xA;01:00:01 - Flamegraphs and fighting TS perf without docs&#xA;01:04:55 - TS inference vs explicit typing in large codebases&#xA;01:09:30 - Prime’s favorite TS bug strikes again&#xA;01:14:01 - Casey breaks down the compiler logic&#xA;01:17:50 - Is this a TypeScript bug or a feature?&#xA;01:22:44 - Final thoughts and community love&#xA;&#xA;---&#xA;&#xA;**Topics Covered:**&#xA;&#xA; • TypeScript excess property checks&#xA; • Enums vs object literals&#xA; • Structural vs duck typing&#xA; • TS compiler edge cases&#xA; • WTFs that break your mental model&#xA; • Type-level math&#xA; • Performance debugging hell&#xA; • Massive monorepo pain points&#xA; • The one TypeScript bug Prime can’t let go</itunes:subtitle>
+    <itunes:subtitle>Twitch https://twitch.tv/ThePrimeagen&#xA;Discord https://discord.gg/ThePrimeagen&#xA;&#xA;Become Backend Dev: https://boot.dev/prime&#xA;(plus i make courses for them)&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;### LINKS &#xA;https://www.youtube.com/watch?v=x3hOiOcbgeA&#xA;&#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis</itunes:subtitle>
     <itunes:summary></itunes:summary>
   </item>
   <language>English</language>
   <copyright></copyright>
   <itunes:author></itunes:author>
-  <itunes:subtitle>name:name</itunes:subtitle>
+  <itunes:subtitle></itunes:subtitle>
   <itunes:summary>name:name</itunes:summary>
   <itunes:explicit>no</itunes:explicit>
   <itunes:category text="Technology"></itunes:category>

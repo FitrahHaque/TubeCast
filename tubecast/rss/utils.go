@@ -18,17 +18,17 @@ import (
 )
 
 // Global Variables
-var STATION_BASE string = "tubecast/stations"
+var ARCHIVE_IDENTIFIER string //set it at start-up
+// var SHAREABLE_FEED_PREFIX = "https://fitrahhaque.github.io/TubeCast"
+var SHAREABLE_FEED_PREFIX string
+var STATION_BASE string = "tubecast/station"
 var StationNames *Set[string]
-var THUMBNAILS_BASE string = "tubecast/thumbnails"
-var AUDIO_BASE string = "tubecast/audio"
-var FEED_BASE string = "docs/feed"
-var COVER_BASE string = "tubecast/cover"
-var DROPBOX_AUDIO_BASE string = "/PodcastAudio"
-var DROPBOX_THUMBNAILS_BASE string = "/PodcastThumbnails"
-var DROPBOX_COVER_BASE string = "/PodcastCover"
-var MaximumCloudStorage uint64 = 2 * 1024 * 1024 * 1024
-var TOKEN_MANAGER *TokenManager
+var FEED_BASE string = "./docs/feed"
+var AUDIO_BASE string = "./tubecast/audio"
+var COVER_BASE string = "./tubecast/cover"
+var THUMBNAIL_BASE string = "./tubecast/thumbnail"
+var MaximumStorage uint64 = 2 * 1024 * 1024 * 1024 // 2GB
+var Megh Cloud
 
 type FileType int
 
@@ -169,7 +169,6 @@ func processForPodcast(img image.Image) image.Image {
 	width := bounds.Dx()
 	height := bounds.Dy()
 
-	// Make the image square by cropping to the smaller dimension
 	var size int
 	if width < height {
 		size = width
@@ -177,7 +176,6 @@ func processForPodcast(img image.Image) image.Image {
 		size = height
 	}
 
-	// Create a square crop from the center
 	squareImg := cropCenter(img, size, size)
 
 	// Resize to appropriate size for podcasts
@@ -190,7 +188,6 @@ func processForPodcast(img image.Image) image.Image {
 		targetSize = uint(size)
 	}
 
-	// Resize using high-quality Lanczos resampling
 	resizedImg := resize.Resize(targetSize, targetSize, squareImg, resize.Lanczos3)
 
 	return resizedImg
@@ -202,14 +199,11 @@ func cropCenter(img image.Image, width, height int) image.Image {
 	imgWidth := bounds.Dx()
 	imgHeight := bounds.Dy()
 
-	// Calculate crop coordinates
 	startX := (imgWidth - width) / 2
 	startY := (imgHeight - height) / 2
 
-	// Create destination image
 	dst := image.NewRGBA(image.Rect(0, 0, width, height))
 
-	// Crop using draw package
 	draw.Draw(dst, dst.Bounds(), img, image.Pt(startX, startY), draw.Src)
 
 	return dst
@@ -238,12 +232,10 @@ func validatePodcastImage(imagePath string) error {
 		return err
 	}
 
-	// Check if image is square
 	if width != height {
 		return fmt.Errorf("image must be square, got %dx%d", width, height)
 	}
 
-	// Check size requirements
 	if width < MIN_SIZE || width > MAX_SIZE {
 		return fmt.Errorf("image size must be between %dx%d and %dx%d pixels, got %dx%d",
 			MIN_SIZE, MIN_SIZE, MAX_SIZE, MAX_SIZE, width, height)
@@ -252,19 +244,12 @@ func validatePodcastImage(imagePath string) error {
 	return nil
 }
 
-func ConvertImageToCorrectFormat(base_path, name string) {
-	src := filepath.Join(base_path, name+".webp")
-	dest := filepath.Join(base_path, name+".png")
+func ConvertImageToCorrectFormat(src, dest string) {
+	fmt.Printf("src: %v, dest: %v\n", src, dest)
 	err := convertImageForPodcast(src, dest, PNG, 0)
 	if err != nil {
 		fmt.Printf("Error converting to PNG: %v\n", err)
-	} else {
-		// fmt.Println("Successfully converted to PNG")
 	}
-	// if err = setPNG72DPI(dest); err != nil {
-	// 	fmt.Printf("error: %v\n", err)
-	// }
-	// Example 3: Validate the output
 	err = validatePodcastImage(dest)
 	if err != nil {
 		fmt.Printf("Validation failed: %v\n", err)
@@ -273,4 +258,68 @@ func ConvertImageToCorrectFormat(base_path, name string) {
 		os.Remove(src)
 		// os.Rename(src, dest)
 	}
+}
+
+func (user *User) getArchiveIdentifier() string {
+	return user.Username + "_tubecast"
+}
+
+func (user *User) getFeedUrlPrefix() string {
+	return fmt.Sprintf("https://%s.github.io/TubeCast/feed/", user.Username)
+}
+
+func (cloud *Cloud) getLocalStationFilepath(title string) string {
+	return filepath.Join(STATION_BASE, cloud.getStationFilename(title))
+}
+
+func (cloud *Cloud) getLocalFeedFilepath(title string) string {
+	return filepath.Join(FEED_BASE, cloud.getFeedFilename(title))
+}
+
+func (cloud *Cloud) getLocalCoverFilepath(title string) string {
+	return filepath.Join(COVER_BASE, cloud.getCoverFilename(title))
+}
+
+func (cloud *Cloud) getLocalThumbnailFilepath(id, title string) string {
+	return filepath.Join(THUMBNAIL_BASE, cloud.getThumbnailFilename(id, title))
+}
+
+func (cloud *Cloud) getLocalAudioFilepath(id, title string) string {
+	return filepath.Join(AUDIO_BASE, cloud.getAudioFilename(id, title))
+}
+
+func (cloud *Cloud) getStationFilename(title string) string {
+	return title + ".json"
+}
+
+func (cloud *Cloud) getFeedFilename(title string) string {
+	return fmt.Sprintf("%s.xml", title)
+}
+
+func (cloud *Cloud) getCoverFilename(title string) string {
+	return fmt.Sprintf("cover_%s.png", title)
+}
+
+func (cloud *Cloud) getThumbnailFilename(id string, title string) string {
+	return fmt.Sprintf("thumbnail_%s_%s.png", title, id)
+}
+
+func (cloud *Cloud) getAudioFilename(id string, title string) string {
+	return fmt.Sprintf("audio_%s_%s.mp3", title, id)
+}
+
+func (cloud *Cloud) getShareableFeedUrl(title string) string {
+	return cloud.FeedUrlPrefix + cloud.getFeedFilename(title)
+}
+
+func (cloud *Cloud) getShareableCoverUrl(title string) string {
+	return cloud.ArchiveUrlPrefix + cloud.getCoverFilename(title)
+}
+
+func (cloud *Cloud) getShareableThumbnailUrl(id, title string) string {
+	return cloud.ArchiveUrlPrefix + cloud.getThumbnailFilename(id, title)
+}
+
+func (cloud *Cloud) getShareableAudioUrl(id, title string) string {
+	return cloud.ArchiveUrlPrefix + cloud.getAudioFilename(id, title)
 }

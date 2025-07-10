@@ -104,9 +104,9 @@ type MetaStationItem struct {
 }
 
 type User struct {
+	EmailId   string
+	Username  string // will be used as prefix in identifier
 	Name      string
-	YouTubeID string
-	AppleID   string
 	Playlists []Playlist
 }
 
@@ -116,20 +116,18 @@ type Playlist struct {
 	LastUpdated  time.Time
 	StationItems []StationItem
 }
-type DropboxTokenResponse struct {
-	AccessToken  string `json:"access_token"`
-	TokenType    string `json:"token_type"`
-	ExpiresIn    int    `json:"expires_in"`
-	RefreshToken string `json:"refresh_token"`
-	Scope        string `json:"scope"`
-	UID          string `json:"uid"`
-	AccountID    string `json:"account_id"`
+
+type Cloud struct {
+	ArchiveId        string
+	FeedUrlPrefix    string
+	MaximumStorage   uint64
+	ArchiveUrlPrefix string
+	// IAS3AccessKey    string
+	// IAS3SecretKey    string
 }
 
-type TokenManager struct {
-	AppKey       string
-	AppSecret    string
-	RefreshToken string
-	AccessToken  string
-	ExpiresAt    time.Time
+type Usage struct {
+	TotalSizeBytes uint64 `json:"total_size_bytes"`
+	TotalSizeMiB   uint64 `json:"total_size_mib"`
+	FileCount      uint64 `json:"file_count"`
 }

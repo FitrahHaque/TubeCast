@@ -1,16 +1,21 @@
 package rss
 
 import (
+	"context"
 	"encoding/json"
 	"encoding/xml"
+	"fmt"
+	"net/http"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
+	"time"
 )
 
 // Atomatically save Station Meta data locally
 func (metaStation *MetaStation) saveMetaStationToLocal() error {
-	path := filepath.Join(STATION_BASE, metaStation.Title+".json")
+	path := Megh.getLocalStationFilepath(metaStation.Title)
 	tmp := path + ".tmp"
 	if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
 		return err
@@ -52,7 +57,7 @@ func (station *Station) saveXMLToLocal() (string, error) {
 	if err := os.MkdirAll(FEED_BASE, 0o755); err != nil {
 		return "", err
 	}
-	path := filepath.Join(FEED_BASE, station.Title+".xml")
+	path := Megh.getLocalFeedFilepath(station.Title)
 	tmp := path + ".tmp"
 
 	f, err := os.Create(tmp)
@@ -75,38 +80,11 @@ func (station *Station) saveXMLToLocal() (string, error) {
 	if err = os.Rename(tmp, path); err != nil {
 		return "", err
 	}
-	return path, nil
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
+	defer cancel()
+	return Megh.upload(ctx, "", station.Title, FEED)
 }
 
-// Loads Station data from the local
-// func loadXMLfromLocal() (Station, error) {
-// 	f, err := os.Open(path)
-// 	if os.IsNotExist(err) {
-// 		return Station{}, nil
-// 	}
-// 	if err != nil {
-// 		return Station{}, err
-// 	}
-
-// 	defer f.Close()
-
-// 	var station Station
-// 	dec := xml.NewDecoder(f)
-// 	if err := dec.Decode(&station); err != nil {
-// 		return Station{}, err
-// 	}
-// 	return station, nil
-// }
-
-// Save Station to cloud
-// func UploadStation(station Station) error {
-
-// }
-
-// // Fetch Station from cloud
-// func FetchStation(url string) (Station, error) {
-
-// }
 func loadAllMetaStationNames() error {
 	entries, err := os.ReadDir(STATION_BASE)
 	if err != nil {
@@ -121,15 +99,106 @@ func loadAllMetaStationNames() error {
 	return nil
 }
 
-func getCoverImage(name string) (ITunesImage, error) {
-	ConvertImageToCorrectFormat(COVER_BASE, name)
-	localPath := filepath.Join(COVER_BASE, name+".png")
-	dropboxPath := filepath.Join(DROPBOX_COVER_BASE, name+".png")
-	if share, err := dropboxUpload(localPath, dropboxPath, false); err != nil {
-		return ITunesImage{}, err
-	} else {
-		return ITunesImage{
-			Href: share,
-		}, nil
+func (cloud *Cloud) upload(ctx context.Context, id, title string, filetype FileType) (string, error) {
+	var localpath, remotepath string
+	var isLocalDelete bool
+	switch filetype {
+	case THUMBNAIL:
+		localpath = cloud.getLocalThumbnailFilepath(id, title)
+		remotepath = cloud.getShareableThumbnailUrl(id, title)
+		isLocalDelete = true
+	case AUDIO:
+		localpath = cloud.getLocalAudioFilepath(id, title)
+		remotepath = cloud.getShareableAudioUrl(id, title)
+		isLocalDelete = true
+	case FEED:
+		localpath = cloud.getLocalFeedFilepath(title)
+		remotepath = cloud.getShareableFeedUrl(title)
+	case COVER:
+		localpath = cloud.getLocalCoverFilepath(title)
+		remotepath = cloud.getShareableCoverUrl(title)
 	}
+	fmt.Printf("localpath: %v\n", localpath)
+	if _, err := os.Open(localpath); err != nil {
+		return "", err
+	}
+	_, err := run(
+		ctx,
+		"./ia",
+		"upload",
+		cloud.ArchiveId,
+		localpath,
+	)
+	if err != nil {
+		return "", err
+	}
+	if isLocalDelete {
+		os.Remove(localpath)
+	}
+	return fetchFinalURL(remotepath)
+}
+
+func (cloud *Cloud) getUsage(ctx context.Context) (Usage, error) {
+	out, err := run(
+		ctx,
+		"./ia",
+		"metadata",
+		cloud.ArchiveId,
+	)
+	if err != nil {
+		return Usage{}, err
+	}
+
+	var meta struct {
+		Files []struct {
+			Size interface{} `json:"size"`
+		} `json:"files"`
+	}
+
+	if err := json.Unmarshal([]byte(out), &meta); err != nil {
+		return Usage{}, err
+	}
+
+	var totalBytes uint64
+	for _, f := range meta.Files {
+		switch v := f.Size.(type) {
+		case float64:
+			totalBytes += uint64(v)
+		case string:
+			if n, err := strconv.ParseUint(v, 10, 64); err == nil {
+				totalBytes += n
+			}
+		}
+	}
+	fileCount := uint64(len(meta.Files))
+	fmt.Printf("totalbytes used: %v, total files: %v\n", totalBytes, fileCount)
+	return Usage{
+		TotalSizeBytes: totalBytes,
+		TotalSizeMiB:   totalBytes / (1024 * 1024),
+		FileCount:      fileCount,
+	}, nil
+}
+
+func (cloud *Cloud) delete(ctx context.Context, id string, filename string) error {
+	_, err := run(
+		ctx,
+		"./ia",
+		"remove",
+		cloud.ArchiveId,
+		filename,
+	)
+	return err
+}
+
+// fetchFinalURL follows redirects and returns the ultimate URL as a string.
+func fetchFinalURL(rawURL string) (string, error) {
+	client := &http.Client{
+		Timeout: 15 * time.Second,
+	}
+	resp, err := client.Get(rawURL)
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+	return resp.Request.URL.String(), nil
 }
