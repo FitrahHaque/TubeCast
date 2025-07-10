@@ -3,7 +3,6 @@ package rss
 import (
 	"context"
 	"fmt"
-	"os"
 	"time"
 
 	"github.com/google/uuid"
@@ -136,7 +135,8 @@ func getMetaStation(title string) (MetaStation, error) {
 
 func (metaStation *MetaStation) addToStation(stationItem MetaStationItem) {
 	metaStation.Items = append(metaStation.Items, stationItem)
-	metaStation.saveMetaStationToLocal()
+	// metaStation.
+	metaStation.updateFeed()
 }
 
 func (station *Station) HasItem(id string) bool {
@@ -181,13 +181,13 @@ func (station *Station) makeSpace(ctx context.Context, size uint64) bool {
 		if usage.TotalSizeBytes+size < Megh.MaximumStorage {
 			// return "", fmt.Errorf("quota exceeded\n")
 			return true
-		} else if !station.removeOldestItem(&metaStation) {
+		} else if !station.removeOldestItem(ctx, &metaStation) {
 			return false
 		}
 	}
 }
 
-func (station *Station) removeOldestItem(metaStation *MetaStation) bool {
+func (station *Station) removeOldestItem(ctx context.Context, metaStation *MetaStation) bool {
 	if len(station.Items) == 0 {
 		return false
 	}
@@ -200,23 +200,12 @@ func (station *Station) removeOldestItem(metaStation *MetaStation) bool {
 		}
 	}
 	id := metaStation.Items[oldestIndex].GUID
-	audioPath := Megh.getLocalAudioFilepath(id, station.Title)
-	thumbnailPath := Megh.getLocalThumbnailFilepath(id, station.Title)
-	if err := os.Remove(audioPath); err != nil {
+	if err := Megh.delete(ctx, id, station.Title); err != nil {
 		fmt.Printf("error-1: %v\n", err)
 		return false
 	}
-	if err := os.Remove(thumbnailPath); err != nil {
-		fmt.Printf("error-2: %v\n", err)
-		return false
-	}
-	if station.Items[oldestIndex].GUID == metaStation.Items[oldestIndex].GUID {
-		metaStation.Items = append(metaStation.Items[:oldestIndex], metaStation.Items[oldestIndex+1:]...)
-		station.Items = append(station.Items[:oldestIndex], station.Items[oldestIndex+1:]...)
-		station.updateFeed()
-	} else {
-		fmt.Println("not in order with meta")
-	}
+	metaStation.Items = append(metaStation.Items[:oldestIndex], metaStation.Items[oldestIndex+1:]...)
+	metaStation.updateFeed()
 	fmt.Printf("file deleted with id %v\n", id)
 	return true
 }

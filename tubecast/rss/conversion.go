@@ -174,7 +174,7 @@ func (metaStationItem *MetaStationItem) saveAudio(ctx context.Context, title str
 		"--audio-format",
 		"mp3",
 		"--audio-quality",
-		"0",
+		strconv.Itoa(audioQuality),
 		"-o",
 		strings.Split(localpath, ".")[0]+".%(ext)s",
 		link,
@@ -198,13 +198,28 @@ func formatDate(uploadDate string) (string, error) {
 	return t.Format("Mon, 02 Jan 2006 15:04:05 GMT"), nil
 }
 
-func (station *Station) updateFeed() (string, error) {
-	metaStation, err := getMetaStation(station.Title)
-	if err != nil {
-		return "", err
-	}
+func (metaStation *MetaStation) updateFeed() (string, error) {
+	station := metaStation.getStation()
 	metaStation.saveMetaStationToLocal()
 	return station.saveXMLToLocal()
+}
+
+func (metaStation *MetaStation) getStation() Station {
+	return Station{
+		ID:               metaStation.ID,
+		Title:            metaStation.Title,
+		Description:      metaStation.Description,
+		Items:            getStationItems(metaStation.Items),
+		Language:         metaStation.Language,
+		Copyright:        metaStation.Copyright,
+		ITunesAuthor:     metaStation.ITunesAuthor,
+		ITunesSubtitle:   metaStation.ITunesSummary,
+		ITunesSummary:    metaStation.ITunesSummary,
+		ITunesImage:      metaStation.ITunesImage,
+		ITunesExplicit:   metaStation.ITunesExplicit,
+		ITunesCategories: metaStation.ITunesCategories,
+		Owner:            metaStation.Owner,
+	}
 }
 
 func GetChannelFeedUrl(username string) (string, error) {

@@ -11,6 +11,10 @@ import (
 )
 
 func (station *Station) SyncChannel(username string) (string, error) {
+	metaStation, err := getMetaStation(station.Title)
+	if err != nil {
+		return "", errors.New("no metastation with this title")
+	}
 	channelFeedUrl, err := GetChannelFeedUrl(username)
 	if err != nil {
 		return "", err
@@ -28,10 +32,11 @@ func (station *Station) SyncChannel(username string) (string, error) {
 			log.Printf("error downloading video %s, error: %v\n", id, err)
 		}
 	}
-	return station.updateFeed()
+	return metaStation.updateFeed()
 }
 
 func (station *Station) AddVideo(videoUrl string) (string, error) {
+
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 	defer cancel()
 
@@ -53,13 +58,18 @@ func (station *Station) AddVideo(videoUrl string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	if _, err := station.addItemToStation(ctx, id, username, channelFeedUrl); err != nil {
+	if share, err := station.addItemToStation(ctx, id, username, channelFeedUrl); err != nil {
 		return "", err
+	} else {
+		return share, nil
 	}
-	return station.updateFeed()
 }
 
-func (station *Station) addItemToStation(ctx context.Context, id, username, channelFeedUrl string) (StationItem, error) {
+func (station *Station) addItemToStation(ctx context.Context, id, username, channelFeedUrl string) (string, error) {
+	metaStation, err := getMetaStation(station.Title)
+	if err != nil {
+		return "", errors.New("no metastation with this title")
+	}
 	metaStationItem := MetaStationItem{
 		GUID:           id,
 		ITunesAuthor:   username,
@@ -156,16 +166,12 @@ func (station *Station) addItemToStation(ctx context.Context, id, username, chan
 	}()
 	wg.Wait()
 	if len(metaStationItem.Enclosure.URL) == 0 {
-		return StationItem{}, errors.New("could not upload audio")
-	}
-	metaStation, err := getMetaStation(station.Title)
-	if err != nil {
-		return StationItem{}, err
+		return "", errors.New("could not upload audio")
 	}
 	metaStation.addToStation(metaStationItem)
-	stationItem := getStationItem(metaStationItem)
-	station.addToStation(stationItem)
-	return stationItem, nil
+	// stationItem := getStationItem(metaStationItem)
+	// station.addToStation(stationItem)
+	return metaStation.updateFeed()
 }
 
 func (station *Station) Print() {
@@ -211,8 +217,15 @@ func Init() User {
 		ArchiveId:      user.getArchiveIdentifier(),
 		FeedUrlPrefix:  user.getFeedUrlPrefix(),
 		MaximumStorage: 2 * 1024 * 1024 * 1024, //2 GiB
+		// MaximumStorage: 60 * 1024 * 1024,
 	}
 	Megh.ArchiveUrlPrefix = fmt.Sprintf("https://archive.org/download/%s/", Megh.ArchiveId)
 	loadAllMetaStationNames()
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
+	defer cancel()
+	usage, err := Megh.getUsage(ctx)
+	if err == nil {
+		fmt.Printf("usage: %v\n", usage.TotalSizeMiB)
+	}
 	return user
 }

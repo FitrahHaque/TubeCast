@@ -82,6 +82,9 @@ func (s *Set[T]) Has(item T) bool {
 
 func run(ctx context.Context, cmd string, args ...string) (string, error) {
 	c := exec.CommandContext(ctx, cmd, args...)
+	if cmd == "./ia" {
+		fmt.Println(cmd, args)
+	}
 	var out, err bytes.Buffer
 	c.Stdout = &out
 	c.Stderr = &err

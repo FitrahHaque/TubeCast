@@ -17,7 +17,7 @@ import (
 func (metaStation *MetaStation) saveMetaStationToLocal() error {
 	path := Megh.getLocalStationFilepath(metaStation.Title)
 	tmp := path + ".tmp"
-	if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
+	if err := os.MkdirAll(filepath.Dir(tmp), 0o755); err != nil {
 		return err
 	}
 	f, err := os.Create(tmp)
@@ -120,12 +120,14 @@ func (cloud *Cloud) upload(ctx context.Context, id, title string, filetype FileT
 	}
 	fmt.Printf("localpath: %v\n", localpath)
 	if _, err := os.Open(localpath); err != nil {
+		fmt.Printf("could not open localpath")
 		return "", err
 	}
 	_, err := run(
 		ctx,
 		"./ia",
 		"upload",
+		"--no-backup",
 		cloud.ArchiveId,
 		localpath,
 	)
@@ -133,7 +135,7 @@ func (cloud *Cloud) upload(ctx context.Context, id, title string, filetype FileT
 		return "", err
 	}
 	if isLocalDelete {
-		os.Remove(localpath)
+		// os.Remove(localpath)
 	}
 	return fetchFinalURL(remotepath)
 }
@@ -149,18 +151,23 @@ func (cloud *Cloud) getUsage(ctx context.Context) (Usage, error) {
 		return Usage{}, err
 	}
 
+	// Include the file name so we can filter out history files
 	var meta struct {
 		Files []struct {
-			Size interface{} `json:"size"`
+			Name string `json:"name"`
+			Size any    `json:"size"`
 		} `json:"files"`
 	}
-
 	if err := json.Unmarshal([]byte(out), &meta); err != nil {
 		return Usage{}, err
 	}
 
 	var totalBytes uint64
+	var count uint64
 	for _, f := range meta.Files {
+		if strings.HasPrefix(f.Name, "history/") {
+			continue
+		}
 		switch v := f.Size.(type) {
 		case float64:
 			totalBytes += uint64(v)
@@ -169,24 +176,38 @@ func (cloud *Cloud) getUsage(ctx context.Context) (Usage, error) {
 				totalBytes += n
 			}
 		}
+		count++
 	}
-	fileCount := uint64(len(meta.Files))
-	fmt.Printf("totalbytes used: %v, total files: %v\n", totalBytes, fileCount)
+
+	fmt.Printf("total size used (excluding history): %v MB, total files: %v\n", totalBytes/(1024*1024), count)
 	return Usage{
 		TotalSizeBytes: totalBytes,
 		TotalSizeMiB:   totalBytes / (1024 * 1024),
-		FileCount:      fileCount,
+		FileCount:      count,
 	}, nil
 }
 
-func (cloud *Cloud) delete(ctx context.Context, id string, filename string) error {
+func (cloud *Cloud) delete(ctx context.Context, id, title string) error {
 	_, err := run(
 		ctx,
 		"./ia",
-		"remove",
+		"delete",
 		cloud.ArchiveId,
-		filename,
+		fmt.Sprintf("--glob=*%s_%s*", title, id),
 	)
+	if err != nil {
+		fmt.Printf("delete error-1: %v\n", err)
+	}
+	// _, err = run(
+	// 	ctx,
+	// 	"./ia",
+	// 	"delete",
+	// 	cloud.ArchiveId,
+	// 	fmt.Sprintf("--glob=***%s_%s*", title, id),
+	// )
+	// if err != nil {
+	// 	fmt.Printf("delete error-2: %v\n", err)
+	// }
 	return err
 }
 

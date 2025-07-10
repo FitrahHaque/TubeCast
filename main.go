@@ -17,9 +17,9 @@ func main() {
 		fmt.Printf("%v\n", err)
 		return
 	}
-	if share, err := station.SyncChannel("@ThePrimeTimeagen"); err != nil {
-		// https://www.youtube.com/watch?v=xTgO6PpMnhk
-		// if share, err := station.AddVideo("https://youtu.be/M9UWgw_aW28?si=0gmIvShVf2_xsEg6"); err != nil {
+	// if share, err := station.SyncChannel("@ThePrimeTimeagen"); err != nil {
+	// https://www.youtube.com/watch?v=xTgO6PpMnhk
+	if share, err := station.AddVideo("https://youtu.be/tImmmyF5Ors?si=TQ8YVnOwDj8ARlxC"); err != nil {
 
 		fmt.Printf("%v\n", err)
 	} else {

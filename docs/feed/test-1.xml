@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:podcast="https://podcastindex.org/namespace/1.0" version="2.0">
   <channel>
-  <id>2d826006-83df-4128-b649-3064be763d0b</id>
+  <id>d86e0434-292f-4b9a-9087-95da3d182e59</id>
   <title>test-1</title>
   <itunes:image href="https://ia600909.us.archive.org/35/items/fitrahhaque_tubecast/cover_test-1.png"></itunes:image>
   <description>name:name</description>
   <item>
-    <guid>hEIBsqP63Pg</guid>
-    <title>Did Zig Fix Async / Await?</title>
-    <enclosure url="https://ia800909.us.archive.org/35/items/fitrahhaque_tubecast/audio_test-1_hEIBsqP63Pg.mp3" length="49197116" type="audio/mpeg"></enclosure>
-    <itunes:image href="https://ia600909.us.archive.org/35/items/fitrahhaque_tubecast/thumbnail_test-1_hEIBsqP63Pg.png"></itunes:image>
-    <description>Twitch https://twitch.tv/ThePrimeagen&#xA;Discord https://discord.gg/ThePrimeagen&#xA;&#xA;Become Backend Dev: https://boot.dev/prime&#xA;(plus i make courses for them)&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;### LINKS &#xA;https://www.youtube.com/watch?v=x3hOiOcbgeA&#xA;&#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis</description>
-    <link>https://www.youtube.com/watch?v=hEIBsqP63Pg</link>
-    <pubDate>Thu, 10 Jul 2025 00:00:00 GMT</pubDate>
-    <itunes:duration>34:37</itunes:duration>
+    <guid>tImmmyF5Ors</guid>
+    <title>a very sad acoustic cover of &#39;&#39;Running Up That Hill&#39;&#39; :)</title>
+    <enclosure url="https://ia600909.us.archive.org/35/items/fitrahhaque_tubecast/audio_test-1_tImmmyF5Ors.mp3" length="6547004" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://ia600909.us.archive.org/35/items/fitrahhaque_tubecast/thumbnail_test-1_tImmmyF5Ors.png"></itunes:image>
+    <description>People on TikTok demanded a full version so here we are :) hope you guys enjoy !!&#xA;Socials : https://linktr.ee/mariannebeaulieu?utm_source=linktree_profile_share&amp;ltsid=4f8154f9-9c95-4bf4-948b-53607b63f489 &#xA;Cover of Running Up That Hill by Kate Bush&#xA;#runningupthathill #strangerthings4 #acousticcovers #katebush</description>
+    <link>https://www.youtube.com/watch?v=tImmmyF5Ors</link>
+    <pubDate>Mon, 06 Jun 2022 00:00:00 GMT</pubDate>
+    <itunes:duration>4:45</itunes:duration>
     <itunes:explicit>no</itunes:explicit>
-    <itunes:author>@ThePrimeTimeagen</itunes:author>
-    <itunes:subtitle>Twitch https://twitch.tv/ThePrimeagen&#xA;Discord https://discord.gg/ThePrimeagen&#xA;&#xA;Become Backend Dev: https://boot.dev/prime&#xA;(plus i make courses for them)&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;### LINKS &#xA;https://www.youtube.com/watch?v=x3hOiOcbgeA&#xA;&#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis</itunes:subtitle>
+    <itunes:author>@marianneBL</itunes:author>
+    <itunes:subtitle>People on TikTok demanded a full version so here we are :) hope you guys enjoy !!&#xA;Socials : https://linktr.ee/mariannebeaulieu?utm_source=linktree_profile_share&amp;ltsid=4f8154f9-9c95-4bf4-948b-53607b63f489 &#xA;Cover of Running Up That Hill by Kate Bush&#xA;#runningupthathill #strangerthings4 #acousticcovers #katebush</itunes:subtitle>
     <itunes:summary></itunes:summary>
   </item>
   <language>English</language>
   <copyright></copyright>
   <itunes:author></itunes:author>
-  <itunes:subtitle></itunes:subtitle>
+  <itunes:subtitle>name:name</itunes:subtitle>
   <itunes:summary>name:name</itunes:summary>
   <itunes:explicit>no</itunes:explicit>
   <itunes:category text="Technology"></itunes:category>
