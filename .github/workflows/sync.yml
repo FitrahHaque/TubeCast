@@ -27,16 +27,12 @@ jobs:
           mkdir -p $HOME/bin
           echo "$HOME/bin" >> $GITHUB_PATH
 
-          # yt-dlp (latest release)
-          YTDLP_URL=https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_macos
-          curl -L $YTDLP_URL -o $HOME/bin/yt-dlp
-          chmod +x $HOME/bin/yt-dlp
-
-          # FFmpeg static build (macOS x86_64 or arm64—pick matching runner)
-          FFMPEG_URL=https://evermeet.cx/ffmpeg/ffmpeg-6.0.zip
-          curl -L $FFMPEG_URL -o /tmp/ffmpeg.zip
-          unzip -j /tmp/ffmpeg.zip -d $HOME/bin ffmpeg ffprobe
-          chmod +x $HOME/bin/ffmpeg $HOME/bin/ffprobe
+          # 2. Download the latest ffmpeg and ffprobe
+          curl -L https://evermeet.cx/ffmpeg/get/ffmpeg    -o "$HOME/bin/ffmpeg"
+          curl -L https://evermeet.cx/ffmpeg/get/ffprobe   -o "$HOME/bin/ffprobe"
+          
+          # 3. Make them executable
+          chmod +x "$HOME/bin/ffmpeg" "$HOME/bin/ffprobe"
 
       # 4. Build Go application
       - name: Build Go application
