@@ -2,8 +2,8 @@
 .DS_Store
 tubecast/audio/
 tubecast/thumbnail/
-tubecast/station/
-tubecast/cover/
+# tubecast/station/
+# tubecast/cover/
 *.txt
 # .github/
 *.o
