@@ -59,7 +59,7 @@ jobs:
         env:
           USERNAME: ${{ github.repository_owner }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: tubecast -sync
+        run: tubecast.o -sync
 
       # 7. Commit and push changes
       - name: Commit and push changes
