@@ -189,7 +189,7 @@ func (cloud *Cloud) getUsage(ctx context.Context) (Usage, error) {
 	}, nil
 }
 
-func (cloud *Cloud) delete(ctx context.Context, id, title string) error {
+func (cloud *Cloud) deleteEpisode(ctx context.Context, id, title string) error {
 	_, err := run(
 		ctx,
 		"ia",
@@ -210,6 +210,19 @@ func (cloud *Cloud) delete(ctx context.Context, id, title string) error {
 	// if err != nil {
 	// 	fmt.Printf("delete error-2: %v\n", err)
 	// }
+	return err
+}
+
+func (cloud *Cloud) deleteShow(title string) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
+	defer cancel()
+	_, err := run(
+		ctx,
+		"ia",
+		"delete",
+		cloud.ArchiveId,
+		fmt.Sprintf("--glob=*_%s_*", title),
+	)
 	return err
 }
 

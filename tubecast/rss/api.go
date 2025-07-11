@@ -1,6 +1,7 @@
 package rss
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"strings"
@@ -35,6 +36,28 @@ func Sync() error {
 		}
 	}
 	return nil
+}
+
+func RemoveVideoFromShow(title, videoUrl string) error {
+	if !StationNames.Has(title) {
+		return errors.New("show with this title does not exist")
+	}
+	metaStation, err := getMetaStation(title, "")
+	if err != nil {
+		return err
+	}
+	return metaStation.deleteVideo(videoUrl)
+}
+
+func RemoveShow(title string) error {
+	if !StationNames.Has(title) {
+		return errors.New("show with this title does not exist")
+	}
+	metaStation, err := getMetaStation(title, "")
+	if err != nil {
+		return err
+	}
+	return metaStation.delete()
 }
 
 func AddVideoToShow(title, description string, videoUrl string) (string, error) {

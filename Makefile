@@ -26,3 +26,9 @@ sync: install
 
 add-video: install
 	./$(BINARY).o -add-video --title="medicine" --description="Show description" --video-url="https://youtu.be/ix5nrWedyqg?si=v-Bk4OyGInzVnFZ2"
+
+remove-video: install
+	./$(BINARY).o -remove-video --title="medicine" --video-url="https://www.youtube.com/watch?v=ix5nrWedyqg"
+
+remove-show: install
+	./$(BINARY).o -remove-show --title="medicine"

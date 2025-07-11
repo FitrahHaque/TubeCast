@@ -160,7 +160,7 @@ func (metaStation *MetaStation) removeOldestItem(ctx context.Context) bool {
 		}
 	}
 	id := metaStation.Items[oldestIndex].GUID
-	if err := Megh.delete(ctx, id, metaStation.Title); err != nil {
+	if err := Megh.deleteEpisode(ctx, id, metaStation.Title); err != nil {
 		fmt.Printf("error-1: %v\n", err)
 		return false
 	}

@@ -10,7 +10,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
-var Commands = [...]string{"sync-channel", "create-show", "sync", "add-video", "help"}
+var Commands = [...]string{"sync-channel", "create-show", "sync", "add-video", "remove-video", "remove-show", "help"}
 
 func main() {
 	godotenv.Load()
@@ -22,7 +22,9 @@ func main() {
 	createShowCmd := flag.Bool(Commands[1], false, "Create a new show")
 	syncCmd := flag.Bool(Commands[2], false, "Sync all shows")
 	addVideoCmd := flag.Bool(Commands[3], false, "Add video to show")
-	helpCmd := flag.Bool(Commands[4], false, "Help")
+	removeVideoCmd := flag.Bool(Commands[4], false, "Remove video from show")
+	removeShowCmd := flag.Bool(Commands[5], false, "Remove Show")
+	helpCmd := flag.Bool(Commands[6], false, "Help")
 
 	if len(os.Args) == 1 {
 		fmt.Println("Please provide commands")
@@ -34,13 +36,15 @@ func main() {
 			"-create-show",
 			"-sync",
 			"-add-video",
+			"-remove-video",
+			"-remove-show",
 		},
 		os.Args[1:2],
 	)
 
 	flag.CommandLine.Parse(commandArgs)
 
-	commandsSelected := countTrue([]bool{*syncChannelCmd, *createShowCmd, *syncCmd, *addVideoCmd})
+	commandsSelected := countTrue([]bool{*syncChannelCmd, *createShowCmd, *syncCmd, *addVideoCmd, *removeVideoCmd, *removeShowCmd})
 
 	if commandsSelected > 1 {
 		fmt.Println("Specify a single command")
@@ -70,6 +74,8 @@ func main() {
 	checkForCreateShow(application, createShowCmd, 1)
 	checkForSync(syncCmd)
 	checkForAddVideo(application, addVideoCmd, 1)
+	checkForRemoveVideo(application, removeVideoCmd, 1)
+	checkForRemoveShow(application, removeShowCmd, 1)
 }
 
 func countTrue(commands []bool) int {
@@ -226,6 +232,93 @@ func checkForAddVideo(application string, addVideoCmd *bool, cmdIdx int) {
 			os.Exit(1)
 		}
 		fmt.Printf("Video added successfully.\nPaste this RSS Feed link to your Podcast App: %s\n", result)
+	}
+}
+
+func checkForRemoveVideo(application string, removeVideoCmd *bool, cmdIdx int) {
+	if *removeVideoCmd {
+		removeVideoFS := flag.NewFlagSet("remove-video", flag.ExitOnError)
+		removeVideoFS.Usage = func() {
+			fmt.Fprintf(os.Stderr, "Usage of %s -remove-video [OPTIONS]\n", application)
+			fmt.Fprintf(os.Stderr, "Valid options include:\n\t%s\n", strings.Join([]string{"title, video-url, help"}, ", "))
+			fmt.Fprintf(os.Stderr, "Flag:\n")
+			removeVideoFS.PrintDefaults()
+		}
+
+		title := removeVideoFS.String("title", "", "Title of the show")
+		videoURL := removeVideoFS.String("video-url", "", "Video URL to add")
+		help := removeVideoFS.Bool("help", false, "Help")
+
+		commandArgs := findIntersection(
+			[]string{
+				"--title",
+				"--video-url",
+				"--help",
+			},
+			os.Args[cmdIdx+1:],
+		)
+
+		removeVideoFS.Parse(commandArgs)
+
+		if *help {
+			removeVideoFS.Usage()
+			return
+		}
+
+		if *title == "" || *videoURL == "" {
+			fmt.Println("Title and Video URL are required")
+			removeVideoFS.Usage()
+			os.Exit(1)
+		}
+
+		err := rss.RemoveVideoFromShow(*title, *videoURL)
+		if err != nil {
+			fmt.Printf("Error adding video: %v\n", err)
+			os.Exit(1)
+		}
+		fmt.Printf("Video removed successfully.\n")
+	}
+}
+func checkForRemoveShow(application string, removeShowCmd *bool, cmdIdx int) {
+	if *removeShowCmd {
+		removeShowFS := flag.NewFlagSet("remove-show", flag.ExitOnError)
+		removeShowFS.Usage = func() {
+			fmt.Fprintf(os.Stderr, "Usage of %s -remove-show [OPTIONS]\n", application)
+			fmt.Fprintf(os.Stderr, "Valid options include:\n\t%s\n", strings.Join([]string{"title, help"}, ", "))
+			fmt.Fprintf(os.Stderr, "Flag:\n")
+			removeShowFS.PrintDefaults()
+		}
+
+		title := removeShowFS.String("title", "", "Title of the show")
+		help := removeShowFS.Bool("help", false, "Help")
+
+		commandArgs := findIntersection(
+			[]string{
+				"--title",
+				"--help",
+			},
+			os.Args[cmdIdx+1:],
+		)
+
+		removeShowFS.Parse(commandArgs)
+
+		if *help {
+			removeShowFS.Usage()
+			return
+		}
+
+		if *title == "" {
+			fmt.Println("Title is required")
+			removeShowFS.Usage()
+			os.Exit(1)
+		}
+
+		err := rss.RemoveShow(*title)
+		if err != nil {
+			fmt.Printf("Error adding video: %v\n", err)
+			os.Exit(1)
+		}
+		fmt.Printf("Show removed successfully.\n")
 	}
 }
 
