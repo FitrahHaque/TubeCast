@@ -10,43 +10,35 @@ jobs:
     runs-on: macos-15
 
     steps:
-      # 1. Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Set up Go (with caching)
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
           go-version: '1.23.5'
           cache: true
 
-      # 3. Download yt-dlp and FFmpeg static builds (no Homebrew)
-      - name: Install yt-dlp and FFmpeg
+      - name: Setup FFmpeg
+        uses: FedericoCarboni/setup-ffmpeg@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install yt-dlp
         run: |
           mkdir -p "$HOME/bin"
-          echo "$HOME/bin" >> "$GITHUB_PATH"
-          # Download and install yt-dlp
           curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_macos -o "$HOME/bin/yt-dlp"
           chmod +x "$HOME/bin/yt-dlp"
-          # Download and install ffmpeg + ffprobe
-          curl -L https://evermeet.cx/ffmpeg/get/ffmpeg  -o "$HOME/bin/ffmpeg"
-          curl -L https://evermeet.cx/ffmpeg/get/ffprobe -o "$HOME/bin/ffprobe"
-          chmod +x "$HOME/bin/ffmpeg" "$HOME/bin/ffprobe"
+          echo "$HOME/bin" >> "$GITHUB_PATH"
 
-
-        # 4. Export cookies.txt to bypass bot alarm from youtube
       - name: Prepare cookies file
         run: |
           echo "${{ secrets.COOKIE_TXT }}" > cookies.txt
 
-      # 5. Build Go application
       - name: Build Go application
         run: |
           go build -o tubecast.o .
-          echo "$HOME/bin" >> "$GITHUB_PATH"
 
-      # 6. Configure Internet Archive CLI
       - name: Configure Internet Archive CLI
         run: |
           chmod +x ./ia
@@ -57,15 +49,12 @@ jobs:
           secret = ${{ secrets.IA_S3_SECRET_KEY }}
           EOF
 
-
-      # 7. Run the application
       - name: Run sync
         env:
           USERNAME: ${{ github.repository_owner }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: ./tubecast.o -sync
 
-      # 8. Commit and push changes
       - name: Commit and push changes
         run: |
           git config user.name "github-actions[bot]"
