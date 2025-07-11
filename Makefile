@@ -25,4 +25,4 @@ sync: install
 	./$(BINARY).o -sync
 
 add-video: install
-	./$(BINARY).o -add-video --title="med" --description="Show description" --video-url="https://youtu.be/ix5nrWedyqg?si=v-Bk4OyGInzVnFZ2"
+	./$(BINARY).o -add-video --title="medicine" --description="Show description" --video-url="https://youtu.be/ix5nrWedyqg?si=v-Bk4OyGInzVnFZ2"

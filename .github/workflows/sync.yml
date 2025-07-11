@@ -24,13 +24,17 @@ jobs:
       # 3. Download yt-dlp and FFmpeg static builds (no Homebrew)
       - name: Install yt-dlp and FFmpeg
         run: |
-          mkdir -p "$HOME/bin"
-          curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_macos -o "$HOME/bin/yt-dlp"
-          chmod +x "$HOME/bin/yt-dlp"
-          curl -L https://evermeet.cx/ffmpeg/get/ffmpeg -o "$HOME/bin/ffmpeg"
-          curl -L https://evermeet.cx/ffmpeg/get/ffprobe -o "$HOME/bin/ffprobe"
-          chmod +x "$HOME/bin/ffmpeg" "$HOME/bin/ffprobe"
-          echo "$HOME/bin" >> "$GITHUB_PATH"
+          mkdir -p bin
+          curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_macos \
+            -o bin/yt-dlp
+          chmod +x bin/yt-dlp
+
+          curl -L https://evermeet.cx/ffmpeg/get/ffmpeg -o bin/ffmpeg
+          curl -L https://evermeet.cx/ffmpeg/get/ffprobe -o bin/ffprobe
+          chmod +x bin/ffmpeg bin/ffprobe
+
+          echo "${{ github.workspace }}/bin" >> $GITHUB_PATH
+
 
         # 4. Export cookies.txt to bypass bot alarm from youtube
       - name: Prepare cookies file
@@ -59,6 +63,7 @@ jobs:
         env:
           USERNAME: ${{ github.repository_owner }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WORKSPACE: ${{ github.workspace }}/bin/ffmpeg
         run: ./tubecast.o -sync
 
       # 8. Commit and push changes

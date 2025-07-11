@@ -7,3 +7,4 @@ tubecast/thumbnail/
 *.txt
 # .github/
 *.o
+bin/
