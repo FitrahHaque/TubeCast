@@ -91,5 +91,7 @@ func Init() {
 		ArchiveUrlPrefix: fmt.Sprintf("https://archive.org/download/%s/", Usr.getArchiveIdentifier()),
 	}
 
-	loadAllMetaStationNames()
+	if err := loadAllMetaStationNames(); err != nil {
+		fmt.Printf("error in init: %v\n", err)
+	}
 }

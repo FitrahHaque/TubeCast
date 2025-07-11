@@ -38,19 +38,20 @@ func (metaStation *MetaStation) saveMetaStationToLocal() error {
 // Loads Station Meta data from the local
 func loadMetaStationFromLocal(path string) (MetaStation, error) {
 	f, err := os.Open(path)
-	if os.IsNotExist(err) {
-		return MetaStation{}, nil
-	}
 	if err != nil {
 		return MetaStation{}, err
 	}
 	defer f.Close()
-	var station MetaStation
+	var metaStation MetaStation
 	dec := json.NewDecoder(f)
-	if err := dec.Decode(&station); err != nil {
+	if err := dec.Decode(&metaStation); err != nil {
 		return MetaStation{}, err
 	}
-	return station, nil
+	// if metaStation.SubscribedChannel == nil {
+	// 	metaStation.SubscribedChannel = NewSet[string]()
+	// 	return metaStation, errors.New("black magic")
+	// }
+	return metaStation, nil
 }
 
 // Atomatically save Station data locally

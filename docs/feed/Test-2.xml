@@ -33,6 +33,62 @@
     <itunes:subtitle>Twitch https://twitch.tv/ThePrimeagen&#xA;Discord https://discord.gg/ThePrimeagen&#xA;&#xA;Become Backend Dev: https://boot.dev/prime&#xA;(plus i make courses for them)&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;### LINKS &#xA; -- https://sharnoff.io/blog/why-rust-compiler-slow&#xA;By: Em Sharnoff&#xA;&#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis</itunes:subtitle>
     <itunes:summary></itunes:summary>
   </item>
+  <item>
+    <guid>dh6BCSzaF6g</guid>
+    <title>WTF Typescript</title>
+    <enclosure url="https://ia600909.us.archive.org/35/items/fitrahhaque_tubecast/audio_Test-2_dh6BCSzaF6g.mp3" length="106722548" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://ia600909.us.archive.org/35/items/fitrahhaque_tubecast/thumbnail_Test-2_dh6BCSzaF6g.png"></itunes:image>
+    <description>🔗 Sponsored by Sentry https://sentry.io | Code breaks, fix it faster&#xA;&#xA;📌 Chapters:&#xA;&#xA;00:00:00 - Intro&#xA;00:00:42 - Who’s actually a “web developer”?&#xA;00:02:31 - Trash’s live intro &amp; TypeScript presentation setup&#xA;00:03:59 - Sentry #ad&#xA;00:04:38 - Excess property checks in TS&#xA;00:09:42 - WTF: Object spreads silence type errors&#xA;00:14:30 - React prop spreading madness&#xA;00:18:22 - Structural vs duck typing debate&#xA;00:24:00 - WTF: Enums and why everyone hates them&#xA;00:27:45 - Enum strings vs numbers behavior&#xA;00:33:10 - Why enums in Node are cursed&#xA;00:36:55 - Safer enum alternatives using const objects&#xA;00:43:10 - TS quirks: Boolean filter keeps undefined in types&#xA;00:46:40 - TSReset: The “CSS reset” for TypeScript&#xA;00:49:01 - WTF: Empty object {} lets everything through&#xA;00:52:32 - Doom rendered in TypeScript type system&#xA;00:54:00 - Type-level math in TS (it’s real)&#xA;00:56:33 - Scaling hell: TS performance bottlenecks&#xA;01:00:01 - Flamegraphs and fighting TS perf without docs&#xA;01:04:55 - TS inference vs explicit typing in large codebases&#xA;01:09:30 - Prime’s favorite TS bug strikes again&#xA;01:14:01 - Casey breaks down the compiler logic&#xA;01:17:50 - Is this a TypeScript bug or a feature?&#xA;01:22:44 - Final thoughts and community love&#xA;&#xA;---&#xA;&#xA;**Topics Covered:**&#xA;&#xA; • TypeScript excess property checks&#xA; • Enums vs object literals&#xA; • Structural vs duck typing&#xA; • TS compiler edge cases&#xA; • WTFs that break your mental model&#xA; • Type-level math&#xA; • Performance debugging hell&#xA; • Massive monorepo pain points&#xA; • The one TypeScript bug Prime can’t let go</description>
+    <link>https://www.youtube.com/watch?v=dh6BCSzaF6g</link>
+    <pubDate>Tue, 08 Jul 2025 00:00:00 GMT</pubDate>
+    <itunes:duration>1:25:06</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>ThePrimeTimeagen</itunes:author>
+    <itunes:subtitle>🔗 Sponsored by Sentry https://sentry.io | Code breaks, fix it faster&#xA;&#xA;📌 Chapters:&#xA;&#xA;00:00:00 - Intro&#xA;00:00:42 - Who’s actually a “web developer”?&#xA;00:02:31 - Trash’s live intro &amp; TypeScript presentation setup&#xA;00:03:59 - Sentry #ad&#xA;00:04:38 - Excess property checks in TS&#xA;00:09:42 - WTF: Object spreads silence type errors&#xA;00:14:30 - React prop spreading madness&#xA;00:18:22 - Structural vs duck typing debate&#xA;00:24:00 - WTF: Enums and why everyone hates them&#xA;00:27:45 - Enum strings vs numbers behavior&#xA;00:33:10 - Why enums in Node are cursed&#xA;00:36:55 - Safer enum alternatives using const objects&#xA;00:43:10 - TS quirks: Boolean filter keeps undefined in types&#xA;00:46:40 - TSReset: The “CSS reset” for TypeScript&#xA;00:49:01 - WTF: Empty object {} lets everything through&#xA;00:52:32 - Doom rendered in TypeScript type system&#xA;00:54:00 - Type-level math in TS (it’s real)&#xA;00:56:33 - Scaling hell: TS performance bottlenecks&#xA;01:00:01 - Flamegraphs and fighting TS perf without docs&#xA;01:04:55 - TS inference vs explicit typing in large codebases&#xA;01:09:30 - Prime’s favorite TS bug strikes again&#xA;01:14:01 - Casey breaks down the compiler logic&#xA;01:17:50 - Is this a TypeScript bug or a feature?&#xA;01:22:44 - Final thoughts and community love&#xA;&#xA;---&#xA;&#xA;**Topics Covered:**&#xA;&#xA; • TypeScript excess property checks&#xA; • Enums vs object literals&#xA; • Structural vs duck typing&#xA; • TS compiler edge cases&#xA; • WTFs that break your mental model&#xA; • Type-level math&#xA; • Performance debugging hell&#xA; • Massive monorepo pain points&#xA; • The one TypeScript bug Prime can’t let go</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>3-G3MrdNIQk</guid>
+    <title>a cover of Budapest !!</title>
+    <enclosure url="https://ia600909.us.archive.org/35/items/fitrahhaque_tubecast/audio_Test-2_3-G3MrdNIQk.mp3" length="4241156" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://ia800909.us.archive.org/35/items/fitrahhaque_tubecast/thumbnail_Test-2_3-G3MrdNIQk.png"></itunes:image>
+    <description>hii guys!! I had footage still from my most recent trip and figured this song was perfect for it. ALSO, I just announced a small European tour next November supporting Bertie Newman, and couldn&#39;t be more excited to perform for the first time in Europe :) tickets are available with the link below and you can follow my Instagram for more updates! I guess that&#39;s it for now, take care and hope you enjoy xx&#xA;https://linktr.ee/mariannebeaulieu&#xA;&#xA;#cover #cinematic #budapest #travel #acoustic</description>
+    <link>https://www.youtube.com/watch?v=3-G3MrdNIQk</link>
+    <pubDate>Mon, 07 Jul 2025 00:00:00 GMT</pubDate>
+    <itunes:duration>3:05</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>marianneBL</itunes:author>
+    <itunes:subtitle>hii guys!! I had footage still from my most recent trip and figured this song was perfect for it. ALSO, I just announced a small European tour next November supporting Bertie Newman, and couldn&#39;t be more excited to perform for the first time in Europe :) tickets are available with the link below and you can follow my Instagram for more updates! I guess that&#39;s it for now, take care and hope you enjoy xx&#xA;https://linktr.ee/mariannebeaulieu&#xA;&#xA;#cover #cinematic #budapest #travel #acoustic</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>cfu9ihsU6yI</guid>
+    <title>singing &#34;Medicine&#34; in my backyard :)</title>
+    <enclosure url="https://ia600909.us.archive.org/35/items/fitrahhaque_tubecast/audio_Test-2_cfu9ihsU6yI.mp3" length="6730796" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://ia800909.us.archive.org/35/items/fitrahhaque_tubecast/thumbnail_Test-2_cfu9ihsU6yI.png"></itunes:image>
+    <description>hii guys :) I&#39;ve sung this one in short videos a couple times now but this has to be my most requested song so I figured I would finally sing the full version. hope you&#39;re enjoying the flowers blooming and birds chirping again as much as I am, take care !! xx&#xA;&#34;Medicine&#34; by Daughter&#xA;&#xA;stream my newest EP here! : https://linktr.ee/mariannebeaulieu&#xA;#cover #daughter #acoustic #calm #harmony</description>
+    <link>https://www.youtube.com/watch?v=cfu9ihsU6yI</link>
+    <pubDate>Fri, 13 Jun 2025 00:00:00 GMT</pubDate>
+    <itunes:duration>4:51</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>marianneBL</itunes:author>
+    <itunes:subtitle>hii guys :) I&#39;ve sung this one in short videos a couple times now but this has to be my most requested song so I figured I would finally sing the full version. hope you&#39;re enjoying the flowers blooming and birds chirping again as much as I am, take care !! xx&#xA;&#34;Medicine&#34; by Daughter&#xA;&#xA;stream my newest EP here! : https://linktr.ee/mariannebeaulieu&#xA;#cover #daughter #acoustic #calm #harmony</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>r0McrrrFNtA</guid>
+    <title>a cover of “Atlantis” on a slow morning at the cottage</title>
+    <enclosure url="https://ia600909.us.archive.org/35/items/fitrahhaque_tubecast/audio_Test-2_r0McrrrFNtA.mp3" length="7350668" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://ia800909.us.archive.org/35/items/fitrahhaque_tubecast/thumbnail_Test-2_r0McrrrFNtA.png"></itunes:image>
+    <description>hellooo :) BY THE WAY I have a new song up on Spotify called “My Love ”!! if you feel like checking it out, it would mean a lot. A few people on that last youtube short asked for the full version of Atlantis sooo hope you guys enjoy this one xx&#xA;Follow me on my socials!! : https://linktr.ee/mariannebeaulieu?utm_source=linktree_profile_share&amp;ltsid=4f8154f9-9c95-4bf4-948b-53607b63f489 &#xA;#atlantis #seafret #cover #fullversion #viral #voice #calm #acoustic</description>
+    <link>https://www.youtube.com/watch?v=r0McrrrFNtA</link>
+    <pubDate>Fri, 12 Aug 2022 00:00:00 GMT</pubDate>
+    <itunes:duration>5:35</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>@marianneBL</itunes:author>
+    <itunes:subtitle>hellooo :) BY THE WAY I have a new song up on Spotify called “My Love ”!! if you feel like checking it out, it would mean a lot. A few people on that last youtube short asked for the full version of Atlantis sooo hope you guys enjoy this one xx&#xA;Follow me on my socials!! : https://linktr.ee/mariannebeaulieu?utm_source=linktree_profile_share&amp;ltsid=4f8154f9-9c95-4bf4-948b-53607b63f489 &#xA;#atlantis #seafret #cover #fullversion #viral #voice #calm #acoustic</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
   <language>English</language>
   <copyright>fitrahhaque</copyright>
   <itunes:author></itunes:author>

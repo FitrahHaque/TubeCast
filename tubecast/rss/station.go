@@ -12,11 +12,7 @@ func getMetaStation(title string, description string) (MetaStation, error) {
 	if !StationNames.Has(title) {
 		return Usr.createMetaStation(title, description)
 	}
-	if metaStation, err := loadMetaStationFromLocal(Megh.getLocalStationFilepath(title)); err != nil {
-		return MetaStation{}, err
-	} else {
-		return metaStation, nil
-	}
+	return loadMetaStationFromLocal(Megh.getLocalStationFilepath(title))
 }
 
 func (user *User) createMetaStation(title string, description string) (MetaStation, error) {
