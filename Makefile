@@ -19,7 +19,7 @@ create-show: install
 	./$(BINARY).o -create-show --title="med" --description="Show description"
 
 sync-channel: install
-	./$(BINARY).o -sync-channel --title="med" --description="Show description" --channel-id="marianneBL"
+	./$(BINARY).o -sync-channel --title="med" --channel-id="ThePrimeTimeagen"
 
 sync: install
 	./$(BINARY).o -sync

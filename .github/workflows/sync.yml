@@ -24,40 +24,41 @@ jobs:
       # 3. Download yt-dlp and FFmpeg static builds (no Homebrew)
       - name: Install yt-dlp and FFmpeg
         run: |
-          mkdir -p $HOME/bin
-          echo "$HOME/bin" >> $GITHUB_PATH
-
-          # 2. Download the latest ffmpeg and ffprobe
-          curl -L https://evermeet.cx/ffmpeg/get/ffmpeg    -o "$HOME/bin/ffmpeg"
-          curl -L https://evermeet.cx/ffmpeg/get/ffprobe   -o "$HOME/bin/ffprobe"
-          
-          # 3. Make them executable
+          mkdir -p "$HOME/bin"
+          echo "$HOME/bin" >> "$GITHUB_PATH"
+          # Download and install yt-dlp
+          curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_macos -o "$HOME/bin/yt-dlp"
+          chmod +x "$HOME/bin/yt-dlp"
+          # Download and install ffmpeg + ffprobe
+          curl -L https://evermeet.cx/ffmpeg/get/ffmpeg  -o "$HOME/bin/ffmpeg"
+          curl -L https://evermeet.cx/ffmpeg/get/ffprobe -o "$HOME/bin/ffprobe"
           chmod +x "$HOME/bin/ffmpeg" "$HOME/bin/ffprobe"
 
       # 4. Build Go application
       - name: Build Go application
         run: |
-          go build -o tubecast.o .
-          mkdir -p $HOME/bin
-          install -m0755 tubecast.o $HOME/bin/tubecast
+          go build -o tubecast .
+          mkdir -p "$HOME/bin"
+          install -m0755 tubecast "$HOME/bin/tubecast"
+          echo "$HOME/bin" >> "$GITHUB_PATH"
 
       # 5. Configure Internet Archive CLI
       - name: Configure Internet Archive CLI
         run: |
           chmod +x ./ia
           mkdir -p ~/.config/internetarchive
-          cat > ~/.config/internetarchive/ia.ini <<EOF
-          [s3]
-          access = ${{ secrets.IA_S3_ACCESS_KEY }}
-          secret = ${{ secrets.IA_S3_SECRET_KEY }}
-          EOF
+cat > ~/.config/internetarchive/ia.ini <<EOF
+[s3]
+access = ${{ secrets.IA_S3_ACCESS_KEY }}
+secret = ${{ secrets.IA_S3_SECRET_KEY }}
+EOF
 
       # 6. Run the application
       - name: Run sync
         env:
           USERNAME: ${{ github.repository_owner }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: tubecast -sync
+        run: tubecast --sync
 
       # 7. Commit and push changes
       - name: Commit and push changes
@@ -70,3 +71,4 @@ jobs:
           else
             git commit -m "Update podcast feed [skip ci]"
             git push
+          fi
