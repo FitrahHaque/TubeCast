@@ -8,33 +8,43 @@ on:
 jobs:
   sync-podcast:
     runs-on: macos-15
-    
+
     steps:
       # 1. Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v4
-        
-      # 2. Set up Go using marketplace action (recommended)
+
+      # 2. Set up Go (with caching)
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
           go-version: '1.23.5'
           cache: true
-          
-      # 3. Install Homebrew tools with caching
-      - name: Install Homebrew tools
-        uses: tecolicom/actions-use-homebrew-tools@v1
-        with:
-          tools: yt-dlp ffmpeg fprobe
-          
+
+      # 3. Download yt-dlp and FFmpeg static builds (no Homebrew)
+      - name: Install yt-dlp and FFmpeg
+        run: |
+          mkdir -p $HOME/bin
+          echo "$HOME/bin" >> $GITHUB_PATH
+
+          # yt-dlp (latest release)
+          YTDLP_URL=https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_macos
+          curl -L $YTDLP_URL -o $HOME/bin/yt-dlp
+          chmod +x $HOME/bin/yt-dlp
+
+          # FFmpeg static build (macOS x86_64 or arm64—pick matching runner)
+          FFMPEG_URL=https://evermeet.cx/ffmpeg/ffmpeg-6.0.zip
+          curl -L $FFMPEG_URL -o /tmp/ffmpeg.zip
+          unzip -j /tmp/ffmpeg.zip -d $HOME/bin ffmpeg ffprobe
+          chmod +x $HOME/bin/ffmpeg $HOME/bin/ffprobe
+
       # 4. Build Go application
       - name: Build Go application
         run: |
           go build -o tubecast.o .
           mkdir -p $HOME/bin
           install -m0755 tubecast.o $HOME/bin/tubecast
-          echo "$HOME/bin" >> $GITHUB_PATH
-          
+
       # 5. Configure Internet Archive CLI
       - name: Configure Internet Archive CLI
         run: |
@@ -45,14 +55,14 @@ jobs:
           access = ${{ secrets.IA_S3_ACCESS_KEY }}
           secret = ${{ secrets.IA_S3_SECRET_KEY }}
           EOF
-        
+
       # 6. Run the application
       - name: Run sync
         env:
           USERNAME: ${{ github.repository_owner }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: tubecast -sync
-        
+        run: tubecast --sync
+
       # 7. Commit and push changes
       - name: Commit and push changes
         run: |
