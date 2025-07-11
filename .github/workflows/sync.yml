@@ -56,6 +56,11 @@ jobs:
           access = ${{ secrets.IA_S3_ACCESS_KEY }}
           secret = ${{ secrets.IA_S3_SECRET_KEY }}
           EOF
+      - name: Debug environment
+        run: |
+          echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
+          echo "Constructed path: ${{ github.workspace }}/bin/ffmpeg"
+          ls -la "${{ github.workspace }}/bin/"
 
 
       # 7. Run the application
