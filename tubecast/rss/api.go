@@ -3,6 +3,7 @@ package rss
 import (
 	"fmt"
 	"os"
+	"strings"
 )
 
 func SyncChannel(title, description string, channelID string) (string, error) {
@@ -83,6 +84,7 @@ func Init() {
 	Usr = User{
 		Username: os.Getenv("USERNAME"),
 	}
+	Usr.Username = strings.ToLower(Usr.Username)
 	fmt.Printf("username: %v\n", Usr.Username)
 	Megh = Cloud{
 		ArchiveId:        Usr.getArchiveIdentifier(),

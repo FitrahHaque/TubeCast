@@ -172,6 +172,7 @@ func checkForCreateShow(application string, createShowCmd *bool, cmdIdx int) {
 
 func checkForSync(syncCmd *bool) {
 	if *syncCmd {
+		fmt.Printf("sync command starts here....\n")
 		err := rss.Sync()
 		if err != nil {
 			fmt.Printf("Error syncing: %v\n", err)

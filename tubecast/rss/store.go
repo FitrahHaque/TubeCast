@@ -96,6 +96,9 @@ func loadAllMetaStationNames() error {
 			StationNames.Add(strings.TrimSuffix(e.Name(), filepath.Ext(e.Name())))
 		}
 	}
+	for title := range StationNames.Value {
+		fmt.Printf("Station %v\n", title)
+	}
 	return nil
 }
 
