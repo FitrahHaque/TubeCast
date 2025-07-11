@@ -31,7 +31,6 @@ var THUMBNAIL_BASE string = "./tubecast/thumbnail"
 var MaximumStorage uint64 = 2 * 1024 * 1024 * 1024 // 2GB
 var Megh Cloud
 var Usr User
-var FFMPEG_PATH string
 
 type FileType int
 
@@ -323,7 +322,7 @@ func (cloud *Cloud) getStationFilename(title string) string {
 }
 
 func (cloud *Cloud) getFeedFilename(title string) string {
-	return fmt.Sprintf("%s.xml", title)
+	return fmt.Sprintf("%s.xml", strings.ReplaceAll(title, " ", "_"))
 }
 
 func (cloud *Cloud) getCoverFilename(title string) string {

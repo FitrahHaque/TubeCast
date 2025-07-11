@@ -127,7 +127,7 @@ func (cloud *Cloud) upload(ctx context.Context, id, title string, filetype FileT
 	}
 	_, err := run(
 		ctx,
-		"./ia",
+		"ia",
 		"upload",
 		"--no-backup",
 		cloud.ArchiveId,
@@ -145,7 +145,7 @@ func (cloud *Cloud) upload(ctx context.Context, id, title string, filetype FileT
 func (cloud *Cloud) getUsage(ctx context.Context) (Usage, error) {
 	out, err := run(
 		ctx,
-		"./ia",
+		"ia",
 		"metadata",
 		cloud.ArchiveId,
 	)
@@ -192,7 +192,7 @@ func (cloud *Cloud) getUsage(ctx context.Context) (Usage, error) {
 func (cloud *Cloud) delete(ctx context.Context, id, title string) error {
 	_, err := run(
 		ctx,
-		"./ia",
+		"ia",
 		"delete",
 		cloud.ArchiveId,
 		fmt.Sprintf("--glob=*%s_%s*", title, id),

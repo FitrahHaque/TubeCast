@@ -1,0 +1,9 @@
+*.o
+*.txt
+*.md
+.env
+.gitignore
+bin/
+docs/feed/
+tubecast/audio
+tubecast/thumbnail

@@ -84,13 +84,12 @@ func Init() {
 	Usr = User{
 		Username: os.Getenv("USERNAME"),
 	}
-	FFMPEG_PATH = os.Getenv("WORKSPACE")
 	Usr.Username = strings.ToLower(Usr.Username)
 	fmt.Printf("username: %v\n", Usr.Username)
 	Megh = Cloud{
 		ArchiveId:        Usr.getArchiveIdentifier(),
 		FeedUrlPrefix:    Usr.getFeedUrlPrefix(),
-		MaximumStorage:   2 * 1024 * 1024 * 1024, //2 GiB
+		MaximumStorage:   10 * 1024 * 1024 * 1024, //10 GiB
 		ArchiveUrlPrefix: fmt.Sprintf("https://archive.org/download/%s/", Usr.getArchiveIdentifier()),
 	}
 
