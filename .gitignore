@@ -5,5 +5,5 @@ tubecast/thumbnail/
 tubecast/station/
 tubecast/cover/
 *.txt
-.github/
+# .github/
 *.o

@@ -3,6 +3,7 @@ package rss
 import (
 	"context"
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/google/uuid"
@@ -21,6 +22,9 @@ func (user *User) createMetaStation(title string, description string) (MetaStati
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 	defer cancel()
+	localpath2 := Megh.getLocalCoverFilepath(title)
+	localpath1 := strings.Split(localpath2, ".")[0] + ".webp"
+	ConvertImageToCorrectFormat(localpath1, localpath2)
 	coverImage, _ := Megh.upload(ctx, "", title, COVER)
 	metaStation := MetaStation{
 		ID:             uuid.New(),
