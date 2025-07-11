@@ -34,13 +34,19 @@ jobs:
           curl -L https://evermeet.cx/ffmpeg/get/ffprobe -o "$HOME/bin/ffprobe"
           chmod +x "$HOME/bin/ffmpeg" "$HOME/bin/ffprobe"
 
-      # 4. Build Go application
+
+        # 4. Export cookies.txt to bypass bot alarm from youtube
+      - name: Prepare cookies file
+        run: |
+          echo "${{ secrets.COOKIE_TXT }}" > cookies.txt
+
+      # 5. Build Go application
       - name: Build Go application
         run: |
           go build -o tubecast.o .
           echo "$HOME/bin" >> "$GITHUB_PATH"
 
-      # 5. Configure Internet Archive CLI
+      # 6. Configure Internet Archive CLI
       - name: Configure Internet Archive CLI
         run: |
           chmod +x ./ia
@@ -52,14 +58,14 @@ jobs:
           EOF
 
 
-      # 6. Run the application
+      # 7. Run the application
       - name: Run sync
         env:
           USERNAME: ${{ github.repository_owner }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: ./tubecast.o -sync
 
-      # 7. Commit and push changes
+      # 8. Commit and push changes
       - name: Commit and push changes
         run: |
           git config user.name "github-actions[bot]"

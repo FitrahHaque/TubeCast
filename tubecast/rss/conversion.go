@@ -168,6 +168,8 @@ func (metaStation *MetaStation) addItemToStation(ctx context.Context, id, userna
 
 func (metaStation *MetaStation) getLatestVideos(ctx context.Context, channelUrl string, limit uint) ([]string, error) {
 	args := []string{
+		"--cookies",
+		"cookies.txt",
 		"--get-id",
 		"--match-filter",
 		"live_status!='is_upcoming'",
@@ -192,6 +194,8 @@ func getVideoId(ctx context.Context, link string) (string, error) {
 	out, err := run(
 		ctx,
 		"yt-dlp",
+		"--cookies",
+		"cookies.txt",
 		"--quiet",
 		"--print",
 		"id",
@@ -207,6 +211,8 @@ func getVideoUsername(ctx context.Context, link string) (string, error) {
 	out, err := run(
 		ctx,
 		"yt-dlp",
+		"--cookies",
+		"cookies.txt",
 		"--quiet",
 		"--print",
 		"uploader_id",
@@ -222,6 +228,8 @@ func getVideoTitle(ctx context.Context, link string) (string, error) {
 	out, err := run(
 		ctx,
 		"yt-dlp",
+		"--cookies",
+		"cookies.txt",
 		"--quiet",
 		"--print",
 		"title",
@@ -237,6 +245,8 @@ func getVideoDescription(ctx context.Context, link string) (string, error) {
 	out, err := run(
 		ctx,
 		"yt-dlp",
+		"--cookies",
+		"cookies.txt",
 		"--quiet",
 		"--print",
 		"description",
@@ -252,6 +262,8 @@ func getVideoDuration(ctx context.Context, link string) (string, error) {
 	out, err := run(
 		ctx,
 		"yt-dlp",
+		"--cookies",
+		"cookies.txt",
 		"--quiet",
 		"--print",
 		"duration_string",
@@ -267,6 +279,8 @@ func getVideoViews(ctx context.Context, link string) (uint32, error) {
 	out, err := run(
 		ctx,
 		"yt-dlp",
+		"--cookies",
+		"cookies.txt",
 		"--quiet",
 		"--print",
 		"view_count",
@@ -286,6 +300,8 @@ func getVideoPubDate(ctx context.Context, link string) (string, error) {
 	out, err := run(
 		ctx,
 		"yt-dlp",
+		"--cookies",
+		"cookies.txt",
 		"--quiet",
 		"--print",
 		"upload_date",
@@ -307,6 +323,8 @@ func (metaStationItem *MetaStationItem) saveVideoThumbnail(ctx context.Context, 
 	_, err := run(
 		ctx,
 		"yt-dlp",
+		"--cookies",
+		"cookies.txt",
 		"--quiet",
 		"--skip-download",
 		"--write-thumbnail",
@@ -325,6 +343,8 @@ func (metaStationItem *MetaStationItem) saveAudio(ctx context.Context, title str
 	localpath := Megh.getLocalAudioFilepath(metaStationItem.GUID, title)
 	_, err := run(ctx,
 		"yt-dlp",
+		"--cookies",
+		"cookies.txt",
 		"--quiet",
 		"-x",
 		"--audio-format",
