@@ -1,20 +1,43 @@
 {
-  "id": "f7b6e160-0274-4ec7-b8f2-3436733620a4",
+  "id": "9fc33332-b299-482a-8741-8b03813cb598",
   "title": "Tech Debt",
   "url": "",
-  "description": "The more you delay reinventing the wheels, the worse programmer you become",
+  "description": "The more delayed your pursuit of reinventing the wheel is, the worse programmer you become.",
   "item": [
+    {
+      "guid": "SvxtQf0ZIEk",
+      "itunes_author": "ThePrimeTimeagen",
+      "channel_id": "https://www.youtube.com/@ThePrimeTimeagen/videos",
+      "added_on": "2025-07-11T17:29:40.484880381Z",
+      "itunes_explicit": "no",
+      "title": "Chess is an MMO now?",
+      "description": "Twitch https://twitch.tv/ThePrimeagen\nDiscord https://discord.gg/ThePrimeagen\n\nBecome Backend Dev: https://boot.dev/prime\n(plus i make courses for them)\n\nThis is also the best way to support me is to support yourself becoming a better backend engineer.  \n\n### LINKS \nhttps://eieio.games/blog/a-million-realtime-chess-boards-in-a-single-process/\n\nGreat News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen\n\nKinesis Advantage 360: https://bit.ly/Prime-Kinesis",
+      "itunes_summary": "",
+      "itunes_duration": "51:51",
+      "views": 5862,
+      "pubDate": "Fri, 11 Jul 2025 00:00:00 GMT",
+      "itunes_image": {
+        "itunes_image_href": "https://ia600909.us.archive.org/35/items/fitrahhaque_tubecast/thumbnail_Tech%20Debt_SvxtQf0ZIEk.png"
+      },
+      "enclosure": {
+        "enclosure_url": "https://ia600909.us.archive.org/35/items/fitrahhaque_tubecast/audio_Tech%20Debt_SvxtQf0ZIEk.mp3",
+        "enclosure_length": 85709325,
+        "enclosure_type": "audio/mpeg"
+      },
+      "itunes_subtitle": "Twitch https://twitch.tv/ThePrimeagen\nDiscord https://discord.gg/ThePrimeagen\n\nBecome Backend Dev: https://boot.dev/prime\n(plus i make courses for them)\n\nThis is also the best way to support me is to support yourself becoming a better backend engineer.  \n\n### LINKS \nhttps://eieio.games/blog/a-million-realtime-chess-boards-in-a-single-process/\n\nGreat News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen\n\nKinesis Advantage 360: https://bit.ly/Prime-Kinesis",
+      "link": "https://www.youtube.com/watch?v=SvxtQf0ZIEk"
+    },
     {
       "guid": "hEIBsqP63Pg",
       "itunes_author": "ThePrimeTimeagen",
       "channel_id": "https://www.youtube.com/@ThePrimeTimeagen/videos",
-      "added_on": "2025-07-11T07:46:14.861267043Z",
+      "added_on": "2025-07-11T17:31:02.473721586Z",
       "itunes_explicit": "no",
       "title": "Did Zig Fix Async / Await?",
       "description": "Twitch https://twitch.tv/ThePrimeagen\nDiscord https://discord.gg/ThePrimeagen\n\nBecome Backend Dev: https://boot.dev/prime\n(plus i make courses for them)\n\nThis is also the best way to support me is to support yourself becoming a better backend engineer.  \n\n### LINKS \nhttps://www.youtube.com/watch?v=x3hOiOcbgeA\n\nGreat News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen\n\nKinesis Advantage 360: https://bit.ly/Prime-Kinesis",
       "itunes_summary": "",
       "itunes_duration": "34:37",
-      "views": 54332,
+      "views": 67845,
       "pubDate": "Thu, 10 Jul 2025 00:00:00 GMT",
       "itunes_image": {
         "itunes_image_href": "https://ia800909.us.archive.org/35/items/fitrahhaque_tubecast/thumbnail_Tech%20Debt_hEIBsqP63Pg.png"
@@ -31,79 +54,33 @@
       "guid": "M9UWgw_aW28",
       "itunes_author": "ThePrimeTimeagen",
       "channel_id": "https://www.youtube.com/@ThePrimeTimeagen/videos",
-      "added_on": "2025-07-11T07:47:09.672318972Z",
+      "added_on": "2025-07-11T17:31:59.138927168Z",
       "itunes_explicit": "no",
       "title": "Why is the Rust Compiler So SLOW?",
       "description": "Twitch https://twitch.tv/ThePrimeagen\nDiscord https://discord.gg/ThePrimeagen\n\nBecome Backend Dev: https://boot.dev/prime\n(plus i make courses for them)\n\nThis is also the best way to support me is to support yourself becoming a better backend engineer.  \n\n### LINKS \n -- https://sharnoff.io/blog/why-rust-compiler-slow\nBy: Em Sharnoff\n\nGreat News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen\n\nKinesis Advantage 360: https://bit.ly/Prime-Kinesis",
       "itunes_summary": "",
       "itunes_duration": "57:07",
-      "views": 55214,
+      "views": 59231,
       "pubDate": "Wed, 09 Jul 2025 00:00:00 GMT",
       "itunes_image": {
-        "itunes_image_href": "https://ia600909.us.archive.org/35/items/fitrahhaque_tubecast/thumbnail_Tech%20Debt_M9UWgw_aW28.png"
+        "itunes_image_href": "https://ia800909.us.archive.org/35/items/fitrahhaque_tubecast/thumbnail_Tech%20Debt_M9UWgw_aW28.png"
       },
       "enclosure": {
-        "enclosure_url": "https://ia600909.us.archive.org/35/items/fitrahhaque_tubecast/audio_Tech%20Debt_M9UWgw_aW28.mp3",
+        "enclosure_url": "https://ia800909.us.archive.org/35/items/fitrahhaque_tubecast/audio_Tech%20Debt_M9UWgw_aW28.mp3",
         "enclosure_length": 90744381,
         "enclosure_type": "audio/mpeg"
       },
       "itunes_subtitle": "Twitch https://twitch.tv/ThePrimeagen\nDiscord https://discord.gg/ThePrimeagen\n\nBecome Backend Dev: https://boot.dev/prime\n(plus i make courses for them)\n\nThis is also the best way to support me is to support yourself becoming a better backend engineer.  \n\n### LINKS \n -- https://sharnoff.io/blog/why-rust-compiler-slow\nBy: Em Sharnoff\n\nGreat News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen\n\nKinesis Advantage 360: https://bit.ly/Prime-Kinesis",
       "link": "https://www.youtube.com/watch?v=M9UWgw_aW28"
-    },
-    {
-      "guid": "dh6BCSzaF6g",
-      "itunes_author": "ThePrimeTimeagen",
-      "channel_id": "https://www.youtube.com/@ThePrimeTimeagen/videos",
-      "added_on": "2025-07-11T07:49:19.116378795Z",
-      "itunes_explicit": "no",
-      "title": "WTF Typescript",
-      "description": "🔗 Sponsored by Sentry https://sentry.io | Code breaks, fix it faster\n\n📌 Chapters:\n\n00:00:00 - Intro\n00:00:42 - Who’s actually a “web developer”?\n00:02:31 - Trash’s live intro \u0026 TypeScript presentation setup\n00:03:59 - Sentry #ad\n00:04:38 - Excess property checks in TS\n00:09:42 - WTF: Object spreads silence type errors\n00:14:30 - React prop spreading madness\n00:18:22 - Structural vs duck typing debate\n00:24:00 - WTF: Enums and why everyone hates them\n00:27:45 - Enum strings vs numbers behavior\n00:33:10 - Why enums in Node are cursed\n00:36:55 - Safer enum alternatives using const objects\n00:43:10 - TS quirks: Boolean filter keeps undefined in types\n00:46:40 - TSReset: The “CSS reset” for TypeScript\n00:49:01 - WTF: Empty object {} lets everything through\n00:52:32 - Doom rendered in TypeScript type system\n00:54:00 - Type-level math in TS (it’s real)\n00:56:33 - Scaling hell: TS performance bottlenecks\n01:00:01 - Flamegraphs and fighting TS perf without docs\n01:04:55 - TS inference vs explicit typing in large codebases\n01:09:30 - Prime’s favorite TS bug strikes again\n01:14:01 - Casey breaks down the compiler logic\n01:17:50 - Is this a TypeScript bug or a feature?\n01:22:44 - Final thoughts and community love\n\n---\n\n**Topics Covered:**\n\n • TypeScript excess property checks\n • Enums vs object literals\n • Structural vs duck typing\n • TS compiler edge cases\n • WTFs that break your mental model\n • Type-level math\n • Performance debugging hell\n • Massive monorepo pain points\n • The one TypeScript bug Prime can’t let go",
-      "itunes_summary": "",
-      "itunes_duration": "1:25:06",
-      "views": 131961,
-      "pubDate": "Tue, 08 Jul 2025 00:00:00 GMT",
-      "itunes_image": {
-        "itunes_image_href": "https://ia600909.us.archive.org/35/items/fitrahhaque_tubecast/thumbnail_Tech%20Debt_dh6BCSzaF6g.png"
-      },
-      "enclosure": {
-        "enclosure_url": "https://ia800909.us.archive.org/35/items/fitrahhaque_tubecast/audio_Tech%20Debt_dh6BCSzaF6g.mp3",
-        "enclosure_length": 106722309,
-        "enclosure_type": "audio/mpeg"
-      },
-      "itunes_subtitle": "🔗 Sponsored by Sentry https://sentry.io | Code breaks, fix it faster\n\n📌 Chapters:\n\n00:00:00 - Intro\n00:00:42 - Who’s actually a “web developer”?\n00:02:31 - Trash’s live intro \u0026 TypeScript presentation setup\n00:03:59 - Sentry #ad\n00:04:38 - Excess property checks in TS\n00:09:42 - WTF: Object spreads silence type errors\n00:14:30 - React prop spreading madness\n00:18:22 - Structural vs duck typing debate\n00:24:00 - WTF: Enums and why everyone hates them\n00:27:45 - Enum strings vs numbers behavior\n00:33:10 - Why enums in Node are cursed\n00:36:55 - Safer enum alternatives using const objects\n00:43:10 - TS quirks: Boolean filter keeps undefined in types\n00:46:40 - TSReset: The “CSS reset” for TypeScript\n00:49:01 - WTF: Empty object {} lets everything through\n00:52:32 - Doom rendered in TypeScript type system\n00:54:00 - Type-level math in TS (it’s real)\n00:56:33 - Scaling hell: TS performance bottlenecks\n01:00:01 - Flamegraphs and fighting TS perf without docs\n01:04:55 - TS inference vs explicit typing in large codebases\n01:09:30 - Prime’s favorite TS bug strikes again\n01:14:01 - Casey breaks down the compiler logic\n01:17:50 - Is this a TypeScript bug or a feature?\n01:22:44 - Final thoughts and community love\n\n---\n\n**Topics Covered:**\n\n • TypeScript excess property checks\n • Enums vs object literals\n • Structural vs duck typing\n • TS compiler edge cases\n • WTFs that break your mental model\n • Type-level math\n • Performance debugging hell\n • Massive monorepo pain points\n • The one TypeScript bug Prime can’t let go",
-      "link": "https://www.youtube.com/watch?v=dh6BCSzaF6g"
-    },
-    {
-      "guid": "xh-iMBOXl6M",
-      "itunes_author": "@ThePrimeTimeagen",
-      "channel_id": "https://www.youtube.com/@ThePrimeTimeagen/videos",
-      "added_on": "2025-07-11T09:02:58.361476169Z",
-      "itunes_explicit": "no",
-      "title": "Radical Simplicity",
-      "description": "Recorded live on twitch, GET IN \n\n### Article\nhttps://www.radicalsimpli.city/#:~:text=What%20is%20Radical%20Simplicity%3F,moving%20part%20for%20each%20purpose.\nBy: Stephan Schmidt | https://www.linkedin.com/in/stephanjschmidt/\n\n### My Stream\nhttps://twitch.tv/ThePrimeagen\n\n### Best Way To Support Me\nBecome a backend engineer.  Its my favorite site\nhttps://boot.dev/?promo=PRIMEYT\n\nThis is also the best way to support me is to support yourself becoming a better backend engineer.  \n\nMY MAIN YT CHANNEL: Has well edited engineering videos\nhttps://youtube.com/ThePrimeagen\n\nDiscord\nhttps://discord.gg/ThePrimeagen\n\n\nHave something for me to read or react to?: https://www.reddit.com/r/ThePrimeagenReact/\n\nKinesis Advantage 360: https://bit.ly/Prime-Kinesis\n\nGet production ready SQLite with Turso: https://turso.tech/deeznuts",
-      "itunes_summary": "",
-      "itunes_duration": "45:52",
-      "views": 399910,
-      "pubDate": "Mon, 15 Jul 2024 00:00:00 GMT",
-      "itunes_image": {
-        "itunes_image_href": "https://ia800909.us.archive.org/35/items/fitrahhaque_tubecast/thumbnail_Tech%20Debt_xh-iMBOXl6M.png"
-      },
-      "enclosure": {
-        "enclosure_url": "https://ia600909.us.archive.org/35/items/fitrahhaque_tubecast/audio_Tech%20Debt_xh-iMBOXl6M.mp3",
-        "enclosure_length": 66719805,
-        "enclosure_type": "audio/mpeg"
-      },
-      "itunes_subtitle": "Recorded live on twitch, GET IN \n\n### Article\nhttps://www.radicalsimpli.city/#:~:text=What%20is%20Radical%20Simplicity%3F,moving%20part%20for%20each%20purpose.\nBy: Stephan Schmidt | https://www.linkedin.com/in/stephanjschmidt/\n\n### My Stream\nhttps://twitch.tv/ThePrimeagen\n\n### Best Way To Support Me\nBecome a backend engineer.  Its my favorite site\nhttps://boot.dev/?promo=PRIMEYT\n\nThis is also the best way to support me is to support yourself becoming a better backend engineer.  \n\nMY MAIN YT CHANNEL: Has well edited engineering videos\nhttps://youtube.com/ThePrimeagen\n\nDiscord\nhttps://discord.gg/ThePrimeagen\n\n\nHave something for me to read or react to?: https://www.reddit.com/r/ThePrimeagenReact/\n\nKinesis Advantage 360: https://bit.ly/Prime-Kinesis\n\nGet production ready SQLite with Turso: https://turso.tech/deeznuts",
-      "link": "https://www.youtube.com/watch?v=xh-iMBOXl6M"
     }
   ],
   "channel_count": 0,
-  "created_on": "2025-07-11T07:44:03.917309219Z",
+  "created_on": "2025-07-11T17:29:31.883572919Z",
   "language": "English",
   "copyright": "fitrahhaque",
   "itunes_author": "",
   "itunes_subtitle": "",
-  "itunes_summary": "The more you delay reinventing the wheels, the worse programmer you become",
+  "itunes_summary": "The more delayed your pursuit of reinventing the wheel is, the worse programmer you become.",
   "itunes_image": {
     "itunes_image_href": "https://ia600909.us.archive.org/35/items/fitrahhaque_tubecast/cover_Tech%20Debt.png"
   },
