@@ -3,6 +3,7 @@ package rss
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"fmt"
 	"image"
 	"image/draw"
@@ -29,6 +30,7 @@ var COVER_BASE string = "./tubecast/cover"
 var THUMBNAIL_BASE string = "./tubecast/thumbnail"
 var MaximumStorage uint64 = 2 * 1024 * 1024 * 1024 // 2GB
 var Megh Cloud
+var Usr User
 
 type FileType int
 
@@ -57,27 +59,51 @@ const (
 // var DROPBOX_BASE string =
 
 type Set[T comparable] struct {
-	set map[T]struct{}
+	Value map[T]struct{} `json:"value"`
 }
 
 // provide key, a comparable type to create a set
 func NewSet[T comparable]() *Set[T] {
 	return &Set[T]{
-		set: make(map[T]struct{}),
+		Value: make(map[T]struct{}),
 	}
 }
 
 func (s *Set[T]) Add(item T) {
-	s.set[item] = struct{}{}
+	s.Value[item] = struct{}{}
 }
 
 func (s *Set[T]) Remove(item T) {
-	delete(s.set, item)
+	delete(s.Value, item)
 }
 
 func (s *Set[T]) Has(item T) bool {
-	_, ok := s.set[item]
+	_, ok := s.Value[item]
 	return ok
+}
+
+func (s *Set[T]) UnmarshalJSON(data []byte) error {
+	// JSON is expected as e.g. ["a","b","c"]
+	var elems []T
+	if err := json.Unmarshal(data, &elems); err != nil {
+		return err
+	}
+	// Allocate the map
+	s.Value = make(map[T]struct{}, len(elems))
+	// Populate with each element
+	for _, e := range elems {
+		s.Value[e] = struct{}{}
+	}
+	return nil
+}
+
+func (s Set[T]) MarshalJSON() ([]byte, error) {
+	// Export as a JSON array of keys
+	keys := make([]T, 0, len(s.Value))
+	for k := range s.Value {
+		keys = append(keys, k)
+	}
+	return json.Marshal(keys)
 }
 
 func run(ctx context.Context, cmd string, args ...string) (string, error) {

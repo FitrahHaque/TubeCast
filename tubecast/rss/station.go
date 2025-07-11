@@ -8,57 +8,14 @@ import (
 	"github.com/google/uuid"
 )
 
-func (user *User) CreateStation(name, description string) (Station, error) {
-	if metaStation, err := user.createMetaStation(name, description); err != nil {
-		return Station{}, err
-	} else {
-		station := Station{
-			ID:               metaStation.ID,
-			Title:            metaStation.Title,
-			Description:      metaStation.Description,
-			Items:            getStationItems(metaStation.Items),
-			Language:         metaStation.Language,
-			Copyright:        metaStation.Copyright,
-			ITunesAuthor:     metaStation.ITunesAuthor,
-			ITunesSubtitle:   metaStation.ITunesSubtitle,
-			ITunesSummary:    metaStation.ITunesSummary,
-			ITunesImage:      metaStation.ITunesImage,
-			ITunesExplicit:   metaStation.ITunesExplicit,
-			ITunesCategories: metaStation.ITunesCategories,
-			Owner:            metaStation.Owner,
-		}
-		return station, nil
+func getMetaStation(title string, description string) (MetaStation, error) {
+	if !StationNames.Has(title) {
+		return Usr.createMetaStation(title, description)
 	}
-}
-
-func (station *Station) addToStation(stationItem StationItem) {
-	station.Items = append(station.Items, stationItem)
-}
-
-func GetStation(name string) (Station, error) {
-	if !StationNames.Has(name) {
-		var user User //change this
-		return user.CreateStation(name, "name:name")
-	}
-	if metaStation, err := getMetaStation(name); err != nil {
-		return Station{}, err
+	if metaStation, err := loadMetaStationFromLocal(Megh.getLocalStationFilepath(title)); err != nil {
+		return MetaStation{}, err
 	} else {
-		station := Station{
-			ID:               metaStation.ID,
-			Title:            metaStation.Title,
-			Description:      metaStation.Description,
-			Items:            getStationItems(metaStation.Items),
-			Language:         metaStation.Language,
-			Copyright:        metaStation.Copyright,
-			ITunesAuthor:     metaStation.ITunesAuthor,
-			ITunesSubtitle:   metaStation.ITunesSummary,
-			ITunesSummary:    metaStation.ITunesSummary,
-			ITunesImage:      metaStation.ITunesImage,
-			ITunesExplicit:   metaStation.ITunesExplicit,
-			ITunesCategories: metaStation.ITunesCategories,
-			Owner:            metaStation.Owner,
-		}
-		return station, nil
+		return metaStation, nil
 	}
 }
 
@@ -93,9 +50,11 @@ func (user *User) createMetaStation(title string, description string) (MetaStati
 			Name:  user.Name,
 			Email: user.EmailId,
 		},
+		SubscribedChannel: NewSet[string](),
 	}
 	StationNames.Add(title)
-	return metaStation, metaStation.saveMetaStationToLocal()
+	metaStation.updateFeed()
+	return metaStation, nil
 }
 
 func getStationItems(metaItems []MetaStationItem) []StationItem {
@@ -126,12 +85,12 @@ func getStationItem(metaItem MetaStationItem) StationItem {
 	}
 }
 
-func getMetaStation(title string) (MetaStation, error) {
-	if !StationNames.Has(title) {
-		return MetaStation{}, fmt.Errorf("station `%s` does not exist\n", title)
-	}
-	return loadMetaStationFromLocal(Megh.getLocalStationFilepath(title))
-}
+// func getMetaStation(title string) (MetaStation, error) {
+// 	if !StationNames.Has(title) {
+// 		return MetaStation{}, fmt.Errorf("station `%s` does not exist\n", title)
+// 	}
+// 	return
+// }
 
 func (metaStation *MetaStation) addToStation(stationItem MetaStationItem) {
 	metaStation.Items = append(metaStation.Items, stationItem)
@@ -139,8 +98,13 @@ func (metaStation *MetaStation) addToStation(stationItem MetaStationItem) {
 	metaStation.updateFeed()
 }
 
-func (station *Station) HasItem(id string) bool {
-	for _, item := range station.Items {
+func (metaStation *MetaStation) subscribeToChannel(channelId string) {
+	metaStation.SubscribedChannel.Add(channelId)
+	metaStation.updateFeed()
+}
+
+func (metaStation *MetaStation) HasItem(id string) bool {
+	for _, item := range metaStation.Items {
 		if item.GUID == id {
 			return true
 		}
@@ -148,30 +112,26 @@ func (station *Station) HasItem(id string) bool {
 	return false
 }
 
-func (station *Station) GetStationItem(id string) (StationItem, bool) {
-	for _, item := range station.Items {
-		if item.GUID == id {
-			return item, true
-		}
-	}
-	return StationItem{}, false
-}
+// func (station *Station) GetStationItem(id string) (StationItem, bool) {
+// 	for _, item := range station.Items {
+// 		if item.GUID == id {
+// 			return item, true
+// 		}
+// 	}
+// 	return StationItem{}, false
+// }
 
-func (station *Station) filter(ids []string) []string {
+func (metaStation *MetaStation) filter(ids []string) []string {
 	var videoIds []string
 	for _, id := range ids {
-		if !station.HasItem(id) {
+		if !metaStation.HasItem(id) {
 			videoIds = append(videoIds, id)
 		}
 	}
 	return videoIds
 }
 
-func (station *Station) makeSpace(ctx context.Context, size uint64) bool {
-	metaStation, err := getMetaStation(station.Title)
-	if err != nil {
-		return false
-	}
+func (metaStation *MetaStation) makeSpace(ctx context.Context, size uint64) bool {
 	for {
 		usage, err := Megh.getUsage(ctx)
 		if err != nil {
@@ -181,14 +141,14 @@ func (station *Station) makeSpace(ctx context.Context, size uint64) bool {
 		if usage.TotalSizeBytes+size < Megh.MaximumStorage {
 			// return "", fmt.Errorf("quota exceeded\n")
 			return true
-		} else if !station.removeOldestItem(ctx, &metaStation) {
+		} else if !metaStation.removeOldestItem(ctx) {
 			return false
 		}
 	}
 }
 
-func (station *Station) removeOldestItem(ctx context.Context, metaStation *MetaStation) bool {
-	if len(station.Items) == 0 {
+func (metaStation *MetaStation) removeOldestItem(ctx context.Context) bool {
+	if len(metaStation.Items) == 0 {
 		return false
 	}
 	oldest := metaStation.Items[0].AddedOn
@@ -200,7 +160,7 @@ func (station *Station) removeOldestItem(ctx context.Context, metaStation *MetaS
 		}
 	}
 	id := metaStation.Items[oldestIndex].GUID
-	if err := Megh.delete(ctx, id, station.Title); err != nil {
+	if err := Megh.delete(ctx, id, metaStation.Title); err != nil {
 		fmt.Printf("error-1: %v\n", err)
 		return false
 	}

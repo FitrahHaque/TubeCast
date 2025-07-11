@@ -2,15 +2,171 @@ package rss
 
 import (
 	"context"
+	"errors"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 )
 
-func (station *Station) getLatestVideos(ctx context.Context, channelUrl string, limit uint) ([]string, error) {
+func (metaStation *MetaStation) syncChannel(channelUsername string) (string, error) {
+	channelFeedUrl, err := GetChannelFeedUrl(channelUsername)
+	if err != nil {
+		return "", err
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
+	defer cancel()
+
+	ids, err := metaStation.getLatestVideos(ctx, channelFeedUrl, 2)
+	if err != nil {
+		return "", err
+	}
+	fmt.Println("Latest video urls to be uploaded: ", ids)
+	for _, id := range ids {
+		if _, err := metaStation.addItemToStation(ctx, id, channelUsername, channelFeedUrl); err != nil {
+			log.Printf("error downloading video %s, error: %v\n", id, err)
+		}
+	}
+	return metaStation.updateFeed()
+}
+
+func (metaStation *MetaStation) addVideo(videoUrl string) (string, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
+	defer cancel()
+
+	id, err := getVideoId(ctx, videoUrl)
+	if err != nil {
+		return "", err
+	}
+	ids := metaStation.filter([]string{id})
+	// fmt.Printf("ids...\n")
+	if len(ids) == 0 {
+		return "", errors.New("video already exists in the channel")
+	}
+	// fmt.Printf("username starting...\n")
+	username, err := getVideoUsername(ctx, videoUrl)
+	if err != nil {
+		return "", err
+	}
+	channelFeedUrl, err := GetChannelFeedUrl(username)
+	if err != nil {
+		return "", err
+	}
+	if share, err := metaStation.addItemToStation(ctx, id, username, channelFeedUrl); err != nil {
+		return "", err
+	} else {
+		return share, nil
+	}
+}
+
+func (metaStation *MetaStation) addItemToStation(ctx context.Context, id, username, channelFeedUrl string) (string, error) {
+	metaStationItem := MetaStationItem{
+		GUID:           id,
+		ITunesAuthor:   username,
+		ChannelID:      channelFeedUrl,
+		AddedOn:        time.Now(),
+		ITunesExplicit: "no",
+		Link:           "https://www.youtube.com/watch?v=" + id,
+	}
+	var wg sync.WaitGroup
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		if title, err := getVideoTitle(ctx, metaStationItem.Link); err != nil {
+			return
+		} else {
+			metaStationItem.Title = title
+		}
+	}()
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		if description, err := getVideoDescription(ctx, metaStationItem.Link); err != nil {
+			fmt.Printf("Error: %v\n", err)
+			return
+		} else {
+			metaStationItem.Description = description
+			metaStationItem.ITunesSubtitle = description
+		}
+	}()
+	wg.Add(1)
+	go func() {
+		wg.Done()
+		if duration, err := getVideoDuration(ctx, metaStationItem.Link); err != nil {
+			fmt.Printf("Error: %v\n", err)
+			return
+		} else {
+			metaStationItem.ITunesDuration = duration
+		}
+	}()
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		if views, err := getVideoViews(ctx, metaStationItem.Link); err != nil {
+			fmt.Printf("Error: %v\n", err)
+			return
+		} else {
+			metaStationItem.Views = views
+		}
+	}()
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		if pubDate, err := getVideoPubDate(ctx, metaStationItem.Link); err != nil {
+			fmt.Printf("Error: %v\n", err)
+			return
+		} else {
+			metaStationItem.PubDate = pubDate
+		}
+	}()
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		if err := metaStationItem.saveVideoThumbnail(ctx, metaStation.Title, metaStationItem.Link); err != nil {
+			fmt.Printf("Error: %v\n", err)
+			return
+		}
+	}()
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		if size, err := metaStationItem.saveAudio(ctx, metaStation.Title, metaStationItem.Link, 0); err != nil {
+			fmt.Printf("Error: %v\n", err)
+			return
+		} else {
+			metaStation.makeSpace(ctx, size)
+			if share, err := Megh.upload(ctx, metaStationItem.GUID, metaStation.Title, AUDIO); err != nil {
+				return
+			} else {
+				metaStationItem.Enclosure = Enclosure{
+					URL:    share,
+					Type:   "audio/mpeg",
+					Length: size,
+				}
+				if share, err := Megh.upload(ctx, metaStationItem.GUID, metaStation.Title, THUMBNAIL); err != nil {
+					return
+				} else {
+					metaStationItem.ITunesImage = ITunesImage{
+						Href: share,
+					}
+				}
+
+			}
+		}
+	}()
+	wg.Wait()
+	if len(metaStationItem.Enclosure.URL) == 0 {
+		return "", errors.New("could not upload audio")
+	}
+	metaStation.addToStation(metaStationItem)
+	return metaStation.updateFeed()
+}
+
+func (metaStation *MetaStation) getLatestVideos(ctx context.Context, channelUrl string, limit uint) ([]string, error) {
 	args := []string{
 		"--get-id",
 		"--match-filter",
@@ -28,7 +184,7 @@ func (station *Station) getLatestVideos(ctx context.Context, channelUrl string, 
 	}
 
 	ids := strings.Split(strings.TrimSpace(out), "\n")
-	videoIds := station.filter(ids)
+	videoIds := metaStation.filter(ids)
 	return videoIds, nil
 }
 

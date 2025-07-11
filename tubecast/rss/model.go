@@ -64,22 +64,23 @@ type Enclosure struct {
 }
 
 type MetaStation struct {
-	ID               uuid.UUID         `json:"id"`
-	Title            string            `json:"title"`
-	Url              string            `json:"url"`
-	Description      string            `json:"description"`
-	Items            []MetaStationItem `json:"item"`
-	ChannelCount     uint32            `json:"channel_count"`
-	CreatedOn        time.Time         `json:"created_on"`
-	Language         string            `json:"language"`
-	Copyright        string            `json:"copyright"`
-	ITunesAuthor     string            `json:"itunes_author"`
-	ITunesSubtitle   string            `json:"itunes_subtitle"`
-	ITunesSummary    string            `json:"itunes_summary"`
-	ITunesImage      ITunesImage       `json:"itunes_image"`
-	ITunesExplicit   string            `json:"itunes_explicit"`
-	ITunesCategories []Category        `json:"itunes_categories"`
-	Owner            ITunesOwner       `json:"itunes_owner"`
+	ID                uuid.UUID         `json:"id"`
+	Title             string            `json:"title"`
+	Url               string            `json:"url"`
+	Description       string            `json:"description"`
+	Items             []MetaStationItem `json:"item"`
+	ChannelCount      uint32            `json:"channel_count"`
+	CreatedOn         time.Time         `json:"created_on"`
+	Language          string            `json:"language"`
+	Copyright         string            `json:"copyright"`
+	ITunesAuthor      string            `json:"itunes_author"`
+	ITunesSubtitle    string            `json:"itunes_subtitle"`
+	ITunesSummary     string            `json:"itunes_summary"`
+	ITunesImage       ITunesImage       `json:"itunes_image"`
+	ITunesExplicit    string            `json:"itunes_explicit"`
+	ITunesCategories  []Category        `json:"itunes_categories"`
+	Owner             ITunesOwner       `json:"itunes_owner"`
+	SubscribedChannel *Set[string]      `json:"subscribed_channel"`
 }
 
 type MetaStationItem struct {
