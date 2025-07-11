@@ -223,6 +223,16 @@ func (cloud *Cloud) deleteShow(title string) error {
 		cloud.ArchiveId,
 		fmt.Sprintf("--glob=*_%s_*", title),
 	)
+	if err != nil {
+		return err
+	}
+	_, err = run(
+		ctx,
+		"ia",
+		"delete",
+		cloud.ArchiveId,
+		fmt.Sprintf("--glob=cover_%s*", title),
+	)
 	return err
 }
 
