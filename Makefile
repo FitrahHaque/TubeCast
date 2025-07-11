@@ -1,4 +1,4 @@
-BINARY  := tubcast
+BINARY  := tubecast
 DESTDIR := $(HOME)/bin
 
 .PHONY: all build install clean

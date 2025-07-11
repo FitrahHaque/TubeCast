@@ -37,9 +37,9 @@ jobs:
       # 4. Build Go application
       - name: Build Go application
         run: |
-          go build -o tubecast .
+          go build -o tubecast.o .
           mkdir -p "$HOME/bin"
-          install -m0755 tubecast "$HOME/bin/tubecast"
+          install -m0755 tubecast.o "$HOME/bin/tubecast"
           echo "$HOME/bin" >> "$GITHUB_PATH"
 
       # 5. Configure Internet Archive CLI
