@@ -16,13 +16,13 @@ clean:
 	rm -f $(BINARY).o
 
 create-show: install
-	./$(BINARY).o -create-show --title="medicine" --description="Show description"
+	./$(BINARY).o -create-show --title="med" --description="Show description"
 
 sync-channel: install
-	./$(BINARY).o -sync-channel --title="medicine" --description="Show description" --channel-id="marianneBL"
+	./$(BINARY).o -sync-channel --title="med" --description="Show description" --channel-id="marianneBL"
 
 sync: install
 	./$(BINARY).o -sync
 
 add-video: install
-	./$(BINARY).o -add-video --title="medicine" --description="Show description" --video-url="https://youtu.be/r0McrrrFNtA?si=8f08sySlLVL8PAP-"
+	./$(BINARY).o -add-video --title="med" --description="Show description" --video-url="https://youtu.be/r0McrrrFNtA?si=8f08sySlLVL8PAP-"

@@ -86,11 +86,11 @@ func (station *Station) saveXMLToLocal() (string, error) {
 }
 
 func loadAllMetaStationNames() error {
+	StationNames = NewSet[string]()
 	entries, err := os.ReadDir(STATION_BASE)
 	if err != nil {
-		return err
+		return nil
 	}
-	StationNames = NewSet[string]()
 	for _, e := range entries {
 		if !e.IsDir() {
 			StationNames.Add(strings.TrimSuffix(e.Name(), filepath.Ext(e.Name())))
