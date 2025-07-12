@@ -33,8 +33,8 @@ The `tubecast-scripts` folder contains everything you need to run **TubeCast**. 
 
 > **Note**: You will need to use `terminal` (macOS), `command prompt` or `powershell` (windows) to be able to run them. Open the corresponding app and paste the commands as they are. Best to use `vscode`
 
+Unzip this folder and go into the directory and open terminal
 ```bash
-# unzip this folder
 cd tubecast-scripts
 ```
 ### Set-up environment
@@ -42,11 +42,13 @@ cd tubecast-scripts
 1. Set the `username`. It is used to create item identifier inside your Internet Archive, where all shows and their data will be hosted.\
 Item identifier looks like this: `<username>_tubecast`\
 If you want to host your feed on github pages, make sure to use the github username (small letters). It will be used to derive the url to your RSS feed.
-2. Set the `home directory`. It is used to fetch your ia configuration (IA-S3 Access key, Secret Key, and cookies). Here's how you can get it:
+2. Set the `home directory`. It is used to fetch your ia configuration (IA-S3 Access key, Secret Key, and cookies). Here's how you can get it:\
+- Go to your home directory
 ```bash
-# 1 - Go to your home directory
 cd ~
-# 2- Print the home directory on the console
+```
+- Print the home directory on the console
+```bash
 pwd
 ```
 3. Copy the output and put it on the `HOME_DIR` environment variable inside `.env` file
@@ -64,12 +66,13 @@ cp example.txt .env
 ---
 
 ### Initialise the app
+Make init.sh executable
 ```bash
-# Make init.sh executable
 chmod +x init.sh
-
-# Run the one‑time initializer
-./init.sh         # Pull image, download ia, configure keys
+```
+Run the one‑time initializer
+```bash
+./init.sh
 ```
 Now, you have to configure internet archive. Go to this link `https://archive.org/account/signup` and sign up with **EMAIL and PASSWORD** and verify. Then run the below command on your terminal:
 ```bash
