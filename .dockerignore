@@ -4,7 +4,7 @@
 .env
 .gitignore
 bin/
-docs/feed/
+docs/
 tubecast/audio
 tubecast/thumbnail
 tubecast/station
