@@ -17,6 +17,6 @@ services:
         source: ./tubecast/cover
         target: /app/tubecast/cover
       - type: bind
-        source: /Users/ihtemad/.config/internetarchive/ia.ini
+        source: ${HOME_DIR}/.config/internetarchive/ia.ini
         target: /root/.config/internetarchive/ia.ini
         read_only: true

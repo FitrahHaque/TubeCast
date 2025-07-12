@@ -123,6 +123,7 @@ type Cloud struct {
 	FeedUrlPrefix    string
 	MaximumStorage   uint64
 	ArchiveUrlPrefix string
+	IsArchive        bool
 	// IAS3AccessKey    string
 	// IAS3SecretKey    string
 }

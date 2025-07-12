@@ -82,6 +82,12 @@ func (station *Station) saveXMLToLocal() (string, error) {
 	if err = os.Rename(tmp, path); err != nil {
 		return "", err
 	}
+
+	if Megh.IsArchive {
+		ctx, cancel := context.WithTimeout(context.Background(), 3*time.Minute)
+		defer cancel()
+		return Megh.upload(ctx, "", station.Title, FEED)
+	}
 	return Megh.getShareableFeedUrl(station.Title), nil
 }
 
@@ -114,6 +120,9 @@ func (cloud *Cloud) upload(ctx context.Context, id, title string, filetype FileT
 		localpath = cloud.getLocalAudioFilepath(id, title)
 		remotepath = cloud.getShareableAudioUrl(id, title)
 		isLocalDelete = true
+	case FEED:
+		localpath = cloud.getLocalFeedFilepath(title)
+		remotepath = cloud.getShareableFeedUrl(title)
 	case COVER:
 		localpath = cloud.getLocalCoverFilepath(title)
 		remotepath = cloud.getShareableCoverUrl(title)
@@ -139,7 +148,8 @@ func (cloud *Cloud) upload(ctx context.Context, id, title string, filetype FileT
 	if isLocalDelete {
 		os.Remove(localpath)
 	}
-	return fetchFinalURL(remotepath)
+	fmt.Printf("file uploaded!\n")
+	return remotepath, nil
 }
 
 func (cloud *Cloud) getUsage(ctx context.Context) (Usage, error) {
@@ -232,6 +242,13 @@ func (cloud *Cloud) deleteShow(title string) error {
 		"delete",
 		cloud.ArchiveId,
 		fmt.Sprintf("--glob=cover_%s*", title),
+	)
+	_, err = run(
+		ctx,
+		"ia",
+		"delete",
+		cloud.ArchiveId,
+		fmt.Sprintf("--glob=*%s.xml", title),
 	)
 	return err
 }

@@ -115,7 +115,10 @@ func Init() {
 		MaximumStorage:   10 * 1024 * 1024 * 1024, //10 GiB
 		ArchiveUrlPrefix: fmt.Sprintf("https://archive.org/download/%s/", Usr.getArchiveIdentifier()),
 	}
-
+	isArch := os.Getenv("ARCHIVE")
+	if isArch == "Yes" {
+		Megh.IsArchive = true
+	}
 	if err := loadAllMetaStationNames(); err != nil {
 		fmt.Printf("error in init: %v\n", err)
 	}

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:podcast="https://podcastindex.org/namespace/1.0" version="2.0">
   <channel>
-  <id>9fc33332-b299-482a-8741-8b03813cb598</id>
+  <id>356afc97-627a-45e3-af28-a6fc84d0c75d</id>
   <title>Tech Debt</title>
-  <itunes:image href="https://ia600909.us.archive.org/35/items/fitrahhaque_tubecast/cover_Tech%20Debt.png"></itunes:image>
+  <itunes:image href="https://archive.org/download/fitrahhaque_tubecast/cover_Tech Debt.png"></itunes:image>
   <description>The more delayed your pursuit of reinventing the wheel is, the worse programmer you become.</description>
   <item>
     <guid>SvxtQf0ZIEk</guid>
-    <title>Chess is an MMO now?</title>
-    <enclosure url="https://ia600909.us.archive.org/35/items/fitrahhaque_tubecast/audio_Tech%20Debt_SvxtQf0ZIEk.mp3" length="85709325" type="audio/mpeg"></enclosure>
-    <itunes:image href="https://ia600909.us.archive.org/35/items/fitrahhaque_tubecast/thumbnail_Tech%20Debt_SvxtQf0ZIEk.png"></itunes:image>
+    <title>A Million Chess Boards (in a Single Process!)</title>
+    <enclosure url="https://archive.org/download/fitrahhaque_tubecast/audio_Tech Debt_SvxtQf0ZIEk.mp3" length="85709325" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/fitrahhaque_tubecast/thumbnail_Tech Debt_SvxtQf0ZIEk.png"></itunes:image>
     <description>Twitch https://twitch.tv/ThePrimeagen&#xA;Discord https://discord.gg/ThePrimeagen&#xA;&#xA;Become Backend Dev: https://boot.dev/prime&#xA;(plus i make courses for them)&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;### LINKS &#xA;https://eieio.games/blog/a-million-realtime-chess-boards-in-a-single-process/&#xA;&#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis</description>
     <link>https://www.youtube.com/watch?v=SvxtQf0ZIEk</link>
     <pubDate>Fri, 11 Jul 2025 00:00:00 GMT</pubDate>
@@ -22,8 +22,8 @@
   <item>
     <guid>hEIBsqP63Pg</guid>
     <title>Did Zig Fix Async / Await?</title>
-    <enclosure url="https://ia800909.us.archive.org/35/items/fitrahhaque_tubecast/audio_Tech%20Debt_hEIBsqP63Pg.mp3" length="49195917" type="audio/mpeg"></enclosure>
-    <itunes:image href="https://ia800909.us.archive.org/35/items/fitrahhaque_tubecast/thumbnail_Tech%20Debt_hEIBsqP63Pg.png"></itunes:image>
+    <enclosure url="https://archive.org/download/fitrahhaque_tubecast/audio_Tech Debt_hEIBsqP63Pg.mp3" length="49195917" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/fitrahhaque_tubecast/thumbnail_Tech Debt_hEIBsqP63Pg.png"></itunes:image>
     <description>Twitch https://twitch.tv/ThePrimeagen&#xA;Discord https://discord.gg/ThePrimeagen&#xA;&#xA;Become Backend Dev: https://boot.dev/prime&#xA;(plus i make courses for them)&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;### LINKS &#xA;https://www.youtube.com/watch?v=x3hOiOcbgeA&#xA;&#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis</description>
     <link>https://www.youtube.com/watch?v=hEIBsqP63Pg</link>
     <pubDate>Thu, 10 Jul 2025 00:00:00 GMT</pubDate>
@@ -36,8 +36,8 @@
   <item>
     <guid>M9UWgw_aW28</guid>
     <title>Why is the Rust Compiler So SLOW?</title>
-    <enclosure url="https://ia800909.us.archive.org/35/items/fitrahhaque_tubecast/audio_Tech%20Debt_M9UWgw_aW28.mp3" length="90744381" type="audio/mpeg"></enclosure>
-    <itunes:image href="https://ia800909.us.archive.org/35/items/fitrahhaque_tubecast/thumbnail_Tech%20Debt_M9UWgw_aW28.png"></itunes:image>
+    <enclosure url="https://archive.org/download/fitrahhaque_tubecast/audio_Tech Debt_M9UWgw_aW28.mp3" length="90744381" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/fitrahhaque_tubecast/thumbnail_Tech Debt_M9UWgw_aW28.png"></itunes:image>
     <description>Twitch https://twitch.tv/ThePrimeagen&#xA;Discord https://discord.gg/ThePrimeagen&#xA;&#xA;Become Backend Dev: https://boot.dev/prime&#xA;(plus i make courses for them)&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;### LINKS &#xA; -- https://sharnoff.io/blog/why-rust-compiler-slow&#xA;By: Em Sharnoff&#xA;&#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis</description>
     <link>https://www.youtube.com/watch?v=M9UWgw_aW28</link>
     <pubDate>Wed, 09 Jul 2025 00:00:00 GMT</pubDate>

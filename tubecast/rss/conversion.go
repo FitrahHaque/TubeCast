@@ -176,6 +176,7 @@ func (metaStation *MetaStation) addItemToStation(ctx context.Context, id, userna
 		} else {
 			metaStation.makeSpace(ctx, size)
 			if share, err := Megh.upload(ctx, metaStationItem.GUID, metaStation.Title, AUDIO); err != nil {
+				fmt.Printf("audio error: %v\n", err)
 				return
 			} else {
 				metaStationItem.Enclosure = Enclosure{
@@ -184,6 +185,7 @@ func (metaStation *MetaStation) addItemToStation(ctx context.Context, id, userna
 					Length: size,
 				}
 				if share, err := Megh.upload(ctx, metaStationItem.GUID, metaStation.Title, THUMBNAIL); err != nil {
+					fmt.Printf("thumbnail error: %v\n", err)
 					return
 				} else {
 					metaStationItem.ITunesImage = ITunesImage{
@@ -350,6 +352,10 @@ func (metaStationItem *MetaStationItem) saveVideoThumbnail(ctx context.Context, 
 		strings.Split(localpath2, ".")[0]+".%(ext)s",
 		link,
 	)
+	if err == nil {
+		fmt.Printf("thumbnail downloaded\n")
+
+	}
 	ConvertImageToCorrectFormat(localpath1, localpath2)
 	return err
 }
@@ -374,7 +380,10 @@ func (metaStationItem *MetaStationItem) saveAudio(ctx context.Context, title str
 	if err != nil {
 		return 0, err
 	}
+	if err == nil {
+		fmt.Printf("audio downloaded\n")
 
+	}
 	if info, err := os.Stat(localpath); err != nil {
 		return 0, err
 	} else {

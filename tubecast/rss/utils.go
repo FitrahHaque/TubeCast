@@ -338,7 +338,10 @@ func (cloud *Cloud) getAudioFilename(id string, title string) string {
 }
 
 func (cloud *Cloud) getShareableFeedUrl(title string) string {
-	return cloud.FeedUrlPrefix + cloud.getFeedFilename(title)
+	if !cloud.IsArchive {
+		return cloud.FeedUrlPrefix + cloud.getFeedFilename(title)
+	}
+	return cloud.ArchiveUrlPrefix + cloud.getFeedFilename(title)
 }
 
 func (cloud *Cloud) getShareableCoverUrl(title string) string {
