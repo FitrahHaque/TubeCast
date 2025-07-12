@@ -22,7 +22,7 @@ The [`tubecast-scripts`](https://drive.google.com/file/d/1F4GIz4UH31PBbM1Uf6F-1s
 | ------------------------ | -------------------------------------------------------------------------------------------|
 | **`example.txt`**       | Template for your secrets (rename to `.env`).                                              |
 | **`docker-compose.yml`** | Defines the `tubecast` container + volumes.                                                |
-| **`init.sh`**            | One‑time setup: pulls the image, downloads the *ia* CLI, and runs `ia configure`.          |
+| **`init.sh`**            | One‑time setup: pulls the image, downloads the *ia* CLI.         |
 | **`sync.sh`**            | Runs the regular podcast sync (no extra flags).                                            |
 | **`create-show.sh`**     | Creates a new show.                                                                        |
 | **`sync-channel.sh`**    | Adds 3 latest videos from a YouTube channel and subscribes to the channel for later sync.  |
@@ -42,10 +42,11 @@ cd tubecast-scripts
 ```
 ### Set-up environment
 
+0. There is a file named `example.txt`. Open it.
 1. Set the `username`. It is used to create item identifier inside your Internet Archive, where all shows and their data will be hosted.\
 Item identifier looks like this: `<username>_tubecast`\
 If you want to host your feed on github pages, make sure to use the github username (small letters). It will be used to derive the url to your RSS feed.
-2. Set the `home directory`. It is used to fetch your ia configuration (IA-S3 Access key, Secret Key, and cookies). Here's how you can get it:\
+2. Set the `home directory`. It is used to fetch your ia configuration (IA-S3 Access key, Secret Key, and cookies). Here's how you can get it:
 - Go to your home directory
 ```bash
 cd ~
