@@ -131,7 +131,7 @@ func (cloud *Cloud) upload(ctx context.Context, id, title string, filetype FileT
 	}
 	fmt.Printf("localpath: %v\n", localpath)
 	if _, err := os.Open(localpath); err != nil {
-		fmt.Printf("could not open localpath")
+		fmt.Printf("could not open localpath: %v\n", localpath)
 		return "", err
 	}
 	_, err := run(

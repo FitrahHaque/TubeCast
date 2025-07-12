@@ -108,6 +108,9 @@ func (metaStation *MetaStation) addItemToStation(ctx context.Context, id, userna
 		ITunesExplicit: "no",
 		Link:           "https://www.youtube.com/watch?v=" + id,
 	}
+	if err := isValidForDownload(ctx, metaStationItem.Link); err != nil {
+		return "", err
+	}
 	var wg sync.WaitGroup
 	wg.Add(1)
 	go func() {
@@ -299,6 +302,30 @@ func getVideoDuration(ctx context.Context, link string) (string, error) {
 		return "", err
 	}
 	return strings.TrimSpace(out), nil
+}
+
+func isValidForDownload(ctx context.Context, link string) error {
+	out, err := run(
+		ctx,
+		"yt-dlp",
+		"--quiet",
+		"--print",
+		"duration",
+		link,
+	)
+	if err != nil {
+		return err
+	}
+
+	durationSeconds, err := strconv.Atoi(strings.TrimSpace(out))
+	if err != nil {
+		return err
+	}
+	fiveHoursInSeconds := 5 * 60 * 60
+	if durationSeconds > fiveHoursInSeconds {
+		return errors.New("video needs to be shorter than 5 hours long!")
+	}
+	return nil
 }
 
 func getVideoViews(ctx context.Context, link string) (uint32, error) {
