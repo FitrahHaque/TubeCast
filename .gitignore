@@ -8,3 +8,4 @@ tubecast/cover/
 # .github/
 *.o
 bin/
+tubecast-scripts

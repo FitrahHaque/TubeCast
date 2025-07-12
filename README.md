@@ -6,6 +6,10 @@
 - Listen on any device, even with your screen off—just like a real podcast.
 - Share your feeds easily with friends and family.
 
+<div align="center">
+<img src="donotopen/podcast-url.png" alt="Apple Podcast Follow" width="277" height="600"/><img src="donotopen/podcast-preview.png" alt="Apple Podcast Preview" width="277" height="600"/><img src="donotopen/castbox-preview.png" alt="Castbox for Android" width="277" height="600"/> 
+</div> 
+
 ## 📡 Quick‑Start
 
 The [`tubecast-scripts`](https://drive.google.com/file/d/1F4GIz4UH31PBbM1Uf6F-1snnMB-k3HPj/view?usp=sharing) folder contains everything you need to run **TubeCast**. Each shell script wraps the necessary `docker compose` calls so non‑technical users only have to run a single command per task.
