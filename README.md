@@ -1,5 +1,5 @@
 # 🗂️ What is TubeCast
-- Converts YouTube channels or playlists into personal podcast feeds.
+- Converts YouTube channels or videos into personal podcast feeds.
 - Lets you follow these feeds in any podcast app (like Apple Podcasts, Castbox, or Pocket Casts) simply by adding the feed URL.
 - Downloads audio from videos and organizes them into shows.
 - Uploads everything to the Internet Archive for free, reliable, cloud-based hosting.
@@ -111,7 +111,7 @@ The show by the `title` will subscribe to the channel and will fetch the latest 
 Upon success, you will see **a link pasted on the console.** \
 Now you can add this feed to a podcast app and listen to the audios. Wait a few minutes for it to be available. Internet Archive takes time to update. Convenience costs money :\(
 In the subsequent `sync` commands, the show will fetch the latest videos from the channel automatically.
-> Note: If you follow the show by the URL on your podcast app once, you don't need to do it everytime you update the url for any of the subsequent commands on this show, just like you'd expect!
+> Note: If you follow the show by the URL on your podcast app once, you don't need to do it everytime you update the url for any of the subsequent commands on this show, just like how you'd expect!
 ### 3. `add-video.sh`
 
 ```bash
