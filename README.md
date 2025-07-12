@@ -6,6 +6,10 @@
 - Listen on any device, even with your screen off—just like a real podcast.
 - Share your feeds easily with friends and family.
 
+## Demo
+- Paste this show link on your podcast app: `https://archive.org/download/fitrahhaque_tubecast/bloop.xml`
+- You will find it in `Shows` (for Apple Podcasts) list if it does not appear right away.
+
 <div align="center">
 <img src="donotopen/podcast-url.png" alt="Apple Podcast Follow" width="277" height="600"/><img src="donotopen/podcast-preview.png" alt="Apple Podcast Preview" width="277" height="600"/><img src="donotopen/castbox-preview.png" alt="Castbox for Android" width="277" height="600"/> 
 </div> 
