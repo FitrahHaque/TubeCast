@@ -3,11 +3,14 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log"
 	"os"
 	"strings"
 
 	"github.com/FitrahHaque/TubeCast/tubecast/rss"
+	"github.com/gdamore/tcell/v2"
 	"github.com/joho/godotenv"
+	"github.com/rivo/tview"
 )
 
 var Commands = [...]string{"sync-channel", "create-show", "sync", "add-video", "remove-video", "remove-show", "help"}
@@ -15,67 +18,48 @@ var Commands = [...]string{"sync-channel", "create-show", "sync", "add-video", "
 func main() {
 	godotenv.Load()
 	rss.Init()
-	application := os.Args[0]
-	flag.CommandLine = flag.NewFlagSet(os.Args[0], flag.ExitOnError)
+	application := tview.NewApplication().SetTitle("TubeCast")
 
-	syncChannelCmd := flag.Bool(Commands[0], false, "Sync a specific channel")
-	createShowCmd := flag.Bool(Commands[1], false, "Create a new show")
-	syncCmd := flag.Bool(Commands[2], false, "Sync all shows")
-	addVideoCmd := flag.Bool(Commands[3], false, "Add video to show")
-	removeVideoCmd := flag.Bool(Commands[4], false, "Remove video from show")
-	removeShowCmd := flag.Bool(Commands[5], false, "Remove Show")
-	helpCmd := flag.Bool(Commands[6], false, "Help")
+	// ====== MENU =========
+	menu := tview.NewList()
+	menu.
+		SetBorder(true).
+		SetTitle("MAIN MENU")
+	menu.
+		AddItem("shows", "Browse available shows", 'v', nil).
+		AddItem("create a show", "Create a new show", 'c', nil).
+		AddItem("subscribe", "Get latest videos from a YT channel easily", 's', nil).
+		AddItem("sync", "Add latest episodes to all shows from your subscribed channels", 'a', nil).
+		AddItem("add an episode", "Add an episode to a show", 'p', nil).
+		AddItem("remove an episode", "Remove an episode from a show", 'r', nil).
+		AddItem("delete a show", "Remove a show", 'e', nil)
 
-	if len(os.Args) == 1 {
-		fmt.Println("Please provide commands")
+	// ===== List Shows =====
+	shows := ListShows()
+
+	// ===== PAGES ======
+	pages := tview.NewPages()
+	pages.
+		AddPage("menu", menu, true, true).
+		AddPage("create-show", CreateShowForm(application, pages), true, false).
+		AddPage("shows", shows, true, false)
+
+	if err := application.SetRoot(pages, true).EnableMouse(true).Run(); err != nil {
+		log.Printf("Application exited with error: %v\n", err)
 		os.Exit(1)
 	}
-	commandArgs := findIntersection(
-		[]string{
-			"-sync-channel",
-			"-create-show",
-			"-sync",
-			"-add-video",
-			"-remove-video",
-			"-remove-show",
-		},
-		os.Args[1:2],
-	)
 
-	flag.CommandLine.Parse(commandArgs)
-
-	commandsSelected := countTrue([]bool{*syncChannelCmd, *createShowCmd, *syncCmd, *addVideoCmd, *removeVideoCmd, *removeShowCmd})
-
-	if commandsSelected > 1 {
-		fmt.Println("Specify a single command")
-		os.Exit(1)
-	} else if commandsSelected == 0 {
-		commandArgs = findIntersection(
-			[]string{
-				"-help",
-			},
-			os.Args[1:],
-		)
-
-		flag.CommandLine.Parse(commandArgs)
-		if *helpCmd {
-			fmt.Fprintf(os.Stderr, "Usage of %s:\n", application)
-			fmt.Fprintf(os.Stderr, "Valid commands include:\n\t%s\n", strings.Join(Commands[:], ", "))
-			fmt.Fprintf(os.Stderr, "Flag:\n")
-			flag.PrintDefaults()
-			return
+	// ==== Selection Callback Functions =====
+	menu.SetSelectedFunc(func(_ int, mainText, _ string, shortcut rune) {
+		switch mainText {
+		case "shows":
+			pages.SwitchToPage("shows")
+		case "create a show":
+			pages.SwitchToPage("create-show")
+		default:
+			// no-op
 		}
-
-		fmt.Println("No command is selected")
-		os.Exit(1)
-	}
-
-	checkForSyncChannel(application, syncChannelCmd, 1)
-	checkForCreateShow(application, createShowCmd, 1)
-	checkForSync(syncCmd)
-	checkForAddVideo(application, addVideoCmd, 1)
-	checkForRemoveVideo(application, removeVideoCmd, 1)
-	checkForRemoveShow(application, removeShowCmd, 1)
+	})
 }
 
 func countTrue(commands []bool) int {
@@ -133,6 +117,81 @@ func checkForSyncChannel(application string, syncChannelCmd *bool, cmdIdx int) {
 		}
 		fmt.Printf("Channel synced successfully.\nPaste this RSS Feed link to your Podcast App: %s\n", result)
 	}
+}
+
+func ShowModal(message string, buttonLabels []string, cb func(int, string)) *tview.Modal {
+	modal := tview.NewModal().
+		SetText(message).
+		AddButtons(buttonLabels).
+		SetDoneFunc(cb)
+	return modal
+}
+
+func CreateShowForm(app *tview.Application, pages *tview.Pages) tview.Primitive {
+	titleIF := tview.NewInputField().
+		SetLabel("Title:         ").
+		SetFieldWidth(40)
+	descIF := tview.NewInputField().
+		SetLabel("Description:   ").
+		SetFieldWidth(80)
+	titleIF.
+		SetDoneFunc(func(key tcell.Key) {
+			if key == tcell.KeyEnter {
+				app.SetFocus(descIF)
+			}
+		})
+
+	form := tview.NewForm()
+	form.
+		SetBorder(true).
+		SetTitle(" Create a Show ").
+		SetTitleAlign(tview.AlignLeft)
+	form.
+		AddFormItem(titleIF).
+		AddFormItem(descIF).
+		AddButton("save", func() {
+			title := titleIF.GetText()
+			description := descIF.GetText()
+			if title == "" || description == "" {
+				modal := ShowModal("Title and Description are required to create a new show", []string{"OK"}, func(_ int, _ string) {
+					pages.RemovePage("modal")
+				})
+				pages.AddPage("modal", modal, true, true)
+			}
+			result := rss.CreateShow(title, description)
+			// fmt.Printf("Show created successfully.\nPaste this RSS Feed link to your Podcast App: %s\n", result)
+			modal := ShowModal(fmt.Sprintf("Show created successfully.\nPaste this RSS Feed link to your Podcast App: %s\n", result), []string{"OK"}, func(_ int, _ string) {
+				pages.
+					SwitchToPage("menu").
+					RemovePage("modal")
+			})
+			pages.AddPage("modal", modal, true, true)
+		}).
+		AddButton("cancel", func() {
+			pages.SwitchToPage("menu")
+		})
+	form.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
+		if event.Key() == tcell.KeyEsc {
+			pages.SwitchToPage("menu")
+			return nil
+		}
+		return event
+	})
+
+	return form
+}
+
+func ListShows() tview.Primitive {
+	shows := tview.NewList()
+	shows.
+		SetBorder(true).
+		SetTitle("SHOWS")
+	shows.AddItem("← Back", "Return To Main Menu", 'b', nil)
+	for name := range rss.StationNames.Value {
+		shows.AddItem(name, fmt.Sprintf("Browse episodes from %s", name), 0, nil)
+	}
+
+	return shows
 }
 
 func checkForCreateShow(application string, createShowCmd *bool, cmdIdx int) {
