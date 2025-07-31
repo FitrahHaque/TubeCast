@@ -54,8 +54,8 @@ func loadMetaStationFromLocal(path string) (MetaStation, error) {
 	return metaStation, nil
 }
 
-// Atomatically save Station data locally
-func (station *Station) saveXMLToLocal() (string, error) {
+// Atomatically save Station data
+func (station *Station) saveFeed() (string, error) {
 	if err := os.MkdirAll(FEED_BASE, 0o755); err != nil {
 		return "", err
 	}

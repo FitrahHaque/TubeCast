@@ -426,7 +426,7 @@ func formatDate(uploadDate string) (string, error) {
 func (metaStation *MetaStation) updateFeed() (string, error) {
 	station := metaStation.getStation()
 	metaStation.saveMetaStationToLocal()
-	return station.saveXMLToLocal()
+	return station.saveFeed()
 }
 
 func (metaStation *MetaStation) getStation() Station {

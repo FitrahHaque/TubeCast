@@ -3,12 +3,13 @@ package rss
 import (
 	"errors"
 	"fmt"
+	"io"
 	"os"
 	"strings"
 )
 
-func SyncChannel(title, description string, channelID string) (string, error) {
-	metaStation, err := getMetaStation(title, description)
+func SyncChannel(title, channelID string) (string, error) {
+	metaStation, err := getMetaStation(title, "")
 	if err != nil {
 		return "", err
 	}
@@ -16,11 +17,26 @@ func SyncChannel(title, description string, channelID string) (string, error) {
 	return metaStation.syncChannel(channelID)
 }
 
-func CreateShow(title, description string) string {
+func CreateShow(title, description, coverPath string) (string, error) {
 	if !StationNames.Has(title) {
+		srcFile, err := os.Open(coverPath)
+		if err != nil {
+			return "", err
+		}
+		if err = os.MkdirAll(COVER_BASE, 0o755); err != nil {
+			return "", err
+		}
+		destPath := Megh.getLocalCoverFilepath(title)
+		destFile, err := os.Create(destPath)
+		if err != nil {
+			return "", err
+		}
+		if _, err = io.Copy(destFile, srcFile); err != nil {
+			return "", err
+		}
 		Usr.createMetaStation(title, description)
 	}
-	return Megh.getShareableFeedUrl(title)
+	return Megh.getShareableFeedUrl(title), nil
 }
 
 func Sync() error {
@@ -60,8 +76,8 @@ func RemoveShow(title string) error {
 	return metaStation.delete()
 }
 
-func AddVideoToShow(title, description string, videoUrl string) (string, error) {
-	metaStation, err := getMetaStation(title, description)
+func AddVideoToShow(title, videoUrl string) (string, error) {
+	metaStation, err := getMetaStation(title, "")
 	if err != nil {
 		return "", err
 	}
@@ -77,6 +93,10 @@ func GetAllShowEpisodes(title string) ([]EpisodeInfo, error) {
 		return nil, err
 	}
 	return metaStation.getAllItems(), nil
+}
+
+func GetFeedUrl(title string) string {
+	return Megh.getShareableFeedUrl(title)
 }
 
 func (station *Station) Print() {
