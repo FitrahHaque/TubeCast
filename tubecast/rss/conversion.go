@@ -122,7 +122,7 @@ func (metaStation *MetaStation) addItemToStation(ctx context.Context, id, userna
 	go func() {
 		defer wg.Done()
 		if description, err := getVideoDescription(ctx, metaStationItem.Link); err != nil {
-			fmt.Printf("Error: %v\n", err)
+			// fmt.Printf("Error: %v\n", err)
 			return
 		} else {
 			metaStationItem.Description = description
@@ -133,7 +133,7 @@ func (metaStation *MetaStation) addItemToStation(ctx context.Context, id, userna
 	go func() {
 		wg.Done()
 		if duration, err := getVideoDuration(ctx, metaStationItem.Link); err != nil {
-			fmt.Printf("Error: %v\n", err)
+			// fmt.Printf("Error: %v\n", err)
 			return
 		} else {
 			metaStationItem.ITunesDuration = duration
@@ -143,7 +143,7 @@ func (metaStation *MetaStation) addItemToStation(ctx context.Context, id, userna
 	go func() {
 		defer wg.Done()
 		if views, err := getVideoViews(ctx, metaStationItem.Link); err != nil {
-			fmt.Printf("Error: %v\n", err)
+			// fmt.Printf("Error: %v\n", err)
 			return
 		} else {
 			metaStationItem.Views = views
@@ -153,7 +153,7 @@ func (metaStation *MetaStation) addItemToStation(ctx context.Context, id, userna
 	go func() {
 		defer wg.Done()
 		if pubDate, err := getVideoPubDate(ctx, metaStationItem.Link); err != nil {
-			fmt.Printf("Error: %v\n", err)
+			// fmt.Printf("Error: %v\n", err)
 			return
 		} else {
 			metaStationItem.PubDate = pubDate
@@ -163,7 +163,7 @@ func (metaStation *MetaStation) addItemToStation(ctx context.Context, id, userna
 	go func() {
 		defer wg.Done()
 		if err := metaStationItem.saveVideoThumbnail(ctx, metaStation.Title, metaStationItem.Link); err != nil {
-			fmt.Printf("Error: %v\n", err)
+			// fmt.Printf("Error: %v\n", err)
 			return
 		}
 	}()
@@ -171,12 +171,12 @@ func (metaStation *MetaStation) addItemToStation(ctx context.Context, id, userna
 	go func() {
 		defer wg.Done()
 		if size, err := metaStationItem.saveAudio(ctx, metaStation.Title, metaStationItem.Link, 0); err != nil {
-			fmt.Printf("Error: %v\n", err)
+			// fmt.Printf("Error: %v\n", err)
 			return
 		} else {
 			metaStation.makeSpace(ctx, size)
 			if share, err := Megh.upload(ctx, metaStationItem.GUID, metaStation.Title, AUDIO); err != nil {
-				fmt.Printf("audio error: %v\n", err)
+				// fmt.Printf("audio error: %v\n", err)
 				return
 			} else {
 				metaStationItem.Enclosure = Enclosure{
@@ -185,7 +185,7 @@ func (metaStation *MetaStation) addItemToStation(ctx context.Context, id, userna
 					Length: size,
 				}
 				if share, err := Megh.upload(ctx, metaStationItem.GUID, metaStation.Title, THUMBNAIL); err != nil {
-					fmt.Printf("thumbnail error: %v\n", err)
+					// fmt.Printf("thumbnail error: %v\n", err)
 					return
 				} else {
 					metaStationItem.ITunesImage = ITunesImage{
@@ -472,233 +472,3 @@ func isValidUrl(url string) bool {
 	}
 	return true
 }
-
-// func listFileNames(token, path string) ([]string, error) {
-// 	cfg := dropbox.Config{Token: token}
-// 	dbx := files.New(cfg)
-
-// 	arg := files.NewListFolderArg(path)
-// 	arg.Recursive = false
-// 	res, err := dbx.ListFolder(arg)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-
-// 	var names []string
-// 	for {
-// 		for _, e := range res.Entries {
-// 			if f, ok := e.(*files.FileMetadata); ok {
-// 				names = append(names, f.Name)
-// 			}
-// 		}
-// 		if !res.HasMore {
-// 			break
-// 		}
-// 		res, err = dbx.ListFolderContinue(
-// 			&files.ListFolderContinueArg{Cursor: res.Cursor})
-// 		if err != nil {
-// 			return nil, err
-// 		}
-// 	}
-// 	return names, nil
-// }
-
-// dirSize calculates the total size of files in the given local directory path recursively.
-// func dirSize(path string) (uint64, error) {
-// 	var total uint64 = 0
-// 	err := filepath.Walk(path, func(_ string, info os.FileInfo, err error) error {
-// 		if err != nil {
-// 			return err
-// 		}
-// 		if !info.IsDir() {
-// 			total += uint64(info.Size())
-// 		}
-// 		return nil
-// 	})
-// 	if err != nil {
-// 		return 0, err
-// 	}
-// 	return total, nil
-// }
-
-// // UploadToDropbox uploads localPath into your app folder under dropboxPath
-// // and returns the shared link URL
-// func (station *Station) uploadItemMediaToDropbox(fileType FileType, id string) (string, error) {
-// 	if stationItem, ok := station.GetStationItem(id); ok {
-// 		switch fileType {
-// 		case THUMBNAIL:
-// 			return stationItem.ITunesImage.Href, nil
-// 		case AUDIO:
-// 			return stationItem.Enclosure.URL, nil
-// 		}
-// 	}
-// 	var localPath, dropboxPath string
-// 	switch fileType {
-// 	case THUMBNAIL:
-// 		localPath = filepath.Join(THUMBNAILS_BASE, station.Title, id+".png")
-// 		dropboxPath = filepath.Join(DROPBOX_THUMBNAILS_BASE, station.Title, id+".png")
-// 	case AUDIO:
-// 		localPath = filepath.Join(AUDIO_BASE, station.Title, id+".mp3")
-// 		dropboxPath = filepath.Join(DROPBOX_AUDIO_BASE, station.Title, id+".mp3")
-// 	}
-
-// 	if share, err := dropboxUpload(localPath, dropboxPath, true); err != nil {
-// 		return "", err
-// 	} else {
-// 		return share, nil
-// 	}
-// }
-
-// func dropboxUpload(localPath, dropboxPath string, deleteLocal bool) (string, error) {
-// 	f, err := os.Open(localPath)
-// 	if err != nil {
-// 		return "", fmt.Errorf("open file: %w", err)
-// 	}
-// 	defer f.Close()
-
-// 	accessToken, err := TOKEN_MANAGER.GetValidAccessToken()
-// 	if err != nil {
-// 		return "", fmt.Errorf("failed to get valid access token: %w", err)
-// 	}
-
-// 	cfg := dropbox.Config{Token: accessToken}
-// 	dbx := files.New(cfg)
-// 	// fmt.Printf("used: %vMiB\n", used/1024/1024)
-
-// 	fmt.Printf("uploading %v\n", dropboxPath)
-// 	uploadArg := files.NewUploadArg(dropboxPath)
-// 	uploadArg.Mode.Tag = "overwrite"
-// 	uploadArg.Mute = true
-// 	_, err = dbx.Upload(uploadArg, f)
-// 	if err != nil {
-// 		return "", fmt.Errorf("dropbox upload: %w", err)
-// 	}
-
-// 	sharingClient := sharing.New(cfg)
-
-// 	shareArg := &sharing.CreateSharedLinkWithSettingsArg{
-// 		Path:     dropboxPath,
-// 		Settings: nil,
-// 	}
-
-// 	shareLink, err := sharingClient.CreateSharedLinkWithSettings(shareArg)
-// 	if err != nil {
-// 		if strings.Contains(err.Error(), "shared_link_already_exists") {
-// 			listArg := &sharing.ListSharedLinksArg{
-// 				Path:       dropboxPath,
-// 				DirectOnly: true,
-// 			}
-
-// 			listResult, listErr := sharingClient.ListSharedLinks(listArg)
-// 			if listErr != nil {
-// 				return "", fmt.Errorf("list shared links: %w", listErr)
-// 			}
-
-// 			if len(listResult.Links) == 0 {
-// 				return "", fmt.Errorf("no shared links found for path: %s", dropboxPath)
-// 			}
-
-// 			shareLink = listResult.Links[0]
-// 		} else {
-// 			return "", fmt.Errorf("create shared link: %w", err)
-// 		}
-// 	}
-
-// 	var shareURL string
-// 	switch link := shareLink.(type) {
-// 	case *sharing.FileLinkMetadata:
-// 		shareURL = link.Url
-// 	case *sharing.FolderLinkMetadata:
-// 		shareURL = link.Url
-// 	default:
-// 		return "", fmt.Errorf("unexpected link type")
-// 	}
-
-// 	if len(shareURL) > 0 {
-// 		// u := strings.ReplaceAll(shareURL, "\u0026", "&")
-// 		shareURL = strings.Split(shareURL, "dl=0")[0] + "raw=1"
-// 		if shareURL, err = fetchFinalURL(shareURL); err != nil {
-// 			return shareURL, err
-// 		}
-// 		if deleteLocal {
-// 			os.Remove(localPath)
-// 		}
-// 		return shareURL, nil
-// 	}
-// 	return shareURL, fmt.Errorf("empty url\n")
-// }
-
-// // NewTokenManager creates a new token manager
-// func NewTokenManager(appKey, appSecret, refreshToken string) *TokenManager {
-// 	return &TokenManager{
-// 		AppKey:       appKey,
-// 		AppSecret:    appSecret,
-// 		RefreshToken: refreshToken,
-// 	}
-// }
-
-// // RefreshAccessToken gets a new access token using the refresh token
-// func (tm *TokenManager) RefreshAccessToken() error {
-// 	data := url.Values{}
-// 	data.Set("grant_type", "refresh_token")
-// 	data.Set("refresh_token", tm.RefreshToken)
-
-// 	req, err := http.NewRequest("POST", "https://api.dropbox.com/oauth2/token", strings.NewReader(data.Encode()))
-// 	if err != nil {
-// 		return fmt.Errorf("failed to create request: %w", err)
-// 	}
-
-// 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-// 	req.SetBasicAuth(tm.AppKey, tm.AppSecret)
-
-// 	client := &http.Client{Timeout: 30 * time.Second}
-// 	resp, err := client.Do(req)
-// 	if err != nil {
-// 		return fmt.Errorf("failed to refresh token: %w", err)
-// 	}
-// 	defer resp.Body.Close()
-
-// 	body, err := io.ReadAll(resp.Body)
-// 	if err != nil {
-// 		return fmt.Errorf("failed to read response: %w", err)
-// 	}
-
-// 	if resp.StatusCode != http.StatusOK {
-// 		return fmt.Errorf("refresh token failed: %s - %s", resp.Status, string(body))
-// 	}
-
-// 	var tokenResp DropboxTokenResponse
-// 	if err := json.Unmarshal(body, &tokenResp); err != nil {
-// 		return fmt.Errorf("failed to parse token response: %w", err)
-// 	}
-
-// 	tm.AccessToken = tokenResp.AccessToken
-// 	tm.ExpiresAt = time.Now().Add(time.Duration(tokenResp.ExpiresIn) * time.Second)
-
-// 	return nil
-// }
-
-// GetValidAccessToken returns a valid access token, refreshing if necessary
-// func (tm *TokenManager) GetValidAccessToken() (string, error) {
-// 	if tm.AccessToken == "" || time.Now().Add(5*time.Minute).After(tm.ExpiresAt) {
-// 		if err := tm.RefreshAccessToken(); err != nil {
-// 			return "", err
-// 		}
-// 	}
-// 	return tm.AccessToken, nil
-// }
-
-// func deleteDropboxFile(accessToken, dropboxPath string) error {
-// 	cfg := dropbox.Config{Token: accessToken}
-// 	dbx := files.New(cfg)
-
-// 	arg := &files.DeleteArg{Path: dropboxPath}
-
-// 	_, err := dbx.DeleteV2(arg)
-// 	if err != nil {
-// 		return fmt.Errorf("failed to delete %q: %w", dropboxPath, err)
-// 	}
-
-// 	fmt.Printf("Deleted file at %s\n", dropboxPath)
-// 	return nil
-// }

@@ -173,11 +173,11 @@ func (metaStation *MetaStation) removeOldestItem(ctx context.Context) bool {
 	}
 	id := metaStation.Items[oldestIndex].GUID
 	if err := Megh.deleteEpisode(ctx, id, metaStation.Title); err != nil {
-		fmt.Printf("error-1: %v\n", err)
+		// fmt.Printf("error-1: %v\n", err)
 		return false
 	}
 	metaStation.Items = append(metaStation.Items[:oldestIndex], metaStation.Items[oldestIndex+1:]...)
 	metaStation.updateFeed()
-	fmt.Printf("file deleted with id %v\n", id)
+	// fmt.Printf("file deleted with id %v\n", id)
 	return true
 }

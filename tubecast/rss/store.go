@@ -98,8 +98,11 @@ func loadAllMetaStationNames() error {
 		return nil
 	}
 	for _, e := range entries {
-		if !e.IsDir() {
-			StationNames.Add(strings.TrimSuffix(e.Name(), filepath.Ext(e.Name())))
+		if !e.IsDir() && filepath.Ext(e.Name()) == ".json" {
+			name := strings.TrimSuffix(e.Name(), filepath.Ext(e.Name()))
+			if len(name) > 0 {
+				StationNames.Add(name)
+			}
 		}
 	}
 	// for title := range StationNames.Value {
@@ -208,7 +211,7 @@ func (cloud *Cloud) deleteEpisode(ctx context.Context, id, title string) error {
 		fmt.Sprintf("--glob=*%s_%s*", title, id),
 	)
 	if err != nil {
-		fmt.Printf("delete error-1: %v\n", err)
+		// fmt.Printf("delete error-1: %v\n", err)
 	}
 	// _, err = run(
 	// 	ctx,

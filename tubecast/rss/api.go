@@ -151,6 +151,6 @@ func Init() {
 		Megh.IsArchive = true
 	}
 	if err := loadAllMetaStationNames(); err != nil {
-		fmt.Printf("error in init: %v\n", err)
+		// fmt.Printf("error in init: %v\n", err)
 	}
 }
