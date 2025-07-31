@@ -21,7 +21,7 @@ func (metaStation *MetaStation) syncChannel(channelUsername string) (string, err
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 	defer cancel()
 
-	ids, err := metaStation.getLatestVideos(ctx, channelFeedUrl, 1)
+	ids, err := metaStation.getLatestVideos(ctx, channelFeedUrl, 3)
 	if err != nil {
 		return "", err
 	}

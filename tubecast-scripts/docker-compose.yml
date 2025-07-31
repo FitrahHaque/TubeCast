@@ -11,11 +11,9 @@ services:
         source: ./tubecast/cover
         target: /app/tubecast/cover
       - type: bind
+        source: ./tubecast/station
+        target: /app/tubecast/station
+      - type: bind
         source: ${HOME_DIR}/.config/internetarchive/ia.ini
         target: /root/.config/internetarchive/ia.ini
         read_only: true
-      - type: volume
-        source: station
-        target: /app/tubecast/station
-volumes:
-  station: {}

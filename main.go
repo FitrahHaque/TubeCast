@@ -80,7 +80,7 @@ func main() {
 		}
 	})
 	// Start the application
-	if err := application.SetRoot(pages, true).EnableMouse(true).Run(); err != nil {
+	if err := application.SetRoot(pages, true).EnableMouse(false).Run(); err != nil {
 		log.Fatal(err)
 		os.Exit(1)
 	}
@@ -220,8 +220,36 @@ func CreateShowForm(app *tview.Application, pages *tview.Pages) tview.Primitive 
 			pages.SwitchToPage("menu")
 		}).
 		SetFocus(0)
+	currentIdx := 0
+	totalItem := form.GetFormItemCount() + form.GetButtonCount()
+	focusItem := func(idx int) {
+		if idx < 0 {
+			idx = totalItem - 1
+		} else if idx >= totalItem {
+			idx = 0
+		}
+		currentIdx = idx
+		if idx >= form.GetFormItemCount() {
+			app.SetFocus(form.GetButton(idx - form.GetFormItemCount()))
+		} else {
+			app.SetFocus(form.GetFormItem(idx))
+		}
+	}
 	form.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
-		if event.Key() == tcell.KeyEsc {
+		switch event.Key() {
+		case tcell.KeyUp:
+			focusItem(currentIdx - 1)
+			return nil
+		case tcell.KeyDown:
+			focusItem(currentIdx + 1)
+			return nil
+		case tcell.KeyLeft:
+			focusItem(currentIdx - 1)
+			return nil
+		case tcell.KeyRight:
+			focusItem(currentIdx + 1)
+			return nil
+		case tcell.KeyEsc:
 			pages.SwitchToPage("menu")
 			return nil
 		}
@@ -268,6 +296,7 @@ func RemoveShow(app *tview.Application, pages *tview.Pages) tview.Primitive {
 	})
 	return shows
 }
+
 func AddEpisodesForm(app *tview.Application, pages *tview.Pages) tview.Primitive {
 	titleIF := tview.NewInputField().
 		SetLabel("Title:                         ").
@@ -329,8 +358,37 @@ func AddEpisodesForm(app *tview.Application, pages *tview.Pages) tview.Primitive
 			pages.SwitchToPage("menu")
 		}).
 		SetFocus(0)
+	currentIdx := 0
+	totalItem := form.GetFormItemCount() + form.GetButtonCount()
+	focusItem := func(idx int) {
+		if idx < 0 {
+			idx = totalItem - 1
+		} else if idx >= totalItem {
+			idx = 0
+		}
+		currentIdx = idx
+		if idx >= form.GetFormItemCount() {
+			app.SetFocus(form.GetButton(idx - form.GetFormItemCount()))
+		} else {
+			app.SetFocus(form.GetFormItem(idx))
+		}
+	}
+
 	form.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
-		if event.Key() == tcell.KeyEsc {
+		switch event.Key() {
+		case tcell.KeyUp:
+			focusItem(currentIdx - 1)
+			return nil
+		case tcell.KeyDown:
+			focusItem(currentIdx + 1)
+			return nil
+		case tcell.KeyLeft:
+			focusItem(currentIdx - 1)
+			return nil
+		case tcell.KeyRight:
+			focusItem(currentIdx + 1)
+			return nil
+		case tcell.KeyEsc:
 			pages.SwitchToPage("menu")
 			return nil
 		}
@@ -390,8 +448,37 @@ func SubscribeForm(app *tview.Application, pages *tview.Pages) tview.Primitive {
 			pages.SwitchToPage("menu")
 		}).
 		SetFocus(0)
+	currentIdx := 0
+	totalItem := form.GetFormItemCount() + form.GetButtonCount()
+	focusItem := func(idx int) {
+		if idx < 0 {
+			idx = totalItem - 1
+		} else if idx >= totalItem {
+			idx = 0
+		}
+		currentIdx = idx
+		if idx >= form.GetFormItemCount() {
+			app.SetFocus(form.GetButton(idx - form.GetFormItemCount()))
+		} else {
+			app.SetFocus(form.GetFormItem(idx))
+		}
+	}
+
 	form.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
-		if event.Key() == tcell.KeyEsc {
+		switch event.Key() {
+		case tcell.KeyUp:
+			focusItem(currentIdx - 1)
+			return nil
+		case tcell.KeyDown:
+			focusItem(currentIdx + 1)
+			return nil
+		case tcell.KeyLeft:
+			focusItem(currentIdx - 1)
+			return nil
+		case tcell.KeyRight:
+			focusItem(currentIdx + 1)
+			return nil
+		case tcell.KeyEsc:
 			pages.SwitchToPage("menu")
 			return nil
 		}
@@ -432,7 +519,7 @@ func ListEpisodes(app *tview.Application, pages *tview.Pages, showTitle string) 
 	if len(episodeInfos) == 0 {
 		episodes.AddItem(" No Episode Found ", "", 0, nil)
 	} else {
-		episodes.AddItem("▶ Copy link to clipboard", "Paste it on your podcast app", 'c', nil)
+		episodes.AddItem("▶ Copy link to clipboard", fmt.Sprintf("Paste it on your podcast app:%v", rss.GetFeedUrl(showTitle)), 'c', nil)
 		episodes.AddItem("========= All Episodes =========", "", 0, nil)
 		for _, info := range episodeInfos {
 			episodes.AddItem(info.Title, info.Author, 0, nil)
@@ -547,8 +634,37 @@ func SetEnv(app *tview.Application, pages *tview.Pages) tview.Primitive {
 			pages.SwitchToPage("menu")
 		}).
 		SetFocus(0)
+	currentIdx := 0
+	totalItem := form.GetFormItemCount() + form.GetButtonCount()
+	focusItem := func(idx int) {
+		if idx < 0 {
+			idx = totalItem - 1
+		} else if idx >= totalItem {
+			idx = 0
+		}
+		currentIdx = idx
+		if idx >= form.GetFormItemCount() {
+			app.SetFocus(form.GetButton(idx - form.GetFormItemCount()))
+		} else {
+			app.SetFocus(form.GetFormItem(idx))
+		}
+	}
+
 	form.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
-		if event.Key() == tcell.KeyEsc {
+		switch event.Key() {
+		case tcell.KeyUp:
+			focusItem(currentIdx - 1)
+			return nil
+		case tcell.KeyDown:
+			focusItem(currentIdx + 1)
+			return nil
+		case tcell.KeyLeft:
+			focusItem(currentIdx - 1)
+			return nil
+		case tcell.KeyRight:
+			focusItem(currentIdx + 1)
+			return nil
+		case tcell.KeyEsc:
 			pages.SwitchToPage("menu")
 			return nil
 		}
