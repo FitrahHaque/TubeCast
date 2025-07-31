@@ -32,7 +32,7 @@ func main() {
 		AddItem("create a show", "Create a new show", 'c', nil).
 		AddItem("subscribe", "Get latest videos from a YT channel easily", 's', nil).
 		AddItem("sync", "Add latest episodes to all shows from your subscribed channels", 'a', nil).
-		AddItem("add an episode", "Add an episode to a show", 'i', nil).
+		AddItem("add episodes", "Add episodes to a show", 'i', nil).
 		AddItem("delete a show", "Remove a show", 'd', nil).
 		AddItem("set env", "Set environment variables", 'e', nil).
 		AddItem("quit", "Exit the app", 'q', nil)
@@ -57,8 +57,8 @@ func main() {
 			pages.AddAndSwitchToPage("sync-channel", SubscribeForm(application, pages), true)
 		case "sync":
 			Sync(application, pages)
-		case "add an episode":
-			pages.AddAndSwitchToPage("add-video", AddEpisodeForm(application, pages), true)
+		case "add episodes":
+			pages.AddAndSwitchToPage("add-videos", AddEpisodesForm(application, pages), true)
 		case "delete a show":
 			pages.AddAndSwitchToPage("remove-show", RemoveShow(application, pages), true)
 		case "set env":
@@ -268,52 +268,62 @@ func RemoveShow(app *tview.Application, pages *tview.Pages) tview.Primitive {
 	})
 	return shows
 }
-func AddEpisodeForm(app *tview.Application, pages *tview.Pages) tview.Primitive {
+func AddEpisodesForm(app *tview.Application, pages *tview.Pages) tview.Primitive {
 	titleIF := tview.NewInputField().
-		SetLabel("Title:         ").
-		SetFieldWidth(40)
+		SetLabel("Title:                         ").
+		SetFieldWidth(30)
 	urlIF := tview.NewInputField().
-		SetLabel("Video Url:     ").
-		SetFieldWidth(60)
+		SetLabel("Video Urls (comma separated):  ").
+		SetFieldWidth(80)
 
 	form := tview.NewForm()
-	form.SetTitle(" Add an Episode ")
+	form.SetTitle(" Add Episodes ")
 	form.
 		AddFormItem(titleIF).
 		AddFormItem(urlIF).
 		AddButton("Add", func() {
 			title := titleIF.GetText()
-			videoURL := urlIF.GetText()
-			if title == "" || videoURL == "" {
-				modal := ShowModal("Title and Video URL are required", []string{"OK"}, func(_ int, _ string) {
+			URLs := urlIF.GetText()
+			if title == "" || URLs == "" {
+				modal := ShowModal("Title and Video URLs are required", []string{"Try Again"}, func(_ int, _ string) {
 					pages.RemovePage("modal")
 				})
 				pages.AddPage("modal", modal, true, true)
-			}
-			stop := ShowSpinnerModal(app, pages, "Adding Episode...")
-			go func() {
-				result, err := rss.AddVideoToShow(title, videoURL)
-				stop()
-				app.QueueUpdateDraw(func() {
-					var modal *tview.Modal
-					if err == nil {
-						modal = ShowModal(fmt.Sprintf("Video added successfully.\nShow link: %s", result), []string{"OK", "COPY SHOW LINK"}, func(_ int, label string) {
-							switch label {
-							case "COPY SHOW LINK":
-								clipboard.WriteAll(result)
-							}
-							pages.
-								SwitchToPage("menu").
-								RemovePage("modal")
-						})
-					} else {
-						modal = ShowModal(fmt.Sprintf("%v", err), []string{"OK"}, func(_ int, _ string) {
-							pages.RemovePage("modal")
-						})
+			} else {
+				stop := ShowSpinnerModal(app, pages, "Adding Episodes...")
+				go func() {
+					videoURLs := strings.Split(URLs, ",")
+					var count int16
+					var link string
+					var err error
+					for _, videoURL := range videoURLs {
+						link, err = rss.AddVideoToShow(title, videoURL)
+						if err == nil {
+							count++
+						}
 					}
-					pages.AddPage("modal", modal, true, true)
-				})
-			}()
+					stop()
+					app.QueueUpdateDraw(func() {
+						var modal *tview.Modal
+						if count > 0 {
+							modal = ShowModal(fmt.Sprintf("%v/%v Videos have been added successfully.\nShow link: %s", count, len(videoURLs), link), []string{"OK", "COPY SHOW LINK"}, func(_ int, label string) {
+								switch label {
+								case "COPY SHOW LINK":
+									clipboard.WriteAll(link)
+								}
+								pages.
+									SwitchToPage("menu").
+									RemovePage("modal")
+							})
+						} else {
+							modal = ShowModal(fmt.Sprintf("0/%v video have been uploaded: %v", len(videoURLs), err), []string{"OK"}, func(_ int, _ string) {
+								pages.RemovePage("modal")
+							})
+						}
+						pages.AddPage("modal", modal, true, true)
+					})
+				}()
+			}
 		}).
 		AddButton("cancel", func() {
 			pages.SwitchToPage("menu")
