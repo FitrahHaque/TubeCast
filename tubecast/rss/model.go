@@ -133,3 +133,8 @@ type Usage struct {
 	TotalSizeMiB   uint64 `json:"total_size_mib"`
 	FileCount      uint64 `json:"file_count"`
 }
+
+type EpisodeInfo struct {
+	Title  string
+	Author string
+}

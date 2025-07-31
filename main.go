@@ -1,11 +1,9 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"log"
 	"os"
-	"strings"
 	"time"
 
 	"github.com/FitrahHaque/TubeCast/tubecast/rss"
@@ -32,9 +30,8 @@ func main() {
 		AddItem("create a show", "Create a new show", 'c', nil).
 		AddItem("subscribe", "Get latest videos from a YT channel easily", 's', nil).
 		AddItem("sync", "Add latest episodes to all shows from your subscribed channels", 'a', nil).
-		AddItem("add an episode", "Add an episode to a show", 'p', nil).
-		// AddItem("remove an episode", "Remove an episode from a show", 'r', nil).
-		AddItem("delete a show", "Remove a show", 'e', nil).
+		AddItem("add an episode", "Add an episode to a show", 'i', nil).
+		AddItem("delete a show", "Remove a show", 'd', nil).
 		AddItem("quit", "Exit the app", 'q', nil)
 
 	// ==== LIST SHOWS =====
@@ -73,6 +70,7 @@ func main() {
 		case "← Back":
 			pages.SwitchToPage("menu")
 		default:
+			ListEpisodes(application, pages, mainText)
 			// no-op
 		}
 	})
@@ -147,7 +145,8 @@ func ShowModal(message string, buttonLabels []string, cb func(int, string)) *tvi
 	modal := tview.NewModal().
 		SetText(message).
 		AddButtons(buttonLabels).
-		SetDoneFunc(cb)
+		SetDoneFunc(cb).
+		SetFocus(0)
 	return modal
 }
 
@@ -192,7 +191,8 @@ func CreateShowForm(app *tview.Application, pages *tview.Pages) tview.Primitive 
 		}).
 		AddButton("cancel", func() {
 			pages.SwitchToPage("menu")
-		})
+		}).
+		SetFocus(0)
 	form.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 		if event.Key() == tcell.KeyEsc {
 			pages.SwitchToPage("menu")
@@ -236,7 +236,8 @@ func RemoveShowForm(app *tview.Application, pages *tview.Pages) tview.Primitive 
 		}).
 		AddButton("cancel", func() {
 			pages.SwitchToPage("menu")
-		})
+		}).
+		SetFocus(0)
 	form.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 		if event.Key() == tcell.KeyEsc {
 			pages.SwitchToPage("menu")
@@ -279,7 +280,6 @@ func AddEpisodeForm(app *tview.Application, pages *tview.Pages) tview.Primitive 
 				result, err := rss.AddVideoToShow(title, description, videoURL)
 				stop()
 				app.QueueUpdateDraw(func() {
-
 					var modal *tview.Modal
 					if err == nil {
 						modal = ShowModal(fmt.Sprintf("Video added successfully.\nShow link: %s", result), []string{"OK"}, func(_ int, _ string) {
@@ -298,7 +298,8 @@ func AddEpisodeForm(app *tview.Application, pages *tview.Pages) tview.Primitive 
 		}).
 		AddButton("cancel", func() {
 			pages.SwitchToPage("menu")
-		})
+		}).
+		SetFocus(0)
 	form.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 		if event.Key() == tcell.KeyEsc {
 			pages.SwitchToPage("menu")
@@ -359,7 +360,8 @@ func SubscribeForm(app *tview.Application, pages *tview.Pages) tview.Primitive {
 		}).
 		AddButton("cancel", func() {
 			pages.SwitchToPage("menu")
-		})
+		}).
+		SetFocus(0)
 	form.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 		if event.Key() == tcell.KeyEsc {
 			pages.SwitchToPage("menu")
@@ -388,265 +390,66 @@ func PopulateShows(shows *tview.List) *tview.List {
 	return shows
 }
 
-func checkForCreateShow(application string, createShowCmd *bool, cmdIdx int) {
-	if *createShowCmd {
-		createShowFS := flag.NewFlagSet("create-show", flag.ExitOnError)
-		createShowFS.Usage = func() {
-			fmt.Fprintf(os.Stderr, "Usage of %s create-show [OPTIONS]\n", application)
-			fmt.Fprintf(os.Stderr, "Valid options include:\n\t%s\n", strings.Join([]string{"title, description, help"}, ", "))
-			fmt.Fprintf(os.Stderr, "Flag:\n")
-			createShowFS.PrintDefaults()
-		}
-
-		title := createShowFS.String("title", "", "Title of the show")
-		description := createShowFS.String("description", "", "Description of the show")
-		help := createShowFS.Bool("help", false, "Help")
-
-		commandArgs := findIntersection(
-			[]string{
-				"--title",
-				"--description",
-				"--help",
-			},
-			os.Args[cmdIdx+1:],
-		)
-
-		createShowFS.Parse(commandArgs)
-
-		if *help {
-			createShowFS.Usage()
-			return
-		}
-
-		if *title == "" || *description == "" {
-			fmt.Println("Title and Description are required to create a new show")
-			createShowFS.Usage()
-			os.Exit(1)
-		}
-
-		result := rss.CreateShow(*title, *description)
-		fmt.Printf("Show created successfully.\nPaste this RSS Feed link to your Podcast App: %s\n", result)
+func ListEpisodes(app *tview.Application, pages *tview.Pages, showTitle string) {
+	episodeInfos, err := rss.GetAllShowEpisodes(showTitle)
+	if err != nil {
+		modal := ShowModal(fmt.Sprint(err), []string{"OK"}, func(_ int, _ string) {
+			pages.RemovePage("modal")
+		})
+		pages.AddPage("modal", modal, true, true)
+		return
 	}
+	episodes := tview.NewList()
+	episodes.SetTitle(fmt.Sprintf("Show %s Episodes", showTitle))
+	episodes.AddItem("← Back", "Return to the Shows", 'b', nil)
+	if len(episodeInfos) == 0 {
+		episodes.AddItem(" No Episode Found ", "", 0, nil)
+	} else {
+		for _, info := range episodeInfos {
+			episodes.AddItem(info.Title, info.Author, 0, nil)
+		}
+	}
+	episodes.SetSelectedFunc(func(_ int, mainText, secondaryText string, _ rune) {
+		switch mainText {
+		case "← Back":
+			pages.SwitchToPage("shows")
+		case " No Episode Found ":
+			// no-op
+		default:
+			// episode
+			RemoveEpisode(app, pages, showTitle, mainText, secondaryText)
+		}
+	})
+	pages.AddAndSwitchToPage("episodes", episodes, true)
 }
 
-func checkForSync(syncCmd *bool) {
-	if *syncCmd {
-		fmt.Printf("sync command starts here....\n")
-		err := rss.Sync()
-		if err != nil {
-			fmt.Printf("Error syncing: %v\n", err)
-			os.Exit(1)
+func RemoveEpisode(app *tview.Application, pages *tview.Pages, showTitle, episodeTitle, author string) {
+	modal := ShowModal(fmt.Sprintf("Do you want to delete the episode titled \"%s\" from the show?", episodeTitle), []string{"NO", "YES"}, func(_ int, label string) {
+		switch label {
+		case "NO":
+			pages.RemovePage("modal")
+		case "YES":
+			pages.RemovePage("modal")
+			stop := ShowSpinnerModal(app, pages, "Deleting episode...")
+			go func() {
+				err := rss.RemoveVideoFromShow(showTitle, episodeTitle, author)
+				stop()
+				app.QueueUpdateDraw(func() {
+					var modal *tview.Modal
+					if err == nil {
+						modal = ShowModal("Episode removed successfully", []string{"OK"}, func(_ int, _ string) {
+							pages.RemovePage("modal")
+							ListEpisodes(app, pages, showTitle)
+						})
+					} else {
+						modal = ShowModal(fmt.Sprintf("%v", err), []string{"OK"}, func(_ int, _ string) {
+							pages.RemovePage("modal")
+						})
+					}
+					pages.AddPage("modal", modal, true, true)
+				})
+			}()
 		}
-		fmt.Println("All shows synced successfully")
-	}
-}
-
-func checkForAddVideo(application string, addVideoCmd *bool, cmdIdx int) {
-	if *addVideoCmd {
-		addVideoFS := flag.NewFlagSet("add-video", flag.ExitOnError)
-		addVideoFS.Usage = func() {
-			fmt.Fprintf(os.Stderr, "Usage of %s add-video [OPTIONS]\n", application)
-			fmt.Fprintf(os.Stderr, "Valid options include:\n\t%s\n", strings.Join([]string{"title, description, video-url, help"}, ", "))
-			fmt.Fprintf(os.Stderr, "Flag:\n")
-			addVideoFS.PrintDefaults()
-		}
-
-		title := addVideoFS.String("title", "", "Title of the show")
-		description := addVideoFS.String("description", "", "Description of the show")
-		videoURL := addVideoFS.String("video-url", "", "Video URL to add")
-		help := addVideoFS.Bool("help", false, "Help")
-
-		commandArgs := findIntersection(
-			[]string{
-				"--title",
-				"--description",
-				"--video-url",
-				"--help",
-			},
-			os.Args[cmdIdx+1:],
-		)
-
-		addVideoFS.Parse(commandArgs)
-
-		if *help {
-			addVideoFS.Usage()
-			return
-		}
-
-		if *title == "" || *videoURL == "" {
-			fmt.Println("Title and Video URL are required")
-			addVideoFS.Usage()
-			os.Exit(1)
-		}
-
-		result, err := rss.AddVideoToShow(*title, *description, *videoURL)
-		if err != nil {
-			fmt.Printf("Error adding video: %v\n", err)
-			os.Exit(1)
-		}
-		fmt.Printf("Video added successfully.\nPaste this RSS Feed link to your Podcast App: %s\n", result)
-	}
-}
-
-func checkForRemoveVideo(application string, removeVideoCmd *bool, cmdIdx int) {
-	if *removeVideoCmd {
-		removeVideoFS := flag.NewFlagSet("remove-video", flag.ExitOnError)
-		removeVideoFS.Usage = func() {
-			fmt.Fprintf(os.Stderr, "Usage of %s -remove-video [OPTIONS]\n", application)
-			fmt.Fprintf(os.Stderr, "Valid options include:\n\t%s\n", strings.Join([]string{"title, video-url, help"}, ", "))
-			fmt.Fprintf(os.Stderr, "Flag:\n")
-			removeVideoFS.PrintDefaults()
-		}
-
-		title := removeVideoFS.String("title", "", "Title of the show")
-		videoURL := removeVideoFS.String("video-url", "", "Video URL to add")
-		help := removeVideoFS.Bool("help", false, "Help")
-
-		commandArgs := findIntersection(
-			[]string{
-				"--title",
-				"--video-url",
-				"--help",
-			},
-			os.Args[cmdIdx+1:],
-		)
-
-		removeVideoFS.Parse(commandArgs)
-
-		if *help {
-			removeVideoFS.Usage()
-			return
-		}
-
-		if *title == "" || *videoURL == "" {
-			fmt.Println("Title and Video URL are required")
-			removeVideoFS.Usage()
-			os.Exit(1)
-		}
-
-		err := rss.RemoveVideoFromShow(*title, *videoURL)
-		if err != nil {
-			fmt.Printf("Error adding video: %v\n", err)
-			os.Exit(1)
-		}
-		fmt.Printf("Video removed successfully.\n")
-	}
-}
-func checkForRemoveShow(application string, removeShowCmd *bool, cmdIdx int) {
-	if *removeShowCmd {
-		removeShowFS := flag.NewFlagSet("remove-show", flag.ExitOnError)
-		removeShowFS.Usage = func() {
-			fmt.Fprintf(os.Stderr, "Usage of %s -remove-show [OPTIONS]\n", application)
-			fmt.Fprintf(os.Stderr, "Valid options include:\n\t%s\n", strings.Join([]string{"title, help"}, ", "))
-			fmt.Fprintf(os.Stderr, "Flag:\n")
-			removeShowFS.PrintDefaults()
-		}
-
-		title := removeShowFS.String("title", "", "Title of the show")
-		help := removeShowFS.Bool("help", false, "Help")
-
-		commandArgs := findIntersection(
-			[]string{
-				"--title",
-				"--help",
-			},
-			os.Args[cmdIdx+1:],
-		)
-
-		removeShowFS.Parse(commandArgs)
-
-		if *help {
-			removeShowFS.Usage()
-			return
-		}
-
-		if *title == "" {
-			fmt.Println("Title is required")
-			removeShowFS.Usage()
-			os.Exit(1)
-		}
-
-		err := rss.RemoveShow(*title)
-		if err != nil {
-			fmt.Printf("Error adding video: %v\n", err)
-			os.Exit(1)
-		}
-		fmt.Printf("Show removed successfully.\n")
-	}
-}
-
-func findIntersection(commandList, argList []string) []string {
-	set := rss.NewSet[string]()
-	for _, c := range commandList {
-		set.Add(c)
-	}
-	var out []string
-	for _, arg := range argList {
-		cmd := arg
-		if strings.Contains(cmd, "=") {
-			cmd = strings.SplitN(cmd, "=", 2)[0]
-		}
-
-		if set.Has(cmd) {
-			out = append(out, arg)
-		}
-	}
-	return out
-}
-
-func countTrue(commands []bool) int {
-	count := 0
-	for _, c := range commands {
-		if c == true {
-			count++
-		}
-	}
-	return count
-}
-
-func checkForSyncChannel(application string, syncChannelCmd *bool, cmdIdx int) {
-	if *syncChannelCmd {
-		syncChannelFS := flag.NewFlagSet("sync-channel", flag.ExitOnError)
-		syncChannelFS.Usage = func() {
-			fmt.Fprintf(os.Stderr, "Usage of %s -sync-channel [OPTIONS]\n", application)
-			fmt.Fprintf(os.Stderr, "Valid options include:\n\t%s\n", strings.Join([]string{"title, description, channel-id, help"}, ", "))
-			fmt.Fprintf(os.Stderr, "Flag:\n")
-			syncChannelFS.PrintDefaults()
-		}
-
-		title := syncChannelFS.String("title", "", "Title of the show")
-		description := syncChannelFS.String("description", "", "Description of the show")
-		channelID := syncChannelFS.String("channel-id", "", "Channel ID to sync")
-		help := syncChannelFS.Bool("help", false, "Help")
-
-		commandArgs := findIntersection(
-			[]string{
-				"--title",
-				"--description",
-				"--channel-id",
-				"--help",
-			},
-			os.Args[cmdIdx+1:],
-		)
-
-		syncChannelFS.Parse(commandArgs)
-
-		if *help {
-			syncChannelFS.Usage()
-			return
-		}
-
-		if *title == "" || *channelID == "" {
-			fmt.Println("Title and Channel ID are required")
-			syncChannelFS.Usage()
-			os.Exit(1)
-		}
-
-		result, err := rss.SyncChannel(*title, *description, *channelID)
-		if err != nil {
-			fmt.Printf("Error syncing channel: %v\n", err)
-			os.Exit(1)
-		}
-		fmt.Printf("Channel synced successfully.\nPaste this RSS Feed link to your Podcast App: %s\n", result)
-	}
+	})
+	pages.AddPage("modal", modal, true, true)
 }

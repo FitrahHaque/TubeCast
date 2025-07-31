@@ -34,17 +34,13 @@ func (metaStation *MetaStation) syncChannel(channelUsername string) (string, err
 	return metaStation.updateFeed()
 }
 
-func (metaStation *MetaStation) deleteVideo(videoUrl string) error {
+func (metaStation *MetaStation) deleteVideo(videoTitle, author string) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 	defer cancel()
 
-	id, err := getVideoId(ctx, videoUrl)
-	if err != nil {
-		return err
-	}
 	var index int = -1
 	for i, item := range metaStation.Items {
-		if item.GUID == id {
+		if item.Title == videoTitle && item.ITunesAuthor == author {
 			index = i
 			break
 		}
@@ -52,12 +48,12 @@ func (metaStation *MetaStation) deleteVideo(videoUrl string) error {
 	if index == -1 {
 		return errors.New("video does not exist in this show")
 	}
-	if err := Megh.deleteEpisode(ctx, id, metaStation.Title); err != nil {
+	if err := Megh.deleteEpisode(ctx, metaStation.Items[index].GUID, metaStation.Title); err != nil {
 		return err
 	}
 	metaStation.Items = append(metaStation.Items[:index], metaStation.Items[index+1:]...)
 	metaStation.updateFeed()
-	fmt.Printf("file deleted with id %v\n", id)
+	// fmt.Printf("file deleted with id %v\n", id)
 	return nil
 }
 

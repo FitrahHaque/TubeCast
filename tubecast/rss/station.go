@@ -112,6 +112,17 @@ func (metaStation *MetaStation) HasItem(id string) bool {
 	return false
 }
 
+func (metaStation *MetaStation) getAllItems() []EpisodeInfo {
+	var out []EpisodeInfo
+	for _, item := range metaStation.Items {
+		out = append(out, EpisodeInfo{
+			Title:  item.Title,
+			Author: item.ITunesAuthor,
+		})
+	}
+	return out
+}
+
 // func (station *Station) GetStationItem(id string) (StationItem, bool) {
 // 	for _, item := range station.Items {
 // 		if item.GUID == id {

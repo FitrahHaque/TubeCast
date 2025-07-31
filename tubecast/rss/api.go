@@ -38,15 +38,15 @@ func Sync() error {
 	return nil
 }
 
-func RemoveVideoFromShow(title, videoUrl string) error {
-	if !StationNames.Has(title) {
+func RemoveVideoFromShow(showTitle, videoTitle, author string) error {
+	if !StationNames.Has(showTitle) {
 		return errors.New("show with this title does not exist")
 	}
-	metaStation, err := getMetaStation(title, "")
+	metaStation, err := getMetaStation(showTitle, "")
 	if err != nil {
 		return err
 	}
-	return metaStation.deleteVideo(videoUrl)
+	return metaStation.deleteVideo(videoTitle, author)
 }
 
 func RemoveShow(title string) error {
@@ -66,6 +66,17 @@ func AddVideoToShow(title, description string, videoUrl string) (string, error) 
 		return "", err
 	}
 	return metaStation.addVideo(videoUrl)
+}
+
+func GetAllShowEpisodes(title string) ([]EpisodeInfo, error) {
+	if !StationNames.Has(title) {
+		return nil, errors.New("Show with the title does not exist")
+	}
+	metaStation, err := getMetaStation(title, "")
+	if err != nil {
+		return nil, err
+	}
+	return metaStation.getAllItems(), nil
 }
 
 func (station *Station) Print() {
