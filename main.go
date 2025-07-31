@@ -18,12 +18,13 @@ var Commands = [...]string{"sync-channel", "create-show", "sync", "add-video", "
 func main() {
 	godotenv.Load()
 	rss.Init()
+
 	application := tview.NewApplication().SetTitle("TubeCast")
 
 	// ====== MENU =========
 	menu := tview.NewList()
-	menu.
-		SetBorder(true).
+	menu.Box.
+		// SetBorder(true).
 		SetTitle("MAIN MENU")
 	menu.
 		AddItem("shows", "Browse available shows", 'v', nil).
@@ -32,90 +33,47 @@ func main() {
 		AddItem("sync", "Add latest episodes to all shows from your subscribed channels", 'a', nil).
 		AddItem("add an episode", "Add an episode to a show", 'p', nil).
 		AddItem("remove an episode", "Remove an episode from a show", 'r', nil).
-		AddItem("delete a show", "Remove a show", 'e', nil)
+		AddItem("delete a show", "Remove a show", 'e', nil).
+		AddItem("quit", "Exit the app", 'q', nil)
 
-	// ===== List Shows =====
-	shows := ListShows()
-
+	// ==== LIST SHOWS =====
+	shows := CreateShowsPage()
 	// ===== PAGES ======
 	pages := tview.NewPages()
 	pages.
 		AddPage("menu", menu, true, true).
-		AddPage("create-show", CreateShowForm(application, pages), true, false).
 		AddPage("shows", shows, true, false)
 
-	if err := application.SetRoot(pages, true).EnableMouse(true).Run(); err != nil {
-		log.Printf("Application exited with error: %v\n", err)
-		os.Exit(1)
-	}
-
 	// ==== Selection Callback Functions =====
-	menu.SetSelectedFunc(func(_ int, mainText, _ string, shortcut rune) {
+	menu.SetSelectedFunc(func(_ int, mainText, _ string, _ rune) {
+		// fmt.Printf("at selection function\n")
 		switch mainText {
 		case "shows":
+			PopulateShows(shows)
 			pages.SwitchToPage("shows")
 		case "create a show":
-			pages.SwitchToPage("create-show")
+			pages.AddAndSwitchToPage("create-show", CreateShowForm(application, pages), true)
+		case "delete a show":
+			pages.AddAndSwitchToPage("remove-show", RemoveShowForm(application, pages), true)
+		case "quit":
+			application.Stop()
 		default:
 			// no-op
 		}
 	})
-}
 
-func countTrue(commands []bool) int {
-	count := 0
-	for _, c := range commands {
-		if c == true {
-			count++
+	shows.SetSelectedFunc(func(_ int, mainText, _ string, _ rune) {
+		switch mainText {
+		case "← Back":
+			pages.SwitchToPage("menu")
+		default:
+			// no-op
 		}
-	}
-	return count
-}
-
-func checkForSyncChannel(application string, syncChannelCmd *bool, cmdIdx int) {
-	if *syncChannelCmd {
-		syncChannelFS := flag.NewFlagSet("sync-channel", flag.ExitOnError)
-		syncChannelFS.Usage = func() {
-			fmt.Fprintf(os.Stderr, "Usage of %s -sync-channel [OPTIONS]\n", application)
-			fmt.Fprintf(os.Stderr, "Valid options include:\n\t%s\n", strings.Join([]string{"title, description, channel-id, help"}, ", "))
-			fmt.Fprintf(os.Stderr, "Flag:\n")
-			syncChannelFS.PrintDefaults()
-		}
-
-		title := syncChannelFS.String("title", "", "Title of the show")
-		description := syncChannelFS.String("description", "", "Description of the show")
-		channelID := syncChannelFS.String("channel-id", "", "Channel ID to sync")
-		help := syncChannelFS.Bool("help", false, "Help")
-
-		commandArgs := findIntersection(
-			[]string{
-				"--title",
-				"--description",
-				"--channel-id",
-				"--help",
-			},
-			os.Args[cmdIdx+1:],
-		)
-
-		syncChannelFS.Parse(commandArgs)
-
-		if *help {
-			syncChannelFS.Usage()
-			return
-		}
-
-		if *title == "" || *channelID == "" {
-			fmt.Println("Title and Channel ID are required")
-			syncChannelFS.Usage()
-			os.Exit(1)
-		}
-
-		result, err := rss.SyncChannel(*title, *description, *channelID)
-		if err != nil {
-			fmt.Printf("Error syncing channel: %v\n", err)
-			os.Exit(1)
-		}
-		fmt.Printf("Channel synced successfully.\nPaste this RSS Feed link to your Podcast App: %s\n", result)
+	})
+	// Start the application
+	if err := application.SetRoot(pages, true).EnableMouse(true).Run(); err != nil {
+		log.Fatal(err)
+		os.Exit(1)
 	}
 }
 
@@ -143,7 +101,7 @@ func CreateShowForm(app *tview.Application, pages *tview.Pages) tview.Primitive 
 
 	form := tview.NewForm()
 	form.
-		SetBorder(true).
+		// SetBorder(true).
 		SetTitle(" Create a Show ").
 		SetTitleAlign(tview.AlignLeft)
 	form.
@@ -181,11 +139,59 @@ func CreateShowForm(app *tview.Application, pages *tview.Pages) tview.Primitive 
 	return form
 }
 
-func ListShows() tview.Primitive {
+func RemoveShowForm(app *tview.Application, pages *tview.Pages) tview.Primitive {
+	titleIF := tview.NewInputField().
+		SetLabel("Title:         ").
+		SetFieldWidth(40)
+	form := tview.NewForm()
+	form.
+		AddFormItem(titleIF).
+		AddButton("remove", func() {
+			title := titleIF.GetText()
+			if title == "" {
+				modal := ShowModal("Title is required to remove a show", []string{"OK"}, func(_ int, _ string) {
+					pages.RemovePage("modal")
+				})
+				pages.AddPage("modal", modal, true, true)
+			}
+			err := rss.RemoveShow(title)
+			var modal *tview.Modal
+			if err == nil {
+				modal = ShowModal(fmt.Sprintf("The show %s has been removed successfully", title), []string{"GO BACK"}, func(_ int, _ string) {
+					pages.
+						SwitchToPage("menu").
+						RemovePage("modal")
+				})
+			} else {
+				modal = ShowModal(fmt.Sprintf("%v", err), []string{"OK"}, func(_ int, _ string) {
+					pages.RemovePage("modal")
+				})
+			}
+			pages.AddPage("modal", modal, true, true)
+		}).
+		AddButton("cancel", func() {
+			pages.SwitchToPage("menu")
+		})
+	form.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
+		if event.Key() == tcell.KeyEsc {
+			pages.SwitchToPage("menu")
+			return nil
+		}
+		return event
+	})
+	return form
+}
+
+func CreateShowsPage() *tview.List {
 	shows := tview.NewList()
 	shows.
-		SetBorder(true).
+		// SetBorder(true).
 		SetTitle("SHOWS")
+	return PopulateShows(shows)
+}
+
+func PopulateShows(shows *tview.List) *tview.List {
+	shows.Clear()
 	shows.AddItem("← Back", "Return To Main Menu", 'b', nil)
 	for name := range rss.StationNames.Value {
 		shows.AddItem(name, fmt.Sprintf("Browse episodes from %s", name), 0, nil)
@@ -398,4 +404,61 @@ func findIntersection(commandList, argList []string) []string {
 		}
 	}
 	return out
+}
+
+func countTrue(commands []bool) int {
+	count := 0
+	for _, c := range commands {
+		if c == true {
+			count++
+		}
+	}
+	return count
+}
+
+func checkForSyncChannel(application string, syncChannelCmd *bool, cmdIdx int) {
+	if *syncChannelCmd {
+		syncChannelFS := flag.NewFlagSet("sync-channel", flag.ExitOnError)
+		syncChannelFS.Usage = func() {
+			fmt.Fprintf(os.Stderr, "Usage of %s -sync-channel [OPTIONS]\n", application)
+			fmt.Fprintf(os.Stderr, "Valid options include:\n\t%s\n", strings.Join([]string{"title, description, channel-id, help"}, ", "))
+			fmt.Fprintf(os.Stderr, "Flag:\n")
+			syncChannelFS.PrintDefaults()
+		}
+
+		title := syncChannelFS.String("title", "", "Title of the show")
+		description := syncChannelFS.String("description", "", "Description of the show")
+		channelID := syncChannelFS.String("channel-id", "", "Channel ID to sync")
+		help := syncChannelFS.Bool("help", false, "Help")
+
+		commandArgs := findIntersection(
+			[]string{
+				"--title",
+				"--description",
+				"--channel-id",
+				"--help",
+			},
+			os.Args[cmdIdx+1:],
+		)
+
+		syncChannelFS.Parse(commandArgs)
+
+		if *help {
+			syncChannelFS.Usage()
+			return
+		}
+
+		if *title == "" || *channelID == "" {
+			fmt.Println("Title and Channel ID are required")
+			syncChannelFS.Usage()
+			os.Exit(1)
+		}
+
+		result, err := rss.SyncChannel(*title, *description, *channelID)
+		if err != nil {
+			fmt.Printf("Error syncing channel: %v\n", err)
+			os.Exit(1)
+		}
+		fmt.Printf("Channel synced successfully.\nPaste this RSS Feed link to your Podcast App: %s\n", result)
+	}
 }

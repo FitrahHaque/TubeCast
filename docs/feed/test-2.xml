@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:podcast="https://podcastindex.org/namespace/1.0" version="2.0">
+  <channel>
+  <id>1b3f8c16-adf9-4dfa-8d9c-adfdcd774f3b</id>
+  <title>test-2</title>
+  <itunes:image href=""></itunes:image>
+  <description>asas</description>
+  <language>English</language>
+  <copyright>fitrahhaque</copyright>
+  <itunes:author></itunes:author>
+  <itunes:subtitle>asas</itunes:subtitle>
+  <itunes:summary>asas</itunes:summary>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:category text="Technology"></itunes:category>
+  <itunes:owner>
+    <itunes:name></itunes:name>
+    <itunes:email></itunes:email>
+  </itunes:owner>
+</channel>
+</rss>

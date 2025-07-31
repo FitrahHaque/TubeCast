@@ -129,14 +129,14 @@ func (cloud *Cloud) upload(ctx context.Context, id, title string, filetype FileT
 	default:
 		return "", errors.New("wrong filetype being uploaded")
 	}
-	fmt.Printf("localpath: %v\n", localpath)
+	// fmt.Printf("localpath: %v\n", localpath)
 	if _, err := os.Open(localpath); err != nil {
-		fmt.Printf("could not open localpath: %v\n", localpath)
+		// fmt.Printf("could not open localpath: %v\n", localpath)
 		return "", err
 	}
 	_, err := run(
 		ctx,
-		"ia",
+		"./ia",
 		"upload",
 		"--no-backup",
 		cloud.ArchiveId,
@@ -148,14 +148,14 @@ func (cloud *Cloud) upload(ctx context.Context, id, title string, filetype FileT
 	if isLocalDelete {
 		os.Remove(localpath)
 	}
-	fmt.Printf("file uploaded!\n")
+	// fmt.Printf("file uploaded!\n")
 	return remotepath, nil
 }
 
 func (cloud *Cloud) getUsage(ctx context.Context) (Usage, error) {
 	out, err := run(
 		ctx,
-		"ia",
+		"./ia",
 		"metadata",
 		cloud.ArchiveId,
 	)
@@ -202,7 +202,7 @@ func (cloud *Cloud) getUsage(ctx context.Context) (Usage, error) {
 func (cloud *Cloud) deleteEpisode(ctx context.Context, id, title string) error {
 	_, err := run(
 		ctx,
-		"ia",
+		"./ia",
 		"delete",
 		cloud.ArchiveId,
 		fmt.Sprintf("--glob=*%s_%s*", title, id),
@@ -228,7 +228,7 @@ func (cloud *Cloud) deleteShow(title string) error {
 	defer cancel()
 	_, err := run(
 		ctx,
-		"ia",
+		"./ia",
 		"delete",
 		cloud.ArchiveId,
 		fmt.Sprintf("--glob=*_%s_*", title),
@@ -238,14 +238,14 @@ func (cloud *Cloud) deleteShow(title string) error {
 	}
 	_, err = run(
 		ctx,
-		"ia",
+		"./ia",
 		"delete",
 		cloud.ArchiveId,
 		fmt.Sprintf("--glob=cover_%s*", title),
 	)
 	_, err = run(
 		ctx,
-		"ia",
+		"./ia",
 		"delete",
 		cloud.ArchiveId,
 		fmt.Sprintf("--glob=*%s.xml", title),

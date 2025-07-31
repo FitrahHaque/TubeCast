@@ -67,6 +67,7 @@ func (metaStation *MetaStation) delete() error {
 	}
 	os.Remove(Megh.getLocalFeedFilepath(metaStation.Title))
 	os.Remove(Megh.getLocalStationFilepath(metaStation.Title))
+	StationNames.Remove(metaStation.Title)
 	return nil
 }
 

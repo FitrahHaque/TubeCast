@@ -108,7 +108,7 @@ func Init() {
 		Username: os.Getenv("USERNAME"),
 	}
 	Usr.Username = strings.ToLower(Usr.Username)
-	fmt.Printf("username: %v\n", Usr.Username)
+	// fmt.Printf("username: %v\n", Usr.Username)
 	Megh = Cloud{
 		ArchiveId:        Usr.getArchiveIdentifier(),
 		FeedUrlPrefix:    Usr.getFeedUrlPrefix(),

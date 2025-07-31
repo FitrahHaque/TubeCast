@@ -108,14 +108,11 @@ func (s Set[T]) MarshalJSON() ([]byte, error) {
 
 func run(ctx context.Context, cmd string, args ...string) (string, error) {
 	c := exec.CommandContext(ctx, cmd, args...)
-	if cmd == "./ia" {
-		fmt.Println(cmd, args)
-	}
 	var out, err bytes.Buffer
 	c.Stdout = &out
 	c.Stderr = &err
 	if e := c.Run(); e != nil {
-		return "", fmt.Errorf("could not execute the command. Error: %s\n", &err)
+		return "", fmt.Errorf("could not execute the command. Error: %v\n", &err)
 	}
 	return out.String(), nil
 }
