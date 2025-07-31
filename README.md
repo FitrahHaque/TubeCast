@@ -16,7 +16,7 @@
 
 ## 📡 Quick‑Start
 
-The [`tubecast-scripts`](https://drive.google.com/file/d/1F4GIz4UH31PBbM1Uf6F-1snnMB-k3HPj/view?usp=sharing) folder contains everything you need to run **TubeCast**. Each shell script wraps the necessary `docker compose` calls so non‑technical users only have to run a single command per task.
+The [`tubecast-scripts`](https://drive.google.com/file/d/1aAkkPFOyZulgHiwneI6GSi2wiICHdFd7/view?usp=sharing) folder contains everything you need to run **TubeCast**. Each shell script wraps the necessary `docker compose` calls so non‑technical users only have to run a single command per task.
 
 ---
 
