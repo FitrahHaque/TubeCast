@@ -33,7 +33,7 @@ func main() {
 		AddItem("subscribe", "Get latest videos from a YT channel easily", 's', nil).
 		AddItem("sync", "Add latest episodes to all shows from your subscribed channels", 'a', nil).
 		AddItem("add an episode", "Add an episode to a show", 'p', nil).
-		AddItem("remove an episode", "Remove an episode from a show", 'r', nil).
+		// AddItem("remove an episode", "Remove an episode from a show", 'r', nil).
 		AddItem("delete a show", "Remove a show", 'e', nil).
 		AddItem("quit", "Exit the app", 'q', nil)
 
@@ -47,15 +47,18 @@ func main() {
 
 	// ==== Selection Callback Functions =====
 	menu.SetSelectedFunc(func(_ int, mainText, _ string, _ rune) {
-		// fmt.Printf("at selection function\n")
 		switch mainText {
 		case "shows":
 			PopulateShows(shows)
 			pages.SwitchToPage("shows")
 		case "create a show":
 			pages.AddAndSwitchToPage("create-show", CreateShowForm(application, pages), true)
+		case "subscribe":
+			pages.AddAndSwitchToPage("sync-channel", SubscribeForm(application, pages), true)
 		case "sync":
 			Sync(application, pages)
+		case "add an episode":
+			pages.AddAndSwitchToPage("add-video", AddEpisodeForm(application, pages), true)
 		case "delete a show":
 			pages.AddAndSwitchToPage("remove-show", RemoveShowForm(application, pages), true)
 		case "quit":
@@ -165,8 +168,7 @@ func CreateShowForm(app *tview.Application, pages *tview.Pages) tview.Primitive 
 	form := tview.NewForm()
 	form.
 		// SetBorder(true).
-		SetTitle(" Create a Show ").
-		SetTitleAlign(tview.AlignLeft)
+		SetTitle(" Create a Show ")
 	form.
 		AddFormItem(titleIF).
 		AddFormItem(descIF).
@@ -231,6 +233,129 @@ func RemoveShowForm(app *tview.Application, pages *tview.Pages) tview.Primitive 
 				})
 			}
 			pages.AddPage("modal", modal, true, true)
+		}).
+		AddButton("cancel", func() {
+			pages.SwitchToPage("menu")
+		})
+	form.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
+		if event.Key() == tcell.KeyEsc {
+			pages.SwitchToPage("menu")
+			return nil
+		}
+		return event
+	})
+	return form
+}
+
+func AddEpisodeForm(app *tview.Application, pages *tview.Pages) tview.Primitive {
+	titleIF := tview.NewInputField().
+		SetLabel("Title:         ").
+		SetFieldWidth(40)
+	descIF := tview.NewInputField().
+		SetLabel("Description:   ").
+		SetFieldWidth(80)
+	urlIF := tview.NewInputField().
+		SetLabel("Video Url:     ").
+		SetFieldWidth(60)
+
+	form := tview.NewForm()
+	form.SetTitle(" Add an Episode ")
+	form.
+		AddFormItem(titleIF).
+		AddFormItem(descIF).
+		AddFormItem(urlIF).
+		AddButton("Add", func() {
+			title := titleIF.GetText()
+			videoURL := urlIF.GetText()
+			description := descIF.GetText()
+			if title == "" || videoURL == "" {
+				modal := ShowModal("Title and Video URL are required", []string{"OK"}, func(_ int, _ string) {
+					pages.RemovePage("modal")
+				})
+				pages.AddPage("modal", modal, true, true)
+			}
+			stop := ShowSpinnerModal(app, pages, "Adding Episode...")
+			go func() {
+				result, err := rss.AddVideoToShow(title, description, videoURL)
+				stop()
+				app.QueueUpdateDraw(func() {
+
+					var modal *tview.Modal
+					if err == nil {
+						modal = ShowModal(fmt.Sprintf("Video added successfully.\nShow link: %s", result), []string{"OK"}, func(_ int, _ string) {
+							pages.
+								SwitchToPage("menu").
+								RemovePage("modal")
+						})
+					} else {
+						modal = ShowModal(fmt.Sprintf("%v", err), []string{"OK"}, func(_ int, _ string) {
+							pages.RemovePage("modal")
+						})
+					}
+					pages.AddPage("modal", modal, true, true)
+				})
+			}()
+		}).
+		AddButton("cancel", func() {
+			pages.SwitchToPage("menu")
+		})
+	form.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
+		if event.Key() == tcell.KeyEsc {
+			pages.SwitchToPage("menu")
+			return nil
+		}
+		return event
+	})
+	return form
+}
+
+func SubscribeForm(app *tview.Application, pages *tview.Pages) tview.Primitive {
+	titleIF := tview.NewInputField().
+		SetLabel("Title:         ").
+		SetFieldWidth(40)
+	descIF := tview.NewInputField().
+		SetLabel("Description:   ").
+		SetFieldWidth(80)
+	channelIdIF := tview.NewInputField().
+		SetLabel("Channel ID:    ").
+		SetFieldWidth(20)
+	form := tview.NewForm()
+	form.SetTitle(" Add an Episode ")
+	form.
+		AddFormItem(titleIF).
+		AddFormItem(descIF).
+		AddFormItem(channelIdIF).
+		AddButton("Add", func() {
+			title := titleIF.GetText()
+			channelId := channelIdIF.GetText()
+			description := descIF.GetText()
+			if title == "" || channelId == "" {
+				modal := ShowModal("Title and Channel ID are required", []string{"OK"}, func(_ int, _ string) {
+					pages.RemovePage("modal")
+				})
+				pages.AddPage("modal", modal, true, true)
+			}
+			stop := ShowSpinnerModal(app, pages, "Subcribing to the channel...")
+			go func() {
+				result, err := rss.SyncChannel(title, description, channelId)
+				stop()
+				app.QueueUpdateDraw(func() {
+
+					var modal *tview.Modal
+					if err == nil {
+						modal = ShowModal(fmt.Sprintf("Channel Synced successfully.\nShow link: %s", result), []string{"OK"}, func(_ int, _ string) {
+							pages.
+								SwitchToPage("menu").
+								RemovePage("modal")
+						})
+					} else {
+						modal = ShowModal(fmt.Sprintf("%v", err), []string{"OK"}, func(_ int, _ string) {
+							pages.RemovePage("modal")
+						})
+					}
+					pages.AddPage("modal", modal, true, true)
+				})
+			}()
 		}).
 		AddButton("cancel", func() {
 			pages.SwitchToPage("menu")
