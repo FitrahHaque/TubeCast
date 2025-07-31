@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/FitrahHaque/TubeCast/tubecast/rss"
@@ -33,6 +34,7 @@ func main() {
 		AddItem("sync", "Add latest episodes to all shows from your subscribed channels", 'a', nil).
 		AddItem("add an episode", "Add an episode to a show", 'i', nil).
 		AddItem("delete a show", "Remove a show", 'd', nil).
+		AddItem("set env", "Set environment variables", 'e', nil).
 		AddItem("quit", "Exit the app", 'q', nil)
 
 	// ==== LIST SHOWS =====
@@ -58,7 +60,9 @@ func main() {
 		case "add an episode":
 			pages.AddAndSwitchToPage("add-video", AddEpisodeForm(application, pages), true)
 		case "delete a show":
-			pages.AddAndSwitchToPage("remove-show", RemoveShowForm(application, pages), true)
+			pages.AddAndSwitchToPage("remove-show", RemoveShow(application, pages), true)
+		case "set env":
+			pages.AddAndSwitchToPage("set-env", SetEnv(application, pages), true)
 		case "quit":
 			application.Stop()
 		default:
@@ -227,7 +231,7 @@ func CreateShowForm(app *tview.Application, pages *tview.Pages) tview.Primitive 
 	return form
 }
 
-func RemoveShowForm(app *tview.Application, pages *tview.Pages) tview.Primitive {
+func RemoveShow(app *tview.Application, pages *tview.Pages) tview.Primitive {
 	shows := tview.NewList()
 	shows.SetTitle("SHOWS")
 	shows.AddItem("← Back", "Return To Main Menu", 'b', nil)
@@ -341,7 +345,7 @@ func SubscribeForm(app *tview.Application, pages *tview.Pages) tview.Primitive {
 			title := titleIF.GetText()
 			channelId := channelIdIF.GetText()
 			if title == "" || channelId == "" {
-				modal := ShowModal("Title and Channel ID are required", []string{"OK"}, func(_ int, _ string) {
+				modal := ShowModal("Title and Channel ID are required", []string{"Try Again"}, func(_ int, _ string) {
 					pages.RemovePage("modal")
 				})
 				pages.AddPage("modal", modal, true, true)
@@ -471,4 +475,75 @@ func RemoveEpisode(app *tview.Application, pages *tview.Pages, showTitle, episod
 		}
 	})
 	pages.AddPage("modal", modal, true, true)
+}
+
+func SetEnv(app *tview.Application, pages *tview.Pages) tview.Primitive {
+	usernameIF := tview.NewInputField().
+		SetLabel("USERNAME:         ").
+		SetFieldWidth(20).
+		SetPlaceholder("A Unique Handle")
+	homeIF := tview.NewInputField().
+		SetLabel("HOME_DIR:         ").
+		SetFieldWidth(20).
+		SetPlaceholder("Your Home Directory")
+	form := tview.NewForm()
+	form.
+		SetTitle(" Set Environment Variable ")
+	form.
+		AddFormItem(usernameIF).
+		AddFormItem(homeIF).
+		AddButton("save", func() {
+			username := usernameIF.GetText()
+			homeDir := homeIF.GetText()
+			if username == "" || homeDir == "" || !strings.HasPrefix(homeDir, "/") {
+				modal := ShowModal("username and home directory cannot be empty. Home directory needs to be from the root (absolute)", []string{"Try Again"}, func(_ int, _ string) {
+					pages.RemovePage("modal")
+				})
+				pages.AddPage("modal", modal, true, true)
+			} else {
+				template, err := os.ReadFile("example.txt")
+				if err != nil {
+					modal := ShowModal(fmt.Sprint(err), []string{"OK"}, func(_ int, _ string) {
+						pages.RemovePage("modal")
+					})
+					pages.AddPage("modal", modal, true, true)
+				} else {
+					lines := strings.Split(string(template), "\n")
+					for i, line := range lines {
+						if strings.HasPrefix(line, "USERNAME=") {
+							lines[i] = fmt.Sprintf("USERNAME=\"%s\"", username)
+						} else if strings.HasPrefix(line, "HOME_DIR=") {
+							lines[i] = fmt.Sprintf("HOME_DIR=\"%s\"", homeDir)
+						}
+					}
+					output := strings.Join(lines, "\n")
+					err := os.WriteFile(".env", []byte(output), 0o644)
+					if err != nil {
+						modal := ShowModal(fmt.Sprint(err), []string{"OK"}, func(_ int, _ string) {
+							pages.RemovePage("modal")
+						})
+						pages.AddPage("modal", modal, true, true)
+					}
+					modal := ShowModal("Successfully variables set", []string{"GO BACK"}, func(_ int, _ string) {
+						pages.
+							SwitchToPage("menu").
+							RemovePage("modal")
+					})
+					pages.AddPage("modal", modal, true, true)
+				}
+			}
+		}).
+		AddButton("cancel", func() {
+			pages.SwitchToPage("menu")
+		}).
+		SetFocus(0)
+	form.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
+		if event.Key() == tcell.KeyEsc {
+			pages.SwitchToPage("menu")
+			return nil
+		}
+		return event
+	})
+	return form
+
 }
