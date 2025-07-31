@@ -21,11 +21,11 @@ func (metaStation *MetaStation) syncChannel(channelUsername string) (string, err
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 	defer cancel()
 
-	ids, err := metaStation.getLatestVideos(ctx, channelFeedUrl, 3)
+	ids, err := metaStation.getLatestVideos(ctx, channelFeedUrl, 1)
 	if err != nil {
 		return "", err
 	}
-	fmt.Println("Latest video urls to be uploaded: ", ids)
+	// fmt.Println("Latest video urls to be uploaded: ", ids)
 	for _, id := range ids {
 		if _, err := metaStation.addItemToStation(ctx, id, channelUsername, channelFeedUrl); err != nil {
 			log.Printf("error downloading video %s, error: %v\n", id, err)
@@ -381,7 +381,7 @@ func (metaStationItem *MetaStationItem) saveVideoThumbnail(ctx context.Context, 
 		link,
 	)
 	if err == nil {
-		fmt.Printf("thumbnail downloaded\n")
+		// fmt.Printf("thumbnail downloaded\n")
 
 	}
 	ConvertImageToCorrectFormat(localpath1, localpath2)
@@ -409,7 +409,7 @@ func (metaStationItem *MetaStationItem) saveAudio(ctx context.Context, title str
 		return 0, err
 	}
 	if err == nil {
-		fmt.Printf("audio downloaded\n")
+		// fmt.Printf("audio downloaded\n")
 
 	}
 	if info, err := os.Stat(localpath); err != nil {

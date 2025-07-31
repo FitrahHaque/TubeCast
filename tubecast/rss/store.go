@@ -191,7 +191,7 @@ func (cloud *Cloud) getUsage(ctx context.Context) (Usage, error) {
 		count++
 	}
 
-	fmt.Printf("total size used (excluding history): %v MB, total files: %v\n", totalBytes/(1024*1024), count)
+	// fmt.Printf("total size used (excluding history): %v MB, total files: %v\n", totalBytes/(1024*1024), count)
 	return Usage{
 		TotalSizeBytes: totalBytes,
 		TotalSizeMiB:   totalBytes / (1024 * 1024),

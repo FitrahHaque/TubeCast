@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/FitrahHaque/TubeCast/tubecast/rss"
 	"github.com/gdamore/tcell/v2"
@@ -53,6 +54,8 @@ func main() {
 			pages.SwitchToPage("shows")
 		case "create a show":
 			pages.AddAndSwitchToPage("create-show", CreateShowForm(application, pages), true)
+		case "sync":
+			Sync(application, pages)
 		case "delete a show":
 			pages.AddAndSwitchToPage("remove-show", RemoveShowForm(application, pages), true)
 		case "quit":
@@ -75,6 +78,66 @@ func main() {
 		log.Fatal(err)
 		os.Exit(1)
 	}
+}
+
+// ShowSpinnerModal overlays a centered modal with an animated spinner.
+// Call the returned stop() to remove it.
+func ShowSpinnerModal(app *tview.Application, pages *tview.Pages, label string) (stop func()) {
+	spinner := []rune{'|', '/', '-', '\\'}
+	modal := tview.NewModal().SetText("⏳ " + label)
+	modal.SetTitle(" Please wait ")
+
+	done := make(chan struct{})
+	go func() {
+		app.QueueUpdateDraw(func() {
+			pages.AddPage("loading", modal, true, true)
+		})
+	}()
+
+	go func() {
+		t := time.NewTicker(120 * time.Millisecond)
+		defer t.Stop()
+		for i := 0; ; {
+			select {
+			case <-done:
+				return
+			case <-t.C:
+				i++
+				ch := spinner[i%len(spinner)]
+				app.QueueUpdateDraw(func() {
+					modal.SetText(fmt.Sprintf("%s %c", label, ch))
+				})
+			}
+		}
+	}()
+
+	return func() {
+		close(done)
+		app.QueueUpdateDraw(func() {
+			pages.RemovePage("loading")
+		})
+	}
+}
+
+func Sync(app *tview.Application, pages *tview.Pages) {
+	stop := ShowSpinnerModal(app, pages, "Syncing Shows...")
+	go func() {
+		err := rss.Sync()
+		stop()
+		app.QueueUpdateDraw(func() {
+			var modal *tview.Modal
+			if err != nil {
+				modal = ShowModal(fmt.Sprintf("Syncing failed: %v", err), []string{"OK"}, func(_ int, _ string) {
+					pages.RemovePage("modal")
+				})
+			} else {
+				modal = ShowModal("Successfully synced", []string{"OK"}, func(_ int, _ string) {
+					pages.RemovePage("modal")
+				})
+			}
+			pages.AddPage("modal", modal, true, true)
+		})
+	}()
 }
 
 func ShowModal(message string, buttonLabels []string, cb func(int, string)) *tview.Modal {

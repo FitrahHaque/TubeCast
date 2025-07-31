@@ -271,14 +271,14 @@ func validatePodcastImage(imagePath string) error {
 }
 
 func ConvertImageToCorrectFormat(src, dest string) {
-	fmt.Printf("src: %v, dest: %v\n", src, dest)
+	// fmt.Printf("src: %v, dest: %v\n", src, dest)
 	err := convertImageForPodcast(src, dest, PNG, 0)
 	if err != nil {
-		fmt.Printf("Error converting to PNG: %v\n", err)
+		// fmt.Printf("Error converting to PNG: %v\n", err)
 	}
 	err = validatePodcastImage(dest)
 	if err != nil {
-		fmt.Printf("Validation failed: %v\n", err)
+		// fmt.Printf("Validation failed: %v\n", err)
 	} else {
 		// fmt.Println("Image meets Apple Podcasts requirements!")
 		os.Remove(src)
