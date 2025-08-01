@@ -243,12 +243,12 @@ func CreateShowForm(app *tview.Application, pages *tview.Pages) tview.Primitive 
 		case tcell.KeyDown:
 			focusItem(currentIdx + 1)
 			return nil
-		case tcell.KeyLeft:
-			focusItem(currentIdx - 1)
-			return nil
-		case tcell.KeyRight:
-			focusItem(currentIdx + 1)
-			return nil
+		// case tcell.KeyLeft:
+		// 	focusItem(currentIdx - 1)
+		// 	return nil
+		// case tcell.KeyRight:
+		// 	focusItem(currentIdx + 1)
+		// 	return nil
 		case tcell.KeyEsc:
 			pages.SwitchToPage("menu")
 			return nil
@@ -382,12 +382,12 @@ func AddEpisodesForm(app *tview.Application, pages *tview.Pages) tview.Primitive
 		case tcell.KeyDown:
 			focusItem(currentIdx + 1)
 			return nil
-		case tcell.KeyLeft:
-			focusItem(currentIdx - 1)
-			return nil
-		case tcell.KeyRight:
-			focusItem(currentIdx + 1)
-			return nil
+		// case tcell.KeyLeft:
+		// 	focusItem(currentIdx - 1)
+		// 	return nil
+		// case tcell.KeyRight:
+		// 	focusItem(currentIdx + 1)
+		// 	return nil
 		case tcell.KeyEsc:
 			pages.SwitchToPage("menu")
 			return nil
@@ -472,12 +472,12 @@ func SubscribeForm(app *tview.Application, pages *tview.Pages) tview.Primitive {
 		case tcell.KeyDown:
 			focusItem(currentIdx + 1)
 			return nil
-		case tcell.KeyLeft:
-			focusItem(currentIdx - 1)
-			return nil
-		case tcell.KeyRight:
-			focusItem(currentIdx + 1)
-			return nil
+		// case tcell.KeyLeft:
+		// 	focusItem(currentIdx - 1)
+		// 	return nil
+		// case tcell.KeyRight:
+		// 	focusItem(currentIdx + 1)
+		// 	return nil
 		case tcell.KeyEsc:
 			pages.SwitchToPage("menu")
 			return nil
@@ -658,12 +658,12 @@ func SetEnv(app *tview.Application, pages *tview.Pages) tview.Primitive {
 		case tcell.KeyDown:
 			focusItem(currentIdx + 1)
 			return nil
-		case tcell.KeyLeft:
-			focusItem(currentIdx - 1)
-			return nil
-		case tcell.KeyRight:
-			focusItem(currentIdx + 1)
-			return nil
+		// case tcell.KeyLeft:
+		// 	focusItem(currentIdx - 1)
+		// 	return nil
+		// case tcell.KeyRight:
+		// 	focusItem(currentIdx + 1)
+		// 	return nil
 		case tcell.KeyEsc:
 			pages.SwitchToPage("menu")
 			return nil
