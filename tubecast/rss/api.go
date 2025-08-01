@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"path/filepath"
 	"strings"
 )
 
@@ -17,24 +18,30 @@ func SyncChannel(title, channelID string) (string, error) {
 	return metaStation.syncChannel(channelID)
 }
 
-func CreateShow(title, description, coverPath string) (string, error) {
+func CreateShow(title, description, coverFile string) (string, error) {
 	if !StationNames.Has(title) {
-		srcFile, err := os.Open(coverPath)
-		if err != nil {
-			return "", err
-		}
-		if err = os.MkdirAll(COVER_BASE, 0o755); err != nil {
-			return "", err
-		}
+		srcPath := filepath.Join(COVER_BASE, coverFile)
 		destPath := Megh.getLocalCoverFilepath(title)
-		destFile, err := os.Create(destPath)
-		if err != nil {
+		destPath = strings.TrimSuffix(destPath, filepath.Ext(destPath)) + filepath.Ext(srcPath)
+		if srcPath != destPath {
+			srcFile, err := os.Open(srcPath)
+			if err != nil {
+				return "", err
+			}
+			if err = os.MkdirAll(COVER_BASE, 0o755); err != nil {
+				return "", err
+			}
+			destFile, err := os.Create(destPath)
+			if err != nil {
+				return "", err
+			}
+			if _, err = io.Copy(destFile, srcFile); err != nil {
+				return "", err
+			}
+		}
+		if _, err := Usr.createMetaStation(title, description); err != nil {
 			return "", err
 		}
-		if _, err = io.Copy(destFile, srcFile); err != nil {
-			return "", err
-		}
-		Usr.createMetaStation(title, description)
 	}
 	return Megh.getShareableFeedUrl(title), nil
 }

@@ -157,13 +157,13 @@ func ShowModal(message string, buttonLabels []string, cb func(int, string)) *tvi
 
 func CreateShowForm(app *tview.Application, pages *tview.Pages) tview.Primitive {
 	titleIF := tview.NewInputField().
-		SetLabel("Title:                  ").
+		SetLabel("Show Title:             ").
 		SetFieldWidth(30)
 	descIF := tview.NewInputField().
 		SetLabel("Description:            ").
 		SetFieldWidth(80)
 	coverImageIF := tview.NewInputField().
-		SetLabel("Cover Image File Path:  ").
+		SetLabel("Cover Image File Name:  ").
 		SetFieldWidth(30)
 	// titleIF.
 	// 	SetDoneFunc(func(key tcell.Key) {
@@ -183,7 +183,7 @@ func CreateShowForm(app *tview.Application, pages *tview.Pages) tview.Primitive 
 		AddButton("save", func() {
 			title := titleIF.GetText()
 			description := descIF.GetText()
-			coverPath := coverImageIF.GetText()
+			coverFilename := coverImageIF.GetText()
 			if title == "" || description == "" {
 				modal := ShowModal("Title and Description are required to create a new show", []string{"OK"}, func(_ int, _ string) {
 					pages.RemovePage("modal")
@@ -192,7 +192,7 @@ func CreateShowForm(app *tview.Application, pages *tview.Pages) tview.Primitive 
 			}
 			stop := ShowSpinnerModal(app, pages, "Creating Show...")
 			go func() {
-				result, err := rss.CreateShow(title, description, coverPath)
+				result, err := rss.CreateShow(title, description, coverFilename)
 				stop()
 				app.QueueUpdateDraw(func() {
 					var modal *tview.Modal
@@ -299,7 +299,7 @@ func RemoveShow(app *tview.Application, pages *tview.Pages) tview.Primitive {
 
 func AddEpisodesForm(app *tview.Application, pages *tview.Pages) tview.Primitive {
 	titleIF := tview.NewInputField().
-		SetLabel("Title:                         ").
+		SetLabel("Show Title:                    ").
 		SetFieldWidth(30)
 	urlIF := tview.NewInputField().
 		SetLabel("Video Urls (comma separated):  ").
@@ -399,7 +399,7 @@ func AddEpisodesForm(app *tview.Application, pages *tview.Pages) tview.Primitive
 
 func SubscribeForm(app *tview.Application, pages *tview.Pages) tview.Primitive {
 	titleIF := tview.NewInputField().
-		SetLabel("Title:         ").
+		SetLabel("Show Title:    ").
 		SetFieldWidth(40)
 	channelIdIF := tview.NewInputField().
 		SetLabel("Channel ID:    ").
