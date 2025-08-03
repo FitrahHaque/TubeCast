@@ -125,6 +125,7 @@ func (metaStation *MetaStation) addItemToStation(ctx context.Context, id, userna
 			// fmt.Printf("Error: %v\n", err)
 			return
 		} else {
+			description = "Link to the YouTube Video: " + metaStationItem.Link + "\n" + description
 			metaStationItem.Description = description
 			metaStationItem.ITunesSubtitle = description
 		}
