@@ -1,0 +1,636 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:podcast="https://podcastindex.org/namespace/1.0" version="2.0">
+  <channel>
+  <id>71018d93-1b60-479a-9bc3-b804cd7c5bee</id>
+  <title>Line Noise</title>
+  <itunes:image href="https://archive.org/download/manlas_tubecast/cover_Line_Noise.png"></itunes:image>
+  <description>Follow your heart, actually</description>
+  <item>
+    <guid>OrHorwH5Pco</guid>
+    <title>Tailwind Creator on the Challenges of Open Source  | The Standup</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_OrHorwH5Pco.mp3" length="100669869" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_OrHorwH5Pco.png"></itunes:image>
+    <description>Thank You! https://blacksmith.sh our sponsor today! Speed up your GitHub Actions AND pay less!&#xA;&#xA;https://tailwindcss.com/sponsor Love Tailwind? Consider Sponsoring! &#xA;&#xA;If you want delicious coffee sold only over SSH:&#xA;&#xA;ssh terminal.shop&#xA;&#xA;🎙️ Hosts:&#xA;- TJ @teej_dv&#xA;- Trash Dev @trash_dev&#xA;- Prime @ThePrimeagen&#xA;&#xA;🎯 Guest:&#xA;Adam Wathan -  Creator of Tailwind CSS&#xA;https://adamwathan.me&#xA;https://x.com/adamwathan&#xA;https://tailwindcss.com/&#xA;&#xA;📌 Chapters:&#xA;&#xA;00:00:00 - Intro&#xA;00:01:04 - &#34;Open Source is Pain&#34; - Tailwind Creator&#xA;00:04:37 - Sponsor: Blacksmith - Faster GitHub Actions #ad&#xA;00:05:15 - The Reality of Open Source at Scale&#xA;00:10:55 - Cost of Full-Time Open Source&#xA;00:13:06 - Rust Rewrite &amp; Performance Gains&#xA;00:16:29 - Sponsorship vs Business Models&#xA;00:22:48 - The Emotional Side of Open Source&#xA;00:30:15 - The Courage to Fire Users&#xA;00:37:46 - How Tailwind Spends Money&#xA;00:44:04 - How to Champion Open Source while making money&#xA;00:54:06 - Licenses in Open Source&#xA;00:58:00 - Tailwind is a hard business&#xA;01:00:14 - VC vs Lifestyle Open Source Projects&#xA;01:07:50 - Replication in Open Source&#xA;01:11:00 - Tailwind Fortnite Skins&#xA;01:16:00 - We agree on the words finally&#xA;01:18:00 - Thanks &amp; Wrap Up&#xA;&#xA;Key topics include:&#xA;- The reality of maintaining open source at massive scale&#xA;- Why sponsorship models often fail and what works instead&#xA;- The psychological challenges of community management&#xA;- How to build sustainable businesses around open source&#xA;- The future of developer tooling and AI&#39;s impact&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;🐬 Bonus Section 🐬　　　&#xA;┆　┆　┆　┆　┆　　&#xA;┆　┆  ࣪ ˖☆ ࣪⭑┆ ݁˖ .☆ . ݁ ˖&#xA;☆⊹ ࣪ ┆ ˖ ࣪　⊹ ࣪ ★ ⋆.˚  ⊹ ࣪　. 　&#xA;   ࣪ ˖⋆˚★ ₊ ⊹　  ࣪˖ ࣪ ₊  ࣪ ˖　　. 　 ˚　.　　&#xA;. ݁　⊹ ࣪ ˖　　　 ࣪ ˖　　　　. 　 ˚　.　　　* 　　.　&#xA;　　.  ݁　　　  ݁　　　. 　 ˚　　　* 　　.　&#xA;　　. 　　. 　 ˚　.　　* 　　.　*　　* 　　.　* 　　.　　　* 　　.　&#xA;Did you actually read this description?　　　. 　 ˚　.　　 *　　.&#xA;Was it useful?　　* 　. 　 ˚　.　˚　　.　* 　　.　　* 　　.　　* 　　.　&#xA;Did it have everything you were looking for?　　　. 　 　.　　.　* 　　.　&#xA;If you wanted to see something different, what would that be?　. 　 　.　.　*　　&#xA;Do you think Tailwind would have been as popular if it was named Headwind?　. 　 ˚　.　　&#xA;How much Tailwind do you think Prime really knows?　　. 　 ˚　.　　　* 　　.　&#xA;Who do you want to see on The Standup next?　　　. 　 ˚　　　* 　　.　* 　　.　　&#xA;　. 　 ˚　.　　 *　　. 　 ˚　.　˚　　. 　 　.　　. 　 　.　.　*　　. 　 ˚　.　　.　　. 　 ˚　.　　. 　 ˚　　　* 　　.　* 　　.　　* 　　.　　* 　　.　　* 　　.　　* 　　.　　* 　　.　　* 　　.　　* 　　.</description>
+    <link>https://www.youtube.com/watch?v=OrHorwH5Pco</link>
+    <pubDate>Wed, 23 Jul 2025 00:00:00 GMT</pubDate>
+    <itunes:duration>1:20:22</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>ThePrimeTimeagen</itunes:author>
+    <itunes:subtitle>Thank You! https://blacksmith.sh our sponsor today! Speed up your GitHub Actions AND pay less!&#xA;&#xA;https://tailwindcss.com/sponsor Love Tailwind? Consider Sponsoring! &#xA;&#xA;If you want delicious coffee sold only over SSH:&#xA;&#xA;ssh terminal.shop&#xA;&#xA;🎙️ Hosts:&#xA;- TJ @teej_dv&#xA;- Trash Dev @trash_dev&#xA;- Prime @ThePrimeagen&#xA;&#xA;🎯 Guest:&#xA;Adam Wathan -  Creator of Tailwind CSS&#xA;https://adamwathan.me&#xA;https://x.com/adamwathan&#xA;https://tailwindcss.com/&#xA;&#xA;📌 Chapters:&#xA;&#xA;00:00:00 - Intro&#xA;00:01:04 - &#34;Open Source is Pain&#34; - Tailwind Creator&#xA;00:04:37 - Sponsor: Blacksmith - Faster GitHub Actions #ad&#xA;00:05:15 - The Reality of Open Source at Scale&#xA;00:10:55 - Cost of Full-Time Open Source&#xA;00:13:06 - Rust Rewrite &amp; Performance Gains&#xA;00:16:29 - Sponsorship vs Business Models&#xA;00:22:48 - The Emotional Side of Open Source&#xA;00:30:15 - The Courage to Fire Users&#xA;00:37:46 - How Tailwind Spends Money&#xA;00:44:04 - How to Champion Open Source while making money&#xA;00:54:06 - Licenses in Open Source&#xA;00:58:00 - Tailwind is a hard business&#xA;01:00:14 - VC vs Lifestyle Open Source Projects&#xA;01:07:50 - Replication in Open Source&#xA;01:11:00 - Tailwind Fortnite Skins&#xA;01:16:00 - We agree on the words finally&#xA;01:18:00 - Thanks &amp; Wrap Up&#xA;&#xA;Key topics include:&#xA;- The reality of maintaining open source at massive scale&#xA;- Why sponsorship models often fail and what works instead&#xA;- The psychological challenges of community management&#xA;- How to build sustainable businesses around open source&#xA;- The future of developer tooling and AI&#39;s impact&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;🐬 Bonus Section 🐬　　　&#xA;┆　┆　┆　┆　┆　　&#xA;┆　┆  ࣪ ˖☆ ࣪⭑┆ ݁˖ .☆ . ݁ ˖&#xA;☆⊹ ࣪ ┆ ˖ ࣪　⊹ ࣪ ★ ⋆.˚  ⊹ ࣪　. 　&#xA;   ࣪ ˖⋆˚★ ₊ ⊹　  ࣪˖ ࣪ ₊  ࣪ ˖　　. 　 ˚　.　　&#xA;. ݁　⊹ ࣪ ˖　　　 ࣪ ˖　　　　. 　 ˚　.　　　* 　　.　&#xA;　　.  ݁　　　  ݁　　　. 　 ˚　　　* 　　.　&#xA;　　. 　　. 　 ˚　.　　* 　　.　*　　* 　　.　* 　　.　　　* 　　.　&#xA;Did you actually read this description?　　　. 　 ˚　.　　 *　　.&#xA;Was it useful?　　* 　. 　 ˚　.　˚　　.　* 　　.　　* 　　.　　* 　　.　&#xA;Did it have everything you were looking for?　　　. 　 　.　　.　* 　　.　&#xA;If you wanted to see something different, what would that be?　. 　 　.　.　*　　&#xA;Do you think Tailwind would have been as popular if it was named Headwind?　. 　 ˚　.　　&#xA;How much Tailwind do you think Prime really knows?　　. 　 ˚　.　　　* 　　.　&#xA;Who do you want to see on The Standup next?　　　. 　 ˚　　　* 　　.　* 　　.　　&#xA;　. 　 ˚　.　　 *　　. 　 ˚　.　˚　　. 　 　.　　. 　 　.　.　*　　. 　 ˚　.　　.　　. 　 ˚　.　　. 　 ˚　　　* 　　.　* 　　.　　* 　　.　　* 　　.　　* 　　.　　* 　　.　　* 　　.　　* 　　.　　* 　　.</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>ACySmbsgph8</guid>
+    <title>AI “Destroys” Months of Work</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_ACySmbsgph8.mp3" length="16254909" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_ACySmbsgph8.png"></itunes:image>
+    <description>Twitch https://twitch.tv/ThePrimeagen&#xA;Discord https://discord.gg/ThePrimeagen&#xA;&#xA;Become Backend Dev: https://boot.dev/prime&#xA;(plus i make courses for them)&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;### LINKS &#xA;https://www.pcgamer.com/software/ai/i-destroyed-months-of-your-work-in-seconds-says-ai-coding-tool-after-deleting-a-devs-entire-database-during-a-code-freeze-i-panicked-instead-of-thinking/&#xA;&#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis</description>
+    <link>https://www.youtube.com/watch?v=ACySmbsgph8</link>
+    <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+    <itunes:duration>10:35</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>ThePrimeTimeagen</itunes:author>
+    <itunes:subtitle>Twitch https://twitch.tv/ThePrimeagen&#xA;Discord https://discord.gg/ThePrimeagen&#xA;&#xA;Become Backend Dev: https://boot.dev/prime&#xA;(plus i make courses for them)&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;### LINKS &#xA;https://www.pcgamer.com/software/ai/i-destroyed-months-of-your-work-in-seconds-says-ai-coding-tool-after-deleting-a-devs-entire-database-during-a-code-freeze-i-panicked-instead-of-thinking/&#xA;&#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>0_5aOO980uI</guid>
+    <title>Software Horror Stories | The Standup</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_0_5aOO980uI.mp3" length="62608629" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_0_5aOO980uI.png"></itunes:image>
+    <description>🔗 Sponsored by Code Rabbit https://coderabbit.link/primeagen-vscode #sponsored &#xA;&#xA;## 📌 Chapters:&#xA;&#xA;00:00:00 - Intro &amp; Teejs Medical Records Disaster  &#xA;00:04:20 - Code Rabbit Sponsor #ad  &#xA;00:05:04 - Nobody wants to work in Healthcare&#xA;00:07:05 - Healthcare testing process&#xA;00:12:00 - Epic&#39;s Development Pipeline Deep Dive  &#xA;00:21:33 - Load Testing Nightmare  &#xA;00:25:00 - The 45-Minute Site Outage  &#xA;00:27:50 - Class Registration Disaster  &#xA;00:32:00 - Everything Goes Wrong in Production  &#xA;00:35:55 - Netflix Static Variable Mistake  &#xA;00:39:00 - The Boss Who Spotted the Obvious Bug  &#xA;00:42:00 - Lady Gaga&#39;s Broken Countdown Billboard  &#xA;00:47:00 - 10 Requests /s Disaster  &#xA;00:49:30 - GraphQL Query Explosion&#xA;&#xA;## Key Topics:&#xA;- Medical software development challenges and patient safety&#xA;- Epic Systems development process and MUMPS language&#xA;- Load testing disasters and production outages  &#xA;- Netflix development war stories&#xA;- Server-side rendering performance pitfalls&#xA;- GraphQL resolver optimization nightmares&#xA;- The importance of proper testing before production releases&#xA;&#xA;## Hosts:&#xA;- **TJ** (@teej_dv) - Epic Systems horror stories&#xA;- **Trash Dev** (@trash_dev) - Load testing and Next.js disasters  &#xA;- **Prime** (@ThePrimeagen) - Netflix static variable nightmares</description>
+    <link>https://www.youtube.com/watch?v=0_5aOO980uI</link>
+    <pubDate>Mon, 28 Jul 2025 00:00:00 GMT</pubDate>
+    <itunes:duration>50:44</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>ThePrimeTimeagen</itunes:author>
+    <itunes:subtitle>🔗 Sponsored by Code Rabbit https://coderabbit.link/primeagen-vscode #sponsored &#xA;&#xA;## 📌 Chapters:&#xA;&#xA;00:00:00 - Intro &amp; Teejs Medical Records Disaster  &#xA;00:04:20 - Code Rabbit Sponsor #ad  &#xA;00:05:04 - Nobody wants to work in Healthcare&#xA;00:07:05 - Healthcare testing process&#xA;00:12:00 - Epic&#39;s Development Pipeline Deep Dive  &#xA;00:21:33 - Load Testing Nightmare  &#xA;00:25:00 - The 45-Minute Site Outage  &#xA;00:27:50 - Class Registration Disaster  &#xA;00:32:00 - Everything Goes Wrong in Production  &#xA;00:35:55 - Netflix Static Variable Mistake  &#xA;00:39:00 - The Boss Who Spotted the Obvious Bug  &#xA;00:42:00 - Lady Gaga&#39;s Broken Countdown Billboard  &#xA;00:47:00 - 10 Requests /s Disaster  &#xA;00:49:30 - GraphQL Query Explosion&#xA;&#xA;## Key Topics:&#xA;- Medical software development challenges and patient safety&#xA;- Epic Systems development process and MUMPS language&#xA;- Load testing disasters and production outages  &#xA;- Netflix development war stories&#xA;- Server-side rendering performance pitfalls&#xA;- GraphQL resolver optimization nightmares&#xA;- The importance of proper testing before production releases&#xA;&#xA;## Hosts:&#xA;- **TJ** (@teej_dv) - Epic Systems horror stories&#xA;- **Trash Dev** (@trash_dev) - Load testing and Next.js disasters  &#xA;- **Prime** (@ThePrimeagen) - Netflix static variable nightmares</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>RG69PCAslA0</guid>
+    <title>Rewriting Alt-Tab To Save 0.01s | Prime Reacts</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_RG69PCAslA0.mp3" length="22167885" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_RG69PCAslA0.png"></itunes:image>
+    <description>Twitch https://twitch.tv/ThePrimeagen&#xA;Discord https://discord.gg/ThePrimeagen&#xA;&#xA;Become Backend Dev: https://boot.dev/prime&#xA;(plus i make courses for them)&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;### LINKS &#xA;https://www.youtube.com/watch?v=pAbf3jtoovA&#xA;&#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis</description>
+    <link>https://www.youtube.com/watch?v=RG69PCAslA0</link>
+    <pubDate>Sun, 27 Jul 2025 00:00:00 GMT</pubDate>
+    <itunes:duration>16:15</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>ThePrimeTimeagen</itunes:author>
+    <itunes:subtitle>Twitch https://twitch.tv/ThePrimeagen&#xA;Discord https://discord.gg/ThePrimeagen&#xA;&#xA;Become Backend Dev: https://boot.dev/prime&#xA;(plus i make courses for them)&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;### LINKS &#xA;https://www.youtube.com/watch?v=pAbf3jtoovA&#xA;&#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>hEIBsqP63Pg</guid>
+    <title>Did Zig Fix Async / Await?</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_hEIBsqP63Pg.mp3" length="49652301" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_hEIBsqP63Pg.png"></itunes:image>
+    <description>Twitch https://twitch.tv/ThePrimeagen&#xA;Discord https://discord.gg/ThePrimeagen&#xA;&#xA;Become Backend Dev: https://boot.dev/prime&#xA;(plus i make courses for them)&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;### LINKS &#xA;https://www.youtube.com/watch?v=x3hOiOcbgeA&#xA;&#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis</description>
+    <link>https://www.youtube.com/watch?v=hEIBsqP63Pg</link>
+    <pubDate>Thu, 10 Jul 2025 00:00:00 GMT</pubDate>
+    <itunes:duration>34:37</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>@ThePrimeTimeagen</itunes:author>
+    <itunes:subtitle>Twitch https://twitch.tv/ThePrimeagen&#xA;Discord https://discord.gg/ThePrimeagen&#xA;&#xA;Become Backend Dev: https://boot.dev/prime&#xA;(plus i make courses for them)&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;### LINKS &#xA;https://www.youtube.com/watch?v=x3hOiOcbgeA&#xA;&#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>HDs02D8kg4c</guid>
+    <title>Stop With Software Estimates</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_HDs02D8kg4c.mp3" length="25397853" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_HDs02D8kg4c.png"></itunes:image>
+    <description>Recorded live on twitch, GET IN &#xA;&#xA;### Article&#xA;https://world.hey.com/dhh/software-estimates-have-never-worked-and-never-will-a41a9c71&#xA;By: DHH | https://x.com/dhh?lang=en&#xA;&#xA;### My Stream&#xA;https://twitch.tv/ThePrimeagen&#xA;&#xA;### Best Way To Support Me&#xA;Become a backend engineer.  Its my favorite site&#xA;https://boot.dev/?promo=PRIMEYT&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;MY MAIN YT CHANNEL: Has well edited engineering videos&#xA;https://youtube.com/ThePrimeagen&#xA;&#xA;Discord&#xA;https://discord.gg/ThePrimeagen&#xA;&#xA;&#xA;Have something for me to read or react to?: https://www.reddit.com/r/ThePrimeagenReact/&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis&#xA;&#xA;Get production ready SQLite with Turso: https://turso.tech/deeznuts</description>
+    <link>https://www.youtube.com/watch?v=HDs02D8kg4c</link>
+    <pubDate>Sun, 01 Sep 2024 00:00:00 GMT</pubDate>
+    <itunes:duration>16:54</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>@ThePrimeTimeagen</itunes:author>
+    <itunes:subtitle>Recorded live on twitch, GET IN &#xA;&#xA;### Article&#xA;https://world.hey.com/dhh/software-estimates-have-never-worked-and-never-will-a41a9c71&#xA;By: DHH | https://x.com/dhh?lang=en&#xA;&#xA;### My Stream&#xA;https://twitch.tv/ThePrimeagen&#xA;&#xA;### Best Way To Support Me&#xA;Become a backend engineer.  Its my favorite site&#xA;https://boot.dev/?promo=PRIMEYT&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;MY MAIN YT CHANNEL: Has well edited engineering videos&#xA;https://youtube.com/ThePrimeagen&#xA;&#xA;Discord&#xA;https://discord.gg/ThePrimeagen&#xA;&#xA;&#xA;Have something for me to read or react to?: https://www.reddit.com/r/ThePrimeagenReact/&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis&#xA;&#xA;Get production ready SQLite with Turso: https://turso.tech/deeznuts</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>Nz5a6zV6zQQ</guid>
+    <title>Teaching vim to a popular girl | Prime Reacts</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_Nz5a6zV6zQQ.mp3" length="29806437" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_Nz5a6zV6zQQ.png"></itunes:image>
+    <description>https://twitch.tv/ThePrimeagen - I Stream 5 days a Week&#xA;&#xA;https://twitter.com/terminaldotshop - Want to order coffee over SSH?&#xA;ssh terminal.shop&#xA;&#xA;### LINKS &#xA; -- https://www.youtube.com/watch?v=RF8zRPbwGYc&#xA;By: Sylvan Franklin | https://www.youtube.com/@sylvanfranklin&#xA;&#xA;Become Backend Dev: https://boot.dev/prime&#xA;(plus i make courses for them)&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis&#xA;Discord https://discord.gg/ThePrimeagen</description>
+    <link>https://www.youtube.com/watch?v=Nz5a6zV6zQQ</link>
+    <pubDate>Wed, 30 Jul 2025 00:00:00 GMT</pubDate>
+    <itunes:duration>24:58</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>ThePrimeTimeagen</itunes:author>
+    <itunes:subtitle>https://twitch.tv/ThePrimeagen - I Stream 5 days a Week&#xA;&#xA;https://twitter.com/terminaldotshop - Want to order coffee over SSH?&#xA;ssh terminal.shop&#xA;&#xA;### LINKS &#xA; -- https://www.youtube.com/watch?v=RF8zRPbwGYc&#xA;By: Sylvan Franklin | https://www.youtube.com/@sylvanfranklin&#xA;&#xA;Become Backend Dev: https://boot.dev/prime&#xA;(plus i make courses for them)&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis&#xA;Discord https://discord.gg/ThePrimeagen</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>miTpJmMt7uo</guid>
+    <title>The dating app that doxxed 72,000 women...</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_miTpJmMt7uo.mp3" length="5515581" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_miTpJmMt7uo.png"></itunes:image>
+    <description>Get up to 67% off VPS at Hostinger. Use code FIRESHIP for an extra discount at https://hostinger.com/fireship&#xA;&#xA;In today&#39;s video, we&#39;ll find out how the tea app was compromised and look at all the hilarious stuff developers have been building with the hacked data.&#xA;&#xA;#teaapp #tech #coding #programming &#xA;&#xA;💬 Chat with Me on Discord&#xA;&#xA;https://discord.gg/fireship&#xA;&#xA;🔗 Resources&#xA;https://techcrunch.com/2025/07/26/dating-safety-app-tea-breached-exposing-72000-user-images/&#xA;&#xA;🔥 Get More Content - Upgrade to PRO&#xA;&#xA;Upgrade at https://fireship.io/pro&#xA;Use code YT25 for 25% off PRO access &#xA;&#xA;🎨 My Editor Settings&#xA;&#xA;- Atom One Dark &#xA;- vscode-icons&#xA;- Fira Code Font&#xA;&#xA;🔖 Topics Covered&#xA;- How the Tea app got hacked&#xA;- Who is Sean Cook?&#xA;- How to not set up Firebase&#xA;- Online Safety Act&#xA;- Did vibe coding cause the Tea app hack?</description>
+    <link>https://www.youtube.com/watch?v=miTpJmMt7uo</link>
+    <pubDate>Wed, 30 Jul 2025 00:00:00 GMT</pubDate>
+    <itunes:duration>3:52</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>@Fireship</itunes:author>
+    <itunes:subtitle>Get up to 67% off VPS at Hostinger. Use code FIRESHIP for an extra discount at https://hostinger.com/fireship&#xA;&#xA;In today&#39;s video, we&#39;ll find out how the tea app was compromised and look at all the hilarious stuff developers have been building with the hacked data.&#xA;&#xA;#teaapp #tech #coding #programming &#xA;&#xA;💬 Chat with Me on Discord&#xA;&#xA;https://discord.gg/fireship&#xA;&#xA;🔗 Resources&#xA;https://techcrunch.com/2025/07/26/dating-safety-app-tea-breached-exposing-72000-user-images/&#xA;&#xA;🔥 Get More Content - Upgrade to PRO&#xA;&#xA;Upgrade at https://fireship.io/pro&#xA;Use code YT25 for 25% off PRO access &#xA;&#xA;🎨 My Editor Settings&#xA;&#xA;- Atom One Dark &#xA;- vscode-icons&#xA;- Fira Code Font&#xA;&#xA;🔖 Topics Covered&#xA;- How the Tea app got hacked&#xA;- Who is Sean Cook?&#xA;- How to not set up Firebase&#xA;- Online Safety Act&#xA;- Did vibe coding cause the Tea app hack?</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>mTa2d3OLXhg</guid>
+    <title>DHH Is Right About Everything</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_mTa2d3OLXhg.mp3" length="150696837" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_mTa2d3OLXhg.png"></itunes:image>
+    <description>Recorded live on twitch, GET IN &#xA;&#xA;### Guests&#xA;-- DHH | https://x.com/dhh | https://dhh.dk/&#xA;-- TJ DeVries | https://x.com/teej_dv | https://www.twitch.tv/teej_dv | https://www.youtube.com/@teej_dv&#xA;&#xA;### My Stream&#xA;https://twitch.tv/ThePrimeagen&#xA;&#xA;### Best Way To Support The Top Shelf&#xA;Become a backend engineer.  Its my favorite site&#xA;https://boot.dev/btw&#xA;&#xA;MY MAIN YT CHANNEL: Has well edited engineering videos&#xA;https://youtube.com/ThePrimeagen&#xA;&#xA;Discord&#xA;https://discord.gg/ThePrimeagen&#xA;&#xA;# thanks dalton!!&#xA;00:00 - DHH - The best podcast ever&#xA;00:06 - What made you pick Ruby out of all different options at the time&#xA;07:44 - The importance to make side projects. The side project its the experiment you&#39;re running that going to make you want to do it again tomorrow, its like a mantra to DHH, Prime and TJ&#xA;14:24 - Getting a Dopamine hit along the path of Learning its really undervalue, learning one things motivates to learn the next thing, keep you motivate to stay in the career. DHH talks of failing to learn programming three times&#xA;16:42 - Having and developing the stamina and the perseverance is crucial and the fail to be a prompt engineer and don&#39;t know what you&#39;re doing &#xA;20:14 - DHH struggle with programming three separate times&#xA;26:10 - Game programming with ONE MEGAHERTZ and what was learned&#xA;31:06 - Open Source ins&#39;t a community or democracy, its a gift exchange&#xA;39:29 - The matter of creating something different and history about BitKeeper, Linus and creation of Git. &#xA;41:58 - We don&#39;t wanna one language and that&#39;s why the internet is so amazing, Vim and Neovim, two projects where there is a fork and they live together nicely with different visions&#xA;48:21 - Prime praising the duality in nature of JavaScript, wouldn&#39;t that benefit of an ecosystem that can actually large tent everybody?&#xA;50:00 - No build WORLD!&#xA;1:04:26 - Feeling of having kids and the sort of life change experience it&#xA;1:24:53 - Lex Fridman Question: What to you are the biggest pros &amp; cons of Cursor?&#xA;1:35:45 - Do you have that consequential moment that made you turn from I like programming into I&#39;ll do this now from here on out&#xA;1:40:08 - How did you get into racing and why racing?&#xA;1:48:42 - What&#39;s the biggest problem you see with new hires in programming right now?&#xA;1:59:56 - Conclusion by DHH&#xA;&#xA;&#xA;Have something for me to read or react to?: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis&#xA;&#xA;Get production ready SQLite with Turso: https://turso.tech/deeznuts</description>
+    <link>https://www.youtube.com/watch?v=mTa2d3OLXhg</link>
+    <pubDate>Wed, 18 Sep 2024 00:00:00 GMT</pubDate>
+    <itunes:duration>2:02:53</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>@ThePrimeTimeagen</itunes:author>
+    <itunes:subtitle>Recorded live on twitch, GET IN &#xA;&#xA;### Guests&#xA;-- DHH | https://x.com/dhh | https://dhh.dk/&#xA;-- TJ DeVries | https://x.com/teej_dv | https://www.twitch.tv/teej_dv | https://www.youtube.com/@teej_dv&#xA;&#xA;### My Stream&#xA;https://twitch.tv/ThePrimeagen&#xA;&#xA;### Best Way To Support The Top Shelf&#xA;Become a backend engineer.  Its my favorite site&#xA;https://boot.dev/btw&#xA;&#xA;MY MAIN YT CHANNEL: Has well edited engineering videos&#xA;https://youtube.com/ThePrimeagen&#xA;&#xA;Discord&#xA;https://discord.gg/ThePrimeagen&#xA;&#xA;# thanks dalton!!&#xA;00:00 - DHH - The best podcast ever&#xA;00:06 - What made you pick Ruby out of all different options at the time&#xA;07:44 - The importance to make side projects. The side project its the experiment you&#39;re running that going to make you want to do it again tomorrow, its like a mantra to DHH, Prime and TJ&#xA;14:24 - Getting a Dopamine hit along the path of Learning its really undervalue, learning one things motivates to learn the next thing, keep you motivate to stay in the career. DHH talks of failing to learn programming three times&#xA;16:42 - Having and developing the stamina and the perseverance is crucial and the fail to be a prompt engineer and don&#39;t know what you&#39;re doing &#xA;20:14 - DHH struggle with programming three separate times&#xA;26:10 - Game programming with ONE MEGAHERTZ and what was learned&#xA;31:06 - Open Source ins&#39;t a community or democracy, its a gift exchange&#xA;39:29 - The matter of creating something different and history about BitKeeper, Linus and creation of Git. &#xA;41:58 - We don&#39;t wanna one language and that&#39;s why the internet is so amazing, Vim and Neovim, two projects where there is a fork and they live together nicely with different visions&#xA;48:21 - Prime praising the duality in nature of JavaScript, wouldn&#39;t that benefit of an ecosystem that can actually large tent everybody?&#xA;50:00 - No build WORLD!&#xA;1:04:26 - Feeling of having kids and the sort of life change experience it&#xA;1:24:53 - Lex Fridman Question: What to you are the biggest pros &amp; cons of Cursor?&#xA;1:35:45 - Do you have that consequential moment that made you turn from I like programming into I&#39;ll do this now from here on out&#xA;1:40:08 - How did you get into racing and why racing?&#xA;1:48:42 - What&#39;s the biggest problem you see with new hires in programming right now?&#xA;1:59:56 - Conclusion by DHH&#xA;&#xA;&#xA;Have something for me to read or react to?: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis&#xA;&#xA;Get production ready SQLite with Turso: https://turso.tech/deeznuts</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>EIBxRMH4bvs</guid>
+    <title>DHH IS RIGHT ABOUT EVERYTHING (Again)?</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_EIBxRMH4bvs.mp3" length="82400133" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_EIBxRMH4bvs.png"></itunes:image>
+    <description>🔗 Sponsored by Code Rabbit&#xA;https://coderabbit.link/primeagen-vscode&#xA;&#xA;⸻&#xA;&#xA;🎓 Is College Still Worth It in 2025? &#xA;&#xA;Welcome to The Standup – where developers, creators, and founders debate the big questions. In this episode, we sit down with David Heinemeier Hansson (DHH), the creator of Ruby on Rails and Basecamp co-founder.&#xA;&#xA;👉 Is College Worth It in 2025?&#xA;&#xA;We dive deep into:&#xA;&#xA;⏳ The ROI of college in a post-AI world&#xA;🇺🇸 Why American higher ed is broken (from a Danish POV)&#xA;📉 Are CS degrees still worth $250K?&#xA;💸 The myth of the “four-year luxury cruise”&#xA;🤖 How AI is disrupting the junior dev job market&#xA;🔍 Hiring: Is college even a useful signal anymore?&#xA;🧠 IQ vs wisdom vs vibes – what really matters in hiring&#xA;🧰 Is programming a trade? Should we move to apprenticeships?&#xA;👨‍🌾 Why every dev wants to be a farmer (and why that’s delusional)&#xA;&#xA;Whether you’re considering college, hiring devs, or already knee-deep in student debt, this conversation pulls no punches and may just change how you think about education, hiring, and the future of software development.&#xA;&#xA;⸻&#xA;&#xA;&#xA;📌 Chapters:&#xA;0:00 intro  &#xA;2:05 is college still worth it in 2025?  &#xA;5:48 the cost of college in the U.S. vs Europe  &#xA;6:57 sponsor: CodeRabbit  &#xA;7:42 good point&#xA;9:10 DHH explains the Danish education system  &#xA;13:02 is college just a luxury cruise?  &#xA;17:45 what are you actually buying with a degree?  &#xA;21:20 how companies *really* hire developers  &#xA;26:11 Casey’s take: programming should be a trade  &#xA;30:40 is college a filter for IQ or just vibes?  &#xA;45:50 what skills matter more than a degree  &#xA;49:20 how to actually learn to code in 2025  &#xA;53:00 is college redeemable? final thoughts  &#xA;57:15 wrap-up &amp; what’s next on the podcast  &#xA;&#xA;&#xA;⸻&#xA;&#xA;📢 Subscribe for more honest convos about dev life, startups, and tech culture.&#xA;🧠 Hit the bell so you don’t miss the next one.&#xA;&#xA;#IsCollegeWorthIt #DHH #CaseyMuratori #DeveloperPodcast #SoftwareEngineering #TechPodcast #BootcampVsCollege #ProgrammerLife #TechCareers #TheStartupPodcast</description>
+    <link>https://www.youtube.com/watch?v=EIBxRMH4bvs</link>
+    <pubDate>Fri, 06 Jun 2025 00:00:00 GMT</pubDate>
+    <itunes:duration>1:05:05</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>@ThePrimeTimeagen</itunes:author>
+    <itunes:subtitle>🔗 Sponsored by Code Rabbit&#xA;https://coderabbit.link/primeagen-vscode&#xA;&#xA;⸻&#xA;&#xA;🎓 Is College Still Worth It in 2025? &#xA;&#xA;Welcome to The Standup – where developers, creators, and founders debate the big questions. In this episode, we sit down with David Heinemeier Hansson (DHH), the creator of Ruby on Rails and Basecamp co-founder.&#xA;&#xA;👉 Is College Worth It in 2025?&#xA;&#xA;We dive deep into:&#xA;&#xA;⏳ The ROI of college in a post-AI world&#xA;🇺🇸 Why American higher ed is broken (from a Danish POV)&#xA;📉 Are CS degrees still worth $250K?&#xA;💸 The myth of the “four-year luxury cruise”&#xA;🤖 How AI is disrupting the junior dev job market&#xA;🔍 Hiring: Is college even a useful signal anymore?&#xA;🧠 IQ vs wisdom vs vibes – what really matters in hiring&#xA;🧰 Is programming a trade? Should we move to apprenticeships?&#xA;👨‍🌾 Why every dev wants to be a farmer (and why that’s delusional)&#xA;&#xA;Whether you’re considering college, hiring devs, or already knee-deep in student debt, this conversation pulls no punches and may just change how you think about education, hiring, and the future of software development.&#xA;&#xA;⸻&#xA;&#xA;&#xA;📌 Chapters:&#xA;0:00 intro  &#xA;2:05 is college still worth it in 2025?  &#xA;5:48 the cost of college in the U.S. vs Europe  &#xA;6:57 sponsor: CodeRabbit  &#xA;7:42 good point&#xA;9:10 DHH explains the Danish education system  &#xA;13:02 is college just a luxury cruise?  &#xA;17:45 what are you actually buying with a degree?  &#xA;21:20 how companies *really* hire developers  &#xA;26:11 Casey’s take: programming should be a trade  &#xA;30:40 is college a filter for IQ or just vibes?  &#xA;45:50 what skills matter more than a degree  &#xA;49:20 how to actually learn to code in 2025  &#xA;53:00 is college redeemable? final thoughts  &#xA;57:15 wrap-up &amp; what’s next on the podcast  &#xA;&#xA;&#xA;⸻&#xA;&#xA;📢 Subscribe for more honest convos about dev life, startups, and tech culture.&#xA;🧠 Hit the bell so you don’t miss the next one.&#xA;&#xA;#IsCollegeWorthIt #DHH #CaseyMuratori #DeveloperPodcast #SoftwareEngineering #TechPodcast #BootcampVsCollege #ProgrammerLife #TechCareers #TheStartupPodcast</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>-gmWbD5kGIk</guid>
+    <title>CLIs Are Making A Comeback</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_-gmWbD5kGIk.mp3" length="87354933" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_-gmWbD5kGIk.png"></itunes:image>
+    <description>Recorded live on twitch, GET IN &#xA;&#xA;### Article&#xA;https://gabevenberg.com/posts/cli-renaissance/&#xA;By: Gabe Venberg&#xA;&#xA;### My Stream&#xA;https://twitch.tv/ThePrimeagen&#xA;&#xA;### Best Way To Support Me&#xA;Become a backend engineer.  Its my favorite site&#xA;https://boot.dev/?promo=PRIMEYT&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;MY MAIN YT CHANNEL: Has well edited engineering videos&#xA;https://youtube.com/ThePrimeagen&#xA;&#xA;Discord&#xA;https://discord.gg/ThePrimeagen&#xA;&#xA;&#xA;Have something for me to read or react to?: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis&#xA;&#xA;Get production ready SQLite with Turso: https://turso.tech/deeznuts</description>
+    <link>https://www.youtube.com/watch?v=-gmWbD5kGIk</link>
+    <pubDate>Sun, 15 Sep 2024 00:00:00 GMT</pubDate>
+    <itunes:duration>53:54</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>@ThePrimeTimeagen</itunes:author>
+    <itunes:subtitle>Recorded live on twitch, GET IN &#xA;&#xA;### Article&#xA;https://gabevenberg.com/posts/cli-renaissance/&#xA;By: Gabe Venberg&#xA;&#xA;### My Stream&#xA;https://twitch.tv/ThePrimeagen&#xA;&#xA;### Best Way To Support Me&#xA;Become a backend engineer.  Its my favorite site&#xA;https://boot.dev/?promo=PRIMEYT&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;MY MAIN YT CHANNEL: Has well edited engineering videos&#xA;https://youtube.com/ThePrimeagen&#xA;&#xA;Discord&#xA;https://discord.gg/ThePrimeagen&#xA;&#xA;&#xA;Have something for me to read or react to?: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis&#xA;&#xA;Get production ready SQLite with Turso: https://turso.tech/deeznuts</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>kJWsFWY25GA</guid>
+    <title>How BAD Is Test Driven Development? - The Standup #6</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_kJWsFWY25GA.mp3" length="56923293" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_kJWsFWY25GA.png"></itunes:image>
+    <description>Twitch https://twitch.tv/ThePrimeagen&#xA;Discord https://discord.gg/ThePrimeagen&#xA;&#xA;Chapters&#xA;0:00 Show Intro  &#xA;1:54 PRIME ON TDD&#xA;4:32 Trash’s Thoughts  &#xA;7:27 Casey on TDD vs OOP  &#xA;11:03 Bugs Despite TDD  &#xA;11:39 TJ Gets IN  &#xA;15:31 Prime Pushes Back  &#xA;16:20 Refactoring Woes&#xA;17:00 WTF IS WRONG WITH TRASH&#xA;20:02 Missed Bug Story  &#xA;22:55 PDD Explained  &#xA;27:00 NeoVim Test Suite&#xA;34:00 Testing by Project  &#xA;38:42 Code Coverage Feels  &#xA;40:06 WHY DID PRIME DO THAT&#xA;43:05 Signing Off &#xA;&#xA;Is Test-Driven Development a Waste of Time? | The Standup Podcast Ep. 6&#xA;🔥 In this episode of The Standup, the crew dives deep into one of the most debated practices in software engineering: Test-Driven Development (TDD). Is TDD still relevant in modern development? Does it improve code quality, or does it waste precious dev time?&#xA;👨‍💻 Featuring developers with strong and hilarious opinions — including Primeagen, Trash Dev, TJ, and Casey Muratori — this roundtable conversation covers:&#xA;Real-world pros and cons of TDD&#xA;Golden/snapshot testing explained (and roasted)&#xA;When to test before vs. after writing code&#xA;How TDD affects API design, architecture, and mental sanity&#xA;Stories from the trenches at Netflix, Neovim, and beyond&#xA;Performance-Driven Development (PDD)? Yes, that’s a thing now.&#xA;The infamous Falkor bug that could’ve taken down Netflix 😳&#xA; &#xA;Keywords:&#xA;TDD debate, is TDD dead, test-driven development podcast, software engineering discussion, developer podcast, snapshot testing, golden testing, Neovim testing, Primeagen podcast, Netflix developer stories, backend architecture, software testing strategies, code quality vs velocity, performance-driven development, test coverage myths&#xA;&#xA;&#xA;#TDD #SoftwareEngineering #DeveloperPodcast #Primeagen #Neovim #BackendDev #Testing</description>
+    <link>https://www.youtube.com/watch?v=kJWsFWY25GA</link>
+    <pubDate>Tue, 13 May 2025 00:00:00 GMT</pubDate>
+    <itunes:duration>44:45</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>@ThePrimeTimeagen</itunes:author>
+    <itunes:subtitle>Twitch https://twitch.tv/ThePrimeagen&#xA;Discord https://discord.gg/ThePrimeagen&#xA;&#xA;Chapters&#xA;0:00 Show Intro  &#xA;1:54 PRIME ON TDD&#xA;4:32 Trash’s Thoughts  &#xA;7:27 Casey on TDD vs OOP  &#xA;11:03 Bugs Despite TDD  &#xA;11:39 TJ Gets IN  &#xA;15:31 Prime Pushes Back  &#xA;16:20 Refactoring Woes&#xA;17:00 WTF IS WRONG WITH TRASH&#xA;20:02 Missed Bug Story  &#xA;22:55 PDD Explained  &#xA;27:00 NeoVim Test Suite&#xA;34:00 Testing by Project  &#xA;38:42 Code Coverage Feels  &#xA;40:06 WHY DID PRIME DO THAT&#xA;43:05 Signing Off &#xA;&#xA;Is Test-Driven Development a Waste of Time? | The Standup Podcast Ep. 6&#xA;🔥 In this episode of The Standup, the crew dives deep into one of the most debated practices in software engineering: Test-Driven Development (TDD). Is TDD still relevant in modern development? Does it improve code quality, or does it waste precious dev time?&#xA;👨‍💻 Featuring developers with strong and hilarious opinions — including Primeagen, Trash Dev, TJ, and Casey Muratori — this roundtable conversation covers:&#xA;Real-world pros and cons of TDD&#xA;Golden/snapshot testing explained (and roasted)&#xA;When to test before vs. after writing code&#xA;How TDD affects API design, architecture, and mental sanity&#xA;Stories from the trenches at Netflix, Neovim, and beyond&#xA;Performance-Driven Development (PDD)? Yes, that’s a thing now.&#xA;The infamous Falkor bug that could’ve taken down Netflix 😳&#xA; &#xA;Keywords:&#xA;TDD debate, is TDD dead, test-driven development podcast, software engineering discussion, developer podcast, snapshot testing, golden testing, Neovim testing, Primeagen podcast, Netflix developer stories, backend architecture, software testing strategies, code quality vs velocity, performance-driven development, test coverage myths&#xA;&#xA;&#xA;#TDD #SoftwareEngineering #DeveloperPodcast #Primeagen #Neovim #BackendDev #Testing</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>8QcQ_128OIw</guid>
+    <title>&#34;... maybe the problem is you&#34; - Linus</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_8QcQ_128OIw.mp3" length="93073293" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_8QcQ_128OIw.png"></itunes:image>
+    <description>Twitch https://twitch.tv/ThePrimeagen&#xA;Discord https://discord.gg/ThePrimeagen&#xA;&#xA;Become Backend Dev: https://boot.dev/prime&#xA;(plus i make courses for them)&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;### Timestamps&#xA;00:00 - Intro&#xA;00:30 - Context&#xA;10:52 - Nice Rust Guy Tries&#xA;13:22 - The Worst Job Ever&#xA;18:00 - More Rust Defense&#xA;20:35 - C Maintainer Strikes Back&#xA;35:15 - Greg Steps In&#xA;41:16 - Community Wants Clarity &#xA;42:42 - Drama Behind - Rust Guy Two Goes For Cancel Culture&#xA;46:12 - Linus Steps In&#xA;50:30 - Greg And The Conclusion &#xA;&#xA;&#xA;### LINKS &#xA;Beginning: https://lwn.net/ml/all/20250108135951.GA18074@lst.de/&#xA;Greg: https://lwn.net/ml/all/2025013030-gummy-cosmic-7927@gregkh/&#xA;&#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis&#xA;&#xA;Get production ready SQLite with Turso: https://turso.tech/deeznuts</description>
+    <link>https://www.youtube.com/watch?v=8QcQ_128OIw</link>
+    <pubDate>Sat, 08 Feb 2025 00:00:00 GMT</pubDate>
+    <itunes:duration>1:01:58</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>@ThePrimeTimeagen</itunes:author>
+    <itunes:subtitle>Twitch https://twitch.tv/ThePrimeagen&#xA;Discord https://discord.gg/ThePrimeagen&#xA;&#xA;Become Backend Dev: https://boot.dev/prime&#xA;(plus i make courses for them)&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;### Timestamps&#xA;00:00 - Intro&#xA;00:30 - Context&#xA;10:52 - Nice Rust Guy Tries&#xA;13:22 - The Worst Job Ever&#xA;18:00 - More Rust Defense&#xA;20:35 - C Maintainer Strikes Back&#xA;35:15 - Greg Steps In&#xA;41:16 - Community Wants Clarity &#xA;42:42 - Drama Behind - Rust Guy Two Goes For Cancel Culture&#xA;46:12 - Linus Steps In&#xA;50:30 - Greg And The Conclusion &#xA;&#xA;&#xA;### LINKS &#xA;Beginning: https://lwn.net/ml/all/20250108135951.GA18074@lst.de/&#xA;Greg: https://lwn.net/ml/all/2025013030-gummy-cosmic-7927@gregkh/&#xA;&#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis&#xA;&#xA;Get production ready SQLite with Turso: https://turso.tech/deeznuts</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>Bv3YhGku92w</guid>
+    <title>Removing TypeScript - DHH | Prime Reacts</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_Bv3YhGku92w.mp3" length="19426749" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_Bv3YhGku92w.png"></itunes:image>
+    <description>Recorded live on twitch, GET IN &#xA;&#xA;https://twitch.tv/ThePrimeagen&#xA;&#xA;Reviewed Tweet: https://twitter.com/dhh/status/1699427078586716327?s=20&#xA;Article: https://world.hey.com/dhh/turbo-8-is-dropping-typescript-70165c01&#xA;Author: David Heinemeier Hansson (DHH) | https://twitter.com/dhh&#xA;&#xA;MY MAIN YT CHANNEL: Has well edited engineering videos&#xA;https://youtube.com/ThePrimeagen&#xA;&#xA;Discord&#xA;https://discord.gg/ThePrimeagen&#xA;&#xA;&#xA;Have something for me to read or react to?: https://www.reddit.com/r/ThePrimeagenReact/&#xA;&#xA;Hey I am sponsored by Turso, an edge database.  I think they are pretty neet.  Give them a try for free and if you want you can get a decent amount off (the free tier is the best (better than planetscale or any other))&#xA;https://turso.tech/deeznuts</description>
+    <link>https://www.youtube.com/watch?v=Bv3YhGku92w</link>
+    <pubDate>Fri, 08 Sep 2023 00:00:00 GMT</pubDate>
+    <itunes:duration>13:22</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>@ThePrimeTimeagen</itunes:author>
+    <itunes:subtitle>Recorded live on twitch, GET IN &#xA;&#xA;https://twitch.tv/ThePrimeagen&#xA;&#xA;Reviewed Tweet: https://twitter.com/dhh/status/1699427078586716327?s=20&#xA;Article: https://world.hey.com/dhh/turbo-8-is-dropping-typescript-70165c01&#xA;Author: David Heinemeier Hansson (DHH) | https://twitter.com/dhh&#xA;&#xA;MY MAIN YT CHANNEL: Has well edited engineering videos&#xA;https://youtube.com/ThePrimeagen&#xA;&#xA;Discord&#xA;https://discord.gg/ThePrimeagen&#xA;&#xA;&#xA;Have something for me to read or react to?: https://www.reddit.com/r/ThePrimeagenReact/&#xA;&#xA;Hey I am sponsored by Turso, an edge database.  I think they are pretty neet.  Give them a try for free and if you want you can get a decent amount off (the free tier is the best (better than planetscale or any other))&#xA;https://turso.tech/deeznuts</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>6h4oiPwtwDk</guid>
+    <title>Why We Left The Cloud</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_6h4oiPwtwDk.mp3" length="22913325" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_6h4oiPwtwDk.png"></itunes:image>
+    <description>Recorded live on twitch, GET IN &#xA;&#xA;https://twitch.tv/ThePrimeagen&#xA;&#xA;MY MAIN YT CHANNEL: Has well edited engineering videos&#xA;https://youtube.com/ThePrimeagen&#xA;&#xA;Discord&#xA;https://discord.gg/ThePrimeagen&#xA;&#xA;&#xA;Have something for me to read or react to?: https://www.reddit.com/r/ThePrimeagenReact/</description>
+    <link>https://www.youtube.com/watch?v=6h4oiPwtwDk</link>
+    <pubDate>Fri, 30 Jun 2023 00:00:00 GMT</pubDate>
+    <itunes:duration>15:42</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>@ThePrimeTimeagen</itunes:author>
+    <itunes:subtitle>Recorded live on twitch, GET IN &#xA;&#xA;https://twitch.tv/ThePrimeagen&#xA;&#xA;MY MAIN YT CHANNEL: Has well edited engineering videos&#xA;https://youtube.com/ThePrimeagen&#xA;&#xA;Discord&#xA;https://discord.gg/ThePrimeagen&#xA;&#xA;&#xA;Have something for me to read or react to?: https://www.reddit.com/r/ThePrimeagenReact/</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>U8L_KOQmDj4</guid>
+    <title>Responding to Prime&#39;s take about frontend frameworks</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_U8L_KOQmDj4.mp3" length="31078701" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_U8L_KOQmDj4.png"></itunes:image>
+    <description>Love Prime, thought his take was really good - just wanted to add a bit of nuance.&#xA;&#xA;Thank you G2i for sponsoring! Check them out at: https://soydev.link/g2i&#xA;&#xA;Prime&#39;s vid: https://www.youtube.com/watch?v=ksKzcRfjxpY&#xA;&#xA;Want to sponsor a video? Learn more here:https://soydev.link/sponsor-me&#xA;&#xA;Check out my Twitch, Twitter, Discord more at https://t3.gg&#xA;&#xA;S/O Ph4se0n3 for the awesome edit 🙏</description>
+    <link>https://www.youtube.com/watch?v=U8L_KOQmDj4</link>
+    <pubDate>Sat, 22 Feb 2025 00:00:00 GMT</pubDate>
+    <itunes:duration>22:28</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>@t3dotgg</itunes:author>
+    <itunes:subtitle>Love Prime, thought his take was really good - just wanted to add a bit of nuance.&#xA;&#xA;Thank you G2i for sponsoring! Check them out at: https://soydev.link/g2i&#xA;&#xA;Prime&#39;s vid: https://www.youtube.com/watch?v=ksKzcRfjxpY&#xA;&#xA;Want to sponsor a video? Learn more here:https://soydev.link/sponsor-me&#xA;&#xA;Check out my Twitch, Twitter, Discord more at https://t3.gg&#xA;&#xA;S/O Ph4se0n3 for the awesome edit 🙏</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>lIUp8bdKiq4</guid>
+    <title>A breakdown of style solutions for 2025</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_lIUp8bdKiq4.mp3" length="47554917" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_lIUp8bdKiq4.png"></itunes:image>
+    <description>There are more options for styling web apps then there have ever been, but things are kind off weird...&#xA;&#xA;Thank you Posthog for sponsoring! Check them out at: https://soydev.link/posthog&#xA;&#xA;Proof that shadcn can make beautiful UI: https://soydev.link/chat&#xA;&#xA;SOURCES&#xA;https://github.com/mui/base-ui&#xA;https://www.youtube.com/watch?v=CQuTF-bkOgc&#xA;https://x.com/iamsahaj_xyz/status/1901418776207184309&#xA;&#xA;Want to sponsor a video? Learn more here: https://soydev.link/sponsor-me&#xA;&#xA;Check out my Twitch, Twitter, Discord more at https://t3.gg&#xA;&#xA;S/O Ph4se0n3 for the awesome edit 🙏</description>
+    <link>https://www.youtube.com/watch?v=lIUp8bdKiq4</link>
+    <pubDate>Sat, 05 Apr 2025 00:00:00 GMT</pubDate>
+    <itunes:duration>33:28</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>@t3dotgg</itunes:author>
+    <itunes:subtitle>There are more options for styling web apps then there have ever been, but things are kind off weird...&#xA;&#xA;Thank you Posthog for sponsoring! Check them out at: https://soydev.link/posthog&#xA;&#xA;Proof that shadcn can make beautiful UI: https://soydev.link/chat&#xA;&#xA;SOURCES&#xA;https://github.com/mui/base-ui&#xA;https://www.youtube.com/watch?v=CQuTF-bkOgc&#xA;https://x.com/iamsahaj_xyz/status/1901418776207184309&#xA;&#xA;Want to sponsor a video? Learn more here: https://soydev.link/sponsor-me&#xA;&#xA;Check out my Twitch, Twitter, Discord more at https://t3.gg&#xA;&#xA;S/O Ph4se0n3 for the awesome edit 🙏</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>ciNXbR5wvhU</guid>
+    <title>Why your website should be under 14kB in size</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_ciNXbR5wvhU.mp3" length="38085837" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_ciNXbR5wvhU.png"></itunes:image>
+    <description>Twitch https://twitch.tv/ThePrimeagen&#xA;Discord https://discord.gg/ThePrimeagen&#xA;&#xA;Become Backend Dev: https://boot.dev/prime&#xA;(plus i make courses for them)&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;### LINKS &#xA;https://endtimes.dev/why-your-website-should-be-under-14kb-in-size/&#xA;&#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis</description>
+    <link>https://www.youtube.com/watch?v=ciNXbR5wvhU</link>
+    <pubDate>Sun, 03 Aug 2025 00:00:00 GMT</pubDate>
+    <itunes:duration>22:55</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>@ThePrimeTimeagen</itunes:author>
+    <itunes:subtitle>Twitch https://twitch.tv/ThePrimeagen&#xA;Discord https://discord.gg/ThePrimeagen&#xA;&#xA;Become Backend Dev: https://boot.dev/prime&#xA;(plus i make courses for them)&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;### LINKS &#xA;https://endtimes.dev/why-your-website-should-be-under-14kb-in-size/&#xA;&#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>dh6BCSzaF6g</guid>
+    <title>WTF Typescript?! (The Standup)</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_dh6BCSzaF6g.mp3" length="106722309" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_dh6BCSzaF6g.png"></itunes:image>
+    <description>🔗 Sponsored by Sentry https://sentry.io | Code breaks, fix it faster&#xA;&#xA;📌 Chapters:&#xA;&#xA;00:00:00 - Intro&#xA;00:00:42 - Who’s actually a “web developer”?&#xA;00:02:31 - Trash’s live intro &amp; TypeScript presentation setup&#xA;00:03:59 - Sentry #ad&#xA;00:04:38 - Excess property checks in TS&#xA;00:09:42 - WTF: Object spreads silence type errors&#xA;00:14:30 - React prop spreading madness&#xA;00:18:22 - Structural vs duck typing debate&#xA;00:24:00 - WTF: Enums and why everyone hates them&#xA;00:27:45 - Enum strings vs numbers behavior&#xA;00:33:10 - Why enums in Node are cursed&#xA;00:36:55 - Safer enum alternatives using const objects&#xA;00:43:10 - TS quirks: Boolean filter keeps undefined in types&#xA;00:46:40 - TSReset: The “CSS reset” for TypeScript&#xA;00:49:01 - WTF: Empty object {} lets everything through&#xA;00:52:32 - Doom rendered in TypeScript type system&#xA;00:54:00 - Type-level math in TS (it’s real)&#xA;00:56:33 - Scaling hell: TS performance bottlenecks&#xA;01:00:01 - Flamegraphs and fighting TS perf without docs&#xA;01:04:55 - TS inference vs explicit typing in large codebases&#xA;01:09:30 - Prime’s favorite TS bug strikes again&#xA;01:14:01 - Casey breaks down the compiler logic&#xA;01:17:50 - Is this a TypeScript bug or a feature?&#xA;01:22:44 - Final thoughts and community love&#xA;&#xA;---&#xA;&#xA;**Topics Covered:**&#xA;&#xA; • TypeScript excess property checks&#xA; • Enums vs object literals&#xA; • Structural vs duck typing&#xA; • TS compiler edge cases&#xA; • WTFs that break your mental model&#xA; • Type-level math&#xA; • Performance debugging hell&#xA; • Massive monorepo pain points&#xA; • The one TypeScript bug Prime can’t let go</description>
+    <link>https://www.youtube.com/watch?v=dh6BCSzaF6g</link>
+    <pubDate>Tue, 08 Jul 2025 00:00:00 GMT</pubDate>
+    <itunes:duration>1:25:06</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>@ThePrimeTimeagen</itunes:author>
+    <itunes:subtitle>🔗 Sponsored by Sentry https://sentry.io | Code breaks, fix it faster&#xA;&#xA;📌 Chapters:&#xA;&#xA;00:00:00 - Intro&#xA;00:00:42 - Who’s actually a “web developer”?&#xA;00:02:31 - Trash’s live intro &amp; TypeScript presentation setup&#xA;00:03:59 - Sentry #ad&#xA;00:04:38 - Excess property checks in TS&#xA;00:09:42 - WTF: Object spreads silence type errors&#xA;00:14:30 - React prop spreading madness&#xA;00:18:22 - Structural vs duck typing debate&#xA;00:24:00 - WTF: Enums and why everyone hates them&#xA;00:27:45 - Enum strings vs numbers behavior&#xA;00:33:10 - Why enums in Node are cursed&#xA;00:36:55 - Safer enum alternatives using const objects&#xA;00:43:10 - TS quirks: Boolean filter keeps undefined in types&#xA;00:46:40 - TSReset: The “CSS reset” for TypeScript&#xA;00:49:01 - WTF: Empty object {} lets everything through&#xA;00:52:32 - Doom rendered in TypeScript type system&#xA;00:54:00 - Type-level math in TS (it’s real)&#xA;00:56:33 - Scaling hell: TS performance bottlenecks&#xA;01:00:01 - Flamegraphs and fighting TS perf without docs&#xA;01:04:55 - TS inference vs explicit typing in large codebases&#xA;01:09:30 - Prime’s favorite TS bug strikes again&#xA;01:14:01 - Casey breaks down the compiler logic&#xA;01:17:50 - Is this a TypeScript bug or a feature?&#xA;01:22:44 - Final thoughts and community love&#xA;&#xA;---&#xA;&#xA;**Topics Covered:**&#xA;&#xA; • TypeScript excess property checks&#xA; • Enums vs object literals&#xA; • Structural vs duck typing&#xA; • TS compiler edge cases&#xA; • WTFs that break your mental model&#xA; • Type-level math&#xA; • Performance debugging hell&#xA; • Massive monorepo pain points&#xA; • The one TypeScript bug Prime can’t let go</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>HhLQi_wZUDc</guid>
+    <title>The Every UUID Website Explained</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_HhLQi_wZUDc.mp3" length="54524829" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_HhLQi_wZUDc.png"></itunes:image>
+    <description>Twitch https://twitch.tv/ThePrimeagen&#xA;Discord https://discord.gg/ThePrimeagen&#xA;&#xA;Become Backend Dev: https://boot.dev/prime&#xA;(plus i make courses for them)&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;### LINKS &#xA;https://eieio.games/blog/writing-down-every-uuid/&#xA;https://everyuuid.com/&#xA;By: Nolen Royalty | https://x.com/itseieio&#xA;&#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis&#xA;&#xA;Get production ready SQLite with Turso: https://turso.tech/deeznuts</description>
+    <link>https://www.youtube.com/watch?v=HhLQi_wZUDc</link>
+    <pubDate>Fri, 13 Dec 2024 00:00:00 GMT</pubDate>
+    <itunes:duration>33:43</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>@ThePrimeTimeagen</itunes:author>
+    <itunes:subtitle>Twitch https://twitch.tv/ThePrimeagen&#xA;Discord https://discord.gg/ThePrimeagen&#xA;&#xA;Become Backend Dev: https://boot.dev/prime&#xA;(plus i make courses for them)&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;### LINKS &#xA;https://eieio.games/blog/writing-down-every-uuid/&#xA;https://everyuuid.com/&#xA;By: Nolen Royalty | https://x.com/itseieio&#xA;&#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis&#xA;&#xA;Get production ready SQLite with Turso: https://turso.tech/deeznuts</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>24nhC1TMEV4</guid>
+    <title>120x Faster Algorithm By Nested Loops</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_24nhC1TMEV4.mp3" length="33625389" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_24nhC1TMEV4.png"></itunes:image>
+    <description>Recorded live on twitch, GET IN &#xA;&#xA;https://twitch.tv/ThePrimeagen&#xA;&#xA;Reviewed video: https://www.youtube.com/watch?v=QGYvbsHDPxo&#xA;By: https://www.youtube.com/@depth-buffer&#xA;&#xA;MY MAIN YT CHANNEL: Has well edited engineering videos&#xA;https://youtube.com/ThePrimeagen&#xA;&#xA;Discord&#xA;https://discord.gg/ThePrimeagen&#xA;&#xA;&#xA;Have something for me to read or react to?: https://www.reddit.com/r/ThePrimeagenReact/&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis&#xA;&#xA;Hey I am sponsored by Turso, an edge database.  I think they are pretty neet.  Give them a try for free and if you want you can get a decent amount off (the free tier is the best (better than planetscale or any other))&#xA;https://turso.tech/deeznuts</description>
+    <link>https://www.youtube.com/watch?v=24nhC1TMEV4</link>
+    <pubDate>Fri, 27 Oct 2023 00:00:00 GMT</pubDate>
+    <itunes:duration>21:20</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>@ThePrimeTimeagen</itunes:author>
+    <itunes:subtitle>Recorded live on twitch, GET IN &#xA;&#xA;https://twitch.tv/ThePrimeagen&#xA;&#xA;Reviewed video: https://www.youtube.com/watch?v=QGYvbsHDPxo&#xA;By: https://www.youtube.com/@depth-buffer&#xA;&#xA;MY MAIN YT CHANNEL: Has well edited engineering videos&#xA;https://youtube.com/ThePrimeagen&#xA;&#xA;Discord&#xA;https://discord.gg/ThePrimeagen&#xA;&#xA;&#xA;Have something for me to read or react to?: https://www.reddit.com/r/ThePrimeagenReact/&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis&#xA;&#xA;Hey I am sponsored by Turso, an edge database.  I think they are pretty neet.  Give them a try for free and if you want you can get a decent amount off (the free tier is the best (better than planetscale or any other))&#xA;https://turso.tech/deeznuts</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>z1Eq0xlVs3g</guid>
+    <title>Making A Browser Is Harder Than You Think (Ft Andreas Kling)</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_z1Eq0xlVs3g.mp3" length="127273965" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_z1Eq0xlVs3g.png"></itunes:image>
+    <description>Gray Swan AI’s Agent Red-Teaming Challenge is here—hack anonymous AI agents using direct exploits and prompt injections for a share of over $120K in cash prizes. Runs Mar 8–Apr 6. No BS, just raw AI red teaming. Break AI if you dare.&#xA;http://app.grayswan.ai/primeagen&#xA;https://discord.gg/ZpMQuBgCYH&#xA;&#xA;If your company needs help moving to mobile, Intinite Red could be a great choice for you!&#xA;From the smallest startups to some of the largest companies, Infinite Red is ready to help you ship an elegant and effective mobile application with React Native. Check them out at:&#xA;https://infinite.red/&#xA;&#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen</description>
+    <link>https://www.youtube.com/watch?v=z1Eq0xlVs3g</link>
+    <pubDate>Wed, 05 Mar 2025 00:00:00 GMT</pubDate>
+    <itunes:duration>1:27:36</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>@ThePrimeTimeagen</itunes:author>
+    <itunes:subtitle>Gray Swan AI’s Agent Red-Teaming Challenge is here—hack anonymous AI agents using direct exploits and prompt injections for a share of over $120K in cash prizes. Runs Mar 8–Apr 6. No BS, just raw AI red teaming. Break AI if you dare.&#xA;http://app.grayswan.ai/primeagen&#xA;https://discord.gg/ZpMQuBgCYH&#xA;&#xA;If your company needs help moving to mobile, Intinite Red could be a great choice for you!&#xA;From the smallest startups to some of the largest companies, Infinite Red is ready to help you ship an elegant and effective mobile application with React Native. Check them out at:&#xA;https://infinite.red/&#xA;&#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>6TZozNjPcGw</guid>
+    <title>How the &#34;Online Safety Act&#34; might destroy the web</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_6TZozNjPcGw.mp3" length="41251821" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_6TZozNjPcGw.png"></itunes:image>
+    <description>The UK&#39;s age restriction laws just went into effect. This is gonna be bad...&#xA;&#xA;Thank you Frontend Masters for sponsoring! Check them out at: https://soydev.link/masters&#xA;&#xA;SIGN THE PETITION: https://petition.parliament.uk/petitions/722903&#xA;&#xA;SOURCES&#xA;https://www.eff.org/deeplinks/2025/07/just-banning-minors-social-media-not-protecting-them&#xA;https://www.eff.org/deeplinks/2025/08/no-uks-online-safety-act-doesnt-make-children-safer-online&#xA;&#xA;Want to sponsor a video? Learn more here: https://soydev.link/sponsor-me&#xA;&#xA;Check out my Twitch, Twitter, Discord more at https://t3.gg&#xA;&#xA;S/O Ph4se0n3 for the awesome edit 🙏</description>
+    <link>https://www.youtube.com/watch?v=6TZozNjPcGw</link>
+    <pubDate>Tue, 05 Aug 2025 00:00:00 GMT</pubDate>
+    <itunes:duration>28:12</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>@t3dotgg</itunes:author>
+    <itunes:subtitle>The UK&#39;s age restriction laws just went into effect. This is gonna be bad...&#xA;&#xA;Thank you Frontend Masters for sponsoring! Check them out at: https://soydev.link/masters&#xA;&#xA;SIGN THE PETITION: https://petition.parliament.uk/petitions/722903&#xA;&#xA;SOURCES&#xA;https://www.eff.org/deeplinks/2025/07/just-banning-minors-social-media-not-protecting-them&#xA;https://www.eff.org/deeplinks/2025/08/no-uks-online-safety-act-doesnt-make-children-safer-online&#xA;&#xA;Want to sponsor a video? Learn more here: https://soydev.link/sponsor-me&#xA;&#xA;Check out my Twitch, Twitter, Discord more at https://t3.gg&#xA;&#xA;S/O Ph4se0n3 for the awesome edit 🙏</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>HBpOzj-iBUg</guid>
+    <title>Why Tech Companies Are Moving Off React</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_HBpOzj-iBUg.mp3" length="116931333" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_HBpOzj-iBUg.png"></itunes:image>
+    <description>Link to the YouTube Video: https://www.youtube.com/watch?v=HBpOzj-iBUg&#xA;&#34;CTOs are secretly moving away from React&#34;. I knew I had to talk about this one. There&#39;s a lot of good info here, but also a ton of nuance missing and frankly a lot of these company&#39;s moves seem misinformed. &#xA;&#xA;Thank you Infinite Red for sponsoring! Check them out at: https://soydev.link/infinitered&#xA;&#xA;SOURCE&#xA;https://javascript.plainenglish.io/why-silicon-valley-ctos-are-secretly-moving-away-from-react-bdf64f0b6072&#xA;&#xA;Want to sponsor a video? Learn more here: https://soydev.link/sponsor-me&#xA;&#xA;Check out my Twitch, Twitter, Discord more at https://t3.gg&#xA;&#xA;S/O Ph4se0n3 for the awesome edit 🙏</description>
+    <link>https://www.youtube.com/watch?v=HBpOzj-iBUg</link>
+    <pubDate>Tue, 10 Jun 2025 00:00:00 GMT</pubDate>
+    <itunes:duration>1:28:32</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>@t3dotgg</itunes:author>
+    <itunes:subtitle>Link to the YouTube Video: https://www.youtube.com/watch?v=HBpOzj-iBUg&#xA;&#34;CTOs are secretly moving away from React&#34;. I knew I had to talk about this one. There&#39;s a lot of good info here, but also a ton of nuance missing and frankly a lot of these company&#39;s moves seem misinformed. &#xA;&#xA;Thank you Infinite Red for sponsoring! Check them out at: https://soydev.link/infinitered&#xA;&#xA;SOURCE&#xA;https://javascript.plainenglish.io/why-silicon-valley-ctos-are-secretly-moving-away-from-react-bdf64f0b6072&#xA;&#xA;Want to sponsor a video? Learn more here: https://soydev.link/sponsor-me&#xA;&#xA;Check out my Twitch, Twitter, Discord more at https://t3.gg&#xA;&#xA;S/O Ph4se0n3 for the awesome edit 🙏</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>jS6SNaVY29k</guid>
+    <title>We Keep Falling For This...</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_jS6SNaVY29k.mp3" length="13972125" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_jS6SNaVY29k.png"></itunes:image>
+    <description>Link to the YouTube Video: https://www.youtube.com/watch?v=jS6SNaVY29k&#xA;With new AI comes new AI coding tools, and with new AI coding tools comes new AI coding vulnerabilities. Today we&#39;re checking out a bug in the Gemini CLI.&#xA;&#xA;Go try Flare and get ahead of cyber threats for you and your company! https://go.lowlevel.tv/flare-io-august&#xA;&#xA;https://tracebit.com/blog/code-exec-deception-gemini-ai-cli-hijack&#xA;&#xA;🏫 MY COURSES&#xA;Sign-up for my FREE 3-Day C Course: https://lowlevel.academy&#xA;&#xA;🧙‍♂️ HACK YOUR CAREER&#xA;Wanna learn to hack? Join my new CTF platform: https://stacksmash.io&#xA;&#xA;🔥COME HANG OUT   &#xA;Check out my other stuff: https://lowlevel.tv</description>
+    <link>https://www.youtube.com/watch?v=jS6SNaVY29k</link>
+    <pubDate>Fri, 08 Aug 2025 00:00:00 GMT</pubDate>
+    <itunes:duration>10:32</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>@LowLevelTV</itunes:author>
+    <itunes:subtitle>Link to the YouTube Video: https://www.youtube.com/watch?v=jS6SNaVY29k&#xA;With new AI comes new AI coding tools, and with new AI coding tools comes new AI coding vulnerabilities. Today we&#39;re checking out a bug in the Gemini CLI.&#xA;&#xA;Go try Flare and get ahead of cyber threats for you and your company! https://go.lowlevel.tv/flare-io-august&#xA;&#xA;https://tracebit.com/blog/code-exec-deception-gemini-ai-cli-hijack&#xA;&#xA;🏫 MY COURSES&#xA;Sign-up for my FREE 3-Day C Course: https://lowlevel.academy&#xA;&#xA;🧙‍♂️ HACK YOUR CAREER&#xA;Wanna learn to hack? Join my new CTF platform: https://stacksmash.io&#xA;&#xA;🔥COME HANG OUT   &#xA;Check out my other stuff: https://lowlevel.tv</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>BTjj1ILCwRs</guid>
+    <title>This Goes Deeper Than Your Operating System…</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_BTjj1ILCwRs.mp3" length="14924781" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_BTjj1ILCwRs.png"></itunes:image>
+    <description>Link to the YouTube Video: https://www.youtube.com/watch?v=BTjj1ILCwRs&#xA;Wanna learn to hack? Check out: https://stacksmash.io&#xA;&#xA;Hackers can attack anything, but even your motherboard? In this video we break down what a motherboard exploit looks like, and what you can do about it (not much).&#xA;&#xA;https://www.binarly.io/advisories/brly-2025-009&#xA;&#xA;🏫 MY COURSES&#xA;Sign-up for my FREE 3-Day C Course: https://lowlevel.academy&#xA;&#xA;🔥COME HANG OUT   &#xA;Check out my other stuff: https://lowlevel.tv</description>
+    <link>https://www.youtube.com/watch?v=BTjj1ILCwRs</link>
+    <pubDate>Wed, 06 Aug 2025 00:00:00 GMT</pubDate>
+    <itunes:duration>11:24</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>@LowLevelTV</itunes:author>
+    <itunes:subtitle>Link to the YouTube Video: https://www.youtube.com/watch?v=BTjj1ILCwRs&#xA;Wanna learn to hack? Check out: https://stacksmash.io&#xA;&#xA;Hackers can attack anything, but even your motherboard? In this video we break down what a motherboard exploit looks like, and what you can do about it (not much).&#xA;&#xA;https://www.binarly.io/advisories/brly-2025-009&#xA;&#xA;🏫 MY COURSES&#xA;Sign-up for my FREE 3-Day C Course: https://lowlevel.academy&#xA;&#xA;🔥COME HANG OUT   &#xA;Check out my other stuff: https://lowlevel.tv</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>rUzzBY-P3HE</guid>
+    <title>Arch Linux Is Under Attack...</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_rUzzBY-P3HE.mp3" length="14008653" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_rUzzBY-P3HE.png"></itunes:image>
+    <description>Link to the YouTube Video: https://www.youtube.com/watch?v=rUzzBY-P3HE&#xA;Arch linux is great, but the AUR is sort of scary. In this video we talk about malicious packages found in the AUR last week.&#xA;&#xA;https://www.reddit.com/r/linux/comments/1m3wodv/malware_found_in_the_aur/&#xA;&#xA;Go secure yourself online with Multi Factor Authentication using a Yubikey! Get 10% off here while supplies last: https://go.lowlevel.tv/yubico&#xA;&#xA;🏫 MY COURSES&#xA;Sign-up for my FREE 3-Day C Course: https://lowlevel.academy&#xA;&#xA;🧙‍♂️ HACK YOUR CAREER&#xA;Wanna learn to hack? Check out: https://stacksmash.io&#xA;&#xA;🔥COME HANG OUT   &#xA;Check out my other stuff: https://lowlevel.tv</description>
+    <link>https://www.youtube.com/watch?v=rUzzBY-P3HE</link>
+    <pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate>
+    <itunes:duration>10:14</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>@LowLevelTV</itunes:author>
+    <itunes:subtitle>Link to the YouTube Video: https://www.youtube.com/watch?v=rUzzBY-P3HE&#xA;Arch linux is great, but the AUR is sort of scary. In this video we talk about malicious packages found in the AUR last week.&#xA;&#xA;https://www.reddit.com/r/linux/comments/1m3wodv/malware_found_in_the_aur/&#xA;&#xA;Go secure yourself online with Multi Factor Authentication using a Yubikey! Get 10% off here while supplies last: https://go.lowlevel.tv/yubico&#xA;&#xA;🏫 MY COURSES&#xA;Sign-up for my FREE 3-Day C Course: https://lowlevel.academy&#xA;&#xA;🧙‍♂️ HACK YOUR CAREER&#xA;Wanna learn to hack? Check out: https://stacksmash.io&#xA;&#xA;🔥COME HANG OUT   &#xA;Check out my other stuff: https://lowlevel.tv</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>l6rRrDIBAaE</guid>
+    <title>Why Nobody Codes in Perl Anymore</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_l6rRrDIBAaE.mp3" length="28466901" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_l6rRrDIBAaE.png"></itunes:image>
+    <description>Link to the YouTube Video: https://www.youtube.com/watch?v=l6rRrDIBAaE&#xA;Twitch https://twitch.tv/ThePrimeagen&#xA;Discord https://discord.gg/ThePrimeagen&#xA;&#xA;Become Backend Dev: https://boot.dev/prime&#xA;(plus i make courses for them)&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;### LINKS &#xA; -- https://www.wired.com/story/programmers-arent-humble-anymore-nobody-codes-in-perl/&#xA;By: Samuel Arbesman | https://x.com/arbesman&#xA;&#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis</description>
+    <link>https://www.youtube.com/watch?v=l6rRrDIBAaE</link>
+    <pubDate>Sat, 09 Aug 2025 00:00:00 GMT</pubDate>
+    <itunes:duration>17:35</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>ThePrimeTimeagen</itunes:author>
+    <itunes:subtitle>Link to the YouTube Video: https://www.youtube.com/watch?v=l6rRrDIBAaE&#xA;Twitch https://twitch.tv/ThePrimeagen&#xA;Discord https://discord.gg/ThePrimeagen&#xA;&#xA;Become Backend Dev: https://boot.dev/prime&#xA;(plus i make courses for them)&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;### LINKS &#xA; -- https://www.wired.com/story/programmers-arent-humble-anymore-nobody-codes-in-perl/&#xA;By: Samuel Arbesman | https://x.com/arbesman&#xA;&#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>qhzTawm3_6Y</guid>
+    <title>The Evolution of Programming  | The Standup</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_qhzTawm3_6Y.mp3" length="93617541" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_qhzTawm3_6Y.png"></itunes:image>
+    <description>Link to the YouTube Video: https://www.youtube.com/watch?v=qhzTawm3_6Y&#xA;Ship Faster with Neon Postgres #ad &#xA;Neon comes with Branching, Schema Diff, and Instant Point-In-Time Recovery to help you ship fast and recover faster. Get the free plan at https://neon.com&#xA;&#xA;https://twitch.tv/ThePrimeagen - I Stream 5 days a Week&#xA;&#xA;https://twitter.com/terminaldotshop - Want to order coffee over SSH?&#xA;ssh terminal.shop&#xA;&#xA;Become Backend Dev: https://boot.dev/prime&#xA;(plus i make courses for them)&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis&#xA;&#xA;📍 Chapters:&#xA;&#xA;00:00:00 - Prime is a Great Host&#xA;00:04:06 - Neon #ad&#xA;00:05:04 - Giving a 2 hour talk&#xA;00:10:16 - C++ Launch Night&#xA;00:14:15 - Mount Rushmore of Programming Languages&#xA;00:18:40 - What languages were influential and died off?&#xA;00:24:00 - What is Plex&#xA;00:42:00 - The Evolution of Languages&#xA;00:45:40 - How Casey does Research + HOPL 5&#xA;00:56:95 - Casey&#39;s Next Deep Dive&#xA;01:00:00 - The Rise of Programming Historians</description>
+    <link>https://www.youtube.com/watch?v=qhzTawm3_6Y</link>
+    <pubDate>Thu, 07 Aug 2025 00:00:00 GMT</pubDate>
+    <itunes:duration>1:13:12</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>ThePrimeTimeagen</itunes:author>
+    <itunes:subtitle>Link to the YouTube Video: https://www.youtube.com/watch?v=qhzTawm3_6Y&#xA;Ship Faster with Neon Postgres #ad &#xA;Neon comes with Branching, Schema Diff, and Instant Point-In-Time Recovery to help you ship fast and recover faster. Get the free plan at https://neon.com&#xA;&#xA;https://twitch.tv/ThePrimeagen - I Stream 5 days a Week&#xA;&#xA;https://twitter.com/terminaldotshop - Want to order coffee over SSH?&#xA;ssh terminal.shop&#xA;&#xA;Become Backend Dev: https://boot.dev/prime&#xA;(plus i make courses for them)&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis&#xA;&#xA;📍 Chapters:&#xA;&#xA;00:00:00 - Prime is a Great Host&#xA;00:04:06 - Neon #ad&#xA;00:05:04 - Giving a 2 hour talk&#xA;00:10:16 - C++ Launch Night&#xA;00:14:15 - Mount Rushmore of Programming Languages&#xA;00:18:40 - What languages were influential and died off?&#xA;00:24:00 - What is Plex&#xA;00:42:00 - The Evolution of Languages&#xA;00:45:40 - How Casey does Research + HOPL 5&#xA;00:56:95 - Casey&#39;s Next Deep Dive&#xA;01:00:00 - The Rise of Programming Historians</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>EeGCxH_0zx4</guid>
+    <title>Making Postgres 42,000x slower</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_EeGCxH_0zx4.mp3" length="25190205" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_EeGCxH_0zx4.png"></itunes:image>
+    <description>Link to the YouTube Video: https://www.youtube.com/watch?v=EeGCxH_0zx4&#xA;https://twitch.tv/ThePrimeagen - I Stream 5 days a Week&#xA;&#xA;https://twitter.com/terminaldotshop - Want to order coffee over SSH?&#xA;ssh terminal.shop&#xA;&#xA;### LINKS &#xA; -- https://byteofdev.com/posts/making-postgres-slow/&#xA;By: Jacob Jackson&#xA;&#xA;Become Backend Dev: https://boot.dev/prime&#xA;(plus i make courses for them)&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis</description>
+    <link>https://www.youtube.com/watch?v=EeGCxH_0zx4</link>
+    <pubDate>Mon, 04 Aug 2025 00:00:00 GMT</pubDate>
+    <itunes:duration>15:47</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>ThePrimeTimeagen</itunes:author>
+    <itunes:subtitle>Link to the YouTube Video: https://www.youtube.com/watch?v=EeGCxH_0zx4&#xA;https://twitch.tv/ThePrimeagen - I Stream 5 days a Week&#xA;&#xA;https://twitter.com/terminaldotshop - Want to order coffee over SSH?&#xA;ssh terminal.shop&#xA;&#xA;### LINKS &#xA; -- https://byteofdev.com/posts/making-postgres-slow/&#xA;By: Jacob Jackson&#xA;&#xA;Become Backend Dev: https://boot.dev/prime&#xA;(plus i make courses for them)&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>SvxtQf0ZIEk</guid>
+    <title>A Million Chess Boards (in a Single Process!)</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_SvxtQf0ZIEk.mp3" length="82332395" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_SvxtQf0ZIEk.png"></itunes:image>
+    <description>Link to the YouTube Video: https://www.youtube.com/watch?v=SvxtQf0ZIEk&#xA;Twitch https://twitch.tv/ThePrimeagen&#xA;Discord https://discord.gg/ThePrimeagen&#xA;&#xA;Become Backend Dev: https://boot.dev/prime&#xA;(plus i make courses for them)&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;### LINKS &#xA;https://eieio.games/blog/a-million-realtime-chess-boards-in-a-single-process/&#xA;&#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis</description>
+    <link>https://www.youtube.com/watch?v=SvxtQf0ZIEk</link>
+    <pubDate>Fri, 11 Jul 2025 00:00:00 GMT</pubDate>
+    <itunes:duration>51:51</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>@ThePrimeTimeagen</itunes:author>
+    <itunes:subtitle>Link to the YouTube Video: https://www.youtube.com/watch?v=SvxtQf0ZIEk&#xA;Twitch https://twitch.tv/ThePrimeagen&#xA;Discord https://discord.gg/ThePrimeagen&#xA;&#xA;Become Backend Dev: https://boot.dev/prime&#xA;(plus i make courses for them)&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;### LINKS &#xA;https://eieio.games/blog/a-million-realtime-chess-boards-in-a-single-process/&#xA;&#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>P1FLEnKZTAE</guid>
+    <title>React Is the last framework.</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_P1FLEnKZTAE.mp3" length="36122125" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_P1FLEnKZTAE.png"></itunes:image>
+    <description>Link to the YouTube Video: https://www.youtube.com/watch?v=P1FLEnKZTAE&#xA;There will never be another framework that hits React&#39;s level of adoption.&#xA;&#xA;Thank you Imagekit for sponsoring! Check them out at: https://soydev.link/imagekit&#xA;&#xA;The best AI chat app ever made (T3 Chat): https://soydev.link/chat&#xA;&#xA;Want to sponsor a video? Learn more here: https://soydev.link/sponsor-me&#xA;&#xA;Check out my Twitch, Twitter, Discord more at https://t3.gg&#xA;&#xA;S/O Ph4se0n3 for the awesome edit 🙏</description>
+    <link>https://www.youtube.com/watch?v=P1FLEnKZTAE</link>
+    <pubDate>Mon, 19 May 2025 00:00:00 GMT</pubDate>
+    <itunes:duration>26:46</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>@t3dotgg</itunes:author>
+    <itunes:subtitle>Link to the YouTube Video: https://www.youtube.com/watch?v=P1FLEnKZTAE&#xA;There will never be another framework that hits React&#39;s level of adoption.&#xA;&#xA;Thank you Imagekit for sponsoring! Check them out at: https://soydev.link/imagekit&#xA;&#xA;The best AI chat app ever made (T3 Chat): https://soydev.link/chat&#xA;&#xA;Want to sponsor a video? Learn more here: https://soydev.link/sponsor-me&#xA;&#xA;Check out my Twitch, Twitter, Discord more at https://t3.gg&#xA;&#xA;S/O Ph4se0n3 for the awesome edit 🙏</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>O-QS_Cp_zXg</guid>
+    <title>How JS ruined the web</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_O-QS_Cp_zXg.mp3" length="70371735" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_O-QS_Cp_zXg.png"></itunes:image>
+    <description>Link to the YouTube Video: https://www.youtube.com/watch?v=O-QS_Cp_zXg&#xA;&#34;JavaScript ruined the web&#34;. Oh boy...&#xA;&#xA;Thank you Sevalla for sponsoring! Check them out at: https://soydev.link/sevalla&#xA;&#xA;SOURCE&#xA;https://www.jonoalderson.com/conjecture/javascript-broke-the-web-and-called-it-progress/&#xA;&#xA;Want to sponsor a video? Learn more here: https://soydev.link/sponsor-me&#xA;&#xA;Check out my Twitch, Twitter, Discord more at https://t3.gg&#xA;&#xA;S/O Ph4se0n3 for the awesome edit 🙏</description>
+    <link>https://www.youtube.com/watch?v=O-QS_Cp_zXg</link>
+    <pubDate>Sun, 20 Jul 2025 00:00:00 GMT</pubDate>
+    <itunes:duration>54:12</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>@t3dotgg</itunes:author>
+    <itunes:subtitle>Link to the YouTube Video: https://www.youtube.com/watch?v=O-QS_Cp_zXg&#xA;&#34;JavaScript ruined the web&#34;. Oh boy...&#xA;&#xA;Thank you Sevalla for sponsoring! Check them out at: https://soydev.link/sevalla&#xA;&#xA;SOURCE&#xA;https://www.jonoalderson.com/conjecture/javascript-broke-the-web-and-called-it-progress/&#xA;&#xA;Want to sponsor a video? Learn more here: https://soydev.link/sponsor-me&#xA;&#xA;Check out my Twitch, Twitter, Discord more at https://t3.gg&#xA;&#xA;S/O Ph4se0n3 for the awesome edit 🙏</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>fXqX2S6s3rU</guid>
+    <title>Do NOT contribute to open source | Prime Reacts</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_fXqX2S6s3rU.mp3" length="47298268" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_fXqX2S6s3rU.png"></itunes:image>
+    <description>Link to the YouTube Video: https://www.youtube.com/watch?v=fXqX2S6s3rU&#xA;Recorded live on twitch, GET IN &#xA;&#xA;https://twitch.tv/ThePrimeagen&#xA;&#xA;Become a backend engineer.  Its my favorite site&#xA;https://boot.dev/?promo=PRIMEYT&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;Reviewed video: https://www.youtube.com/watch?v=5nY_cy8zcO4&#xA;By: https://www.youtube.com/@t3dotgg&#xA;&#xA;MY MAIN YT CHANNEL: Has well edited engineering videos&#xA;https://youtube.com/ThePrimeagen&#xA;&#xA;Discord&#xA;https://discord.gg/ThePrimeagen&#xA;&#xA;&#xA;Have something for me to read or react to?: https://www.reddit.com/r/ThePrimeagenReact/&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis&#xA;&#xA;Hey I am sponsored by Turso, an edge database.  I think they are pretty neet.  Give them a try for free and if you want you can get a decent amount off (the free tier is the best (better than planetscale or any other))&#xA;https://turso.tech/deeznuts</description>
+    <link>https://www.youtube.com/watch?v=fXqX2S6s3rU</link>
+    <pubDate>Mon, 05 Feb 2024 00:00:00 GMT</pubDate>
+    <itunes:duration>36:40</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>@ThePrimeTimeagen</itunes:author>
+    <itunes:subtitle>Link to the YouTube Video: https://www.youtube.com/watch?v=fXqX2S6s3rU&#xA;Recorded live on twitch, GET IN &#xA;&#xA;https://twitch.tv/ThePrimeagen&#xA;&#xA;Become a backend engineer.  Its my favorite site&#xA;https://boot.dev/?promo=PRIMEYT&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;Reviewed video: https://www.youtube.com/watch?v=5nY_cy8zcO4&#xA;By: https://www.youtube.com/@t3dotgg&#xA;&#xA;MY MAIN YT CHANNEL: Has well edited engineering videos&#xA;https://youtube.com/ThePrimeagen&#xA;&#xA;Discord&#xA;https://discord.gg/ThePrimeagen&#xA;&#xA;&#xA;Have something for me to read or react to?: https://www.reddit.com/r/ThePrimeagenReact/&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis&#xA;&#xA;Hey I am sponsored by Turso, an edge database.  I think they are pretty neet.  Give them a try for free and if you want you can get a decent amount off (the free tier is the best (better than planetscale or any other))&#xA;https://turso.tech/deeznuts</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>LE4T_B9iQ0I</guid>
+    <title>Linus Torvalds: What You Should Do As A Developer</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_LE4T_B9iQ0I.mp3" length="16680833" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_LE4T_B9iQ0I.png"></itunes:image>
+    <description>Link to the YouTube Video: https://www.youtube.com/watch?v=LE4T_B9iQ0I&#xA;Recorded live on twitch, GET IN &#xA;&#xA;### Article&#xA;https://www.networkworld.com/article/3526076/linus-torvalds-advises-open-source-developers-to-pursue-meaningful-projects-not-hype.html&#xA;By: Sean Michael Kerner | https://twitter.com/TechJournalist?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor&#xA;&#xA;### My Stream&#xA;https://twitch.tv/ThePrimeagen&#xA;&#xA;### Best Way To Support Me&#xA;Become a backend engineer.  Its my favorite site&#xA;https://boot.dev/?promo=PRIMEYT&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;MY MAIN YT CHANNEL: Has well edited engineering videos&#xA;https://youtube.com/ThePrimeagen&#xA;&#xA;Discord&#xA;https://discord.gg/ThePrimeagen&#xA;&#xA;&#xA;Have something for me to read or react to?: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis&#xA;&#xA;Get production ready SQLite with Turso: https://turso.tech/deeznuts</description>
+    <link>https://www.youtube.com/watch?v=LE4T_B9iQ0I</link>
+    <pubDate>Thu, 03 Oct 2024 00:00:00 GMT</pubDate>
+    <itunes:duration>12:40</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>@ThePrimeTimeagen</itunes:author>
+    <itunes:subtitle>Link to the YouTube Video: https://www.youtube.com/watch?v=LE4T_B9iQ0I&#xA;Recorded live on twitch, GET IN &#xA;&#xA;### Article&#xA;https://www.networkworld.com/article/3526076/linus-torvalds-advises-open-source-developers-to-pursue-meaningful-projects-not-hype.html&#xA;By: Sean Michael Kerner | https://twitter.com/TechJournalist?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor&#xA;&#xA;### My Stream&#xA;https://twitch.tv/ThePrimeagen&#xA;&#xA;### Best Way To Support Me&#xA;Become a backend engineer.  Its my favorite site&#xA;https://boot.dev/?promo=PRIMEYT&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;MY MAIN YT CHANNEL: Has well edited engineering videos&#xA;https://youtube.com/ThePrimeagen&#xA;&#xA;Discord&#xA;https://discord.gg/ThePrimeagen&#xA;&#xA;&#xA;Have something for me to read or react to?: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis&#xA;&#xA;Get production ready SQLite with Turso: https://turso.tech/deeznuts</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>YZhwOWvoR3I</guid>
+    <title>err != nil Is GOOD? (And Why)</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_YZhwOWvoR3I.mp3" length="10178581" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_YZhwOWvoR3I.png"></itunes:image>
+    <description>Link to the YouTube Video: https://www.youtube.com/watch?v=YZhwOWvoR3I&#xA;Recorded live on twitch, GET IN &#xA;&#xA;https://twitch.tv/ThePrimeagen&#xA;&#xA;Become a backend engineer.  Its my favorite site&#xA;https://boot.dev?promo=PRIMEYT&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;MY MAIN YT CHANNEL: Has well edited engineering videos&#xA;https://youtube.com/ThePrimeagen&#xA;&#xA;Discord&#xA;https://discord.gg/ThePrimeagen&#xA;&#xA;&#xA;Have something for me to read or react to?: https://www.reddit.com/r/ThePrimeagenReact/&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis&#xA;&#xA;Hey I am sponsored by Turso, an edge database.  I think they are pretty neet.  Give them a try for free and if you want you can get a decent amount off (the free tier is the best (better than planetscale or any other))&#xA;https://turso.tech/deeznuts</description>
+    <link>https://www.youtube.com/watch?v=YZhwOWvoR3I</link>
+    <pubDate>Sat, 23 Dec 2023 00:00:00 GMT</pubDate>
+    <itunes:duration>7:19</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>@ThePrimeTimeagen</itunes:author>
+    <itunes:subtitle>Link to the YouTube Video: https://www.youtube.com/watch?v=YZhwOWvoR3I&#xA;Recorded live on twitch, GET IN &#xA;&#xA;https://twitch.tv/ThePrimeagen&#xA;&#xA;Become a backend engineer.  Its my favorite site&#xA;https://boot.dev?promo=PRIMEYT&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;MY MAIN YT CHANNEL: Has well edited engineering videos&#xA;https://youtube.com/ThePrimeagen&#xA;&#xA;Discord&#xA;https://discord.gg/ThePrimeagen&#xA;&#xA;&#xA;Have something for me to read or react to?: https://www.reddit.com/r/ThePrimeagenReact/&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis&#xA;&#xA;Hey I am sponsored by Turso, an edge database.  I think they are pretty neet.  Give them a try for free and if you want you can get a decent amount off (the free tier is the best (better than planetscale or any other))&#xA;https://turso.tech/deeznuts</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>_cgONVgHzRw</guid>
+    <title>The End Of Jr Engineers</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise__cgONVgHzRw.mp3" length="45036164" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise__cgONVgHzRw.png"></itunes:image>
+    <description>Link to the YouTube Video: https://www.youtube.com/watch?v=_cgONVgHzRw&#xA;Recorded live on twitch, GET IN &#xA;&#xA;### Article&#xA;https://sourcegraph.com/blog/the-death-of-the-junior-developer&#xA;By: Steve Yegge | https://x.com/Steve_Yegge&#xA;&#xA;### My Stream&#xA;https://twitch.tv/ThePrimeagen&#xA;&#xA;### Best Way To Support Me&#xA;Become a backend engineer.  Its my favorite site&#xA;https://boot.dev/?promo=PRIMEYT&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;MY MAIN YT CHANNEL: Has well edited engineering videos&#xA;https://youtube.com/ThePrimeagen&#xA;&#xA;Discord&#xA;https://discord.gg/ThePrimeagen&#xA;&#xA;&#xA;Have something for me to read or react to?: https://www.reddit.com/r/ThePrimeagenReact/&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis&#xA;&#xA;Get production ready SQLite with Turso: https://turso.tech/deeznuts</description>
+    <link>https://www.youtube.com/watch?v=_cgONVgHzRw</link>
+    <pubDate>Fri, 05 Jul 2024 00:00:00 GMT</pubDate>
+    <itunes:duration>30:58</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>@ThePrimeTimeagen</itunes:author>
+    <itunes:subtitle>Link to the YouTube Video: https://www.youtube.com/watch?v=_cgONVgHzRw&#xA;Recorded live on twitch, GET IN &#xA;&#xA;### Article&#xA;https://sourcegraph.com/blog/the-death-of-the-junior-developer&#xA;By: Steve Yegge | https://x.com/Steve_Yegge&#xA;&#xA;### My Stream&#xA;https://twitch.tv/ThePrimeagen&#xA;&#xA;### Best Way To Support Me&#xA;Become a backend engineer.  Its my favorite site&#xA;https://boot.dev/?promo=PRIMEYT&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;MY MAIN YT CHANNEL: Has well edited engineering videos&#xA;https://youtube.com/ThePrimeagen&#xA;&#xA;Discord&#xA;https://discord.gg/ThePrimeagen&#xA;&#xA;&#xA;Have something for me to read or react to?: https://www.reddit.com/r/ThePrimeagenReact/&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis&#xA;&#xA;Get production ready SQLite with Turso: https://turso.tech/deeznuts</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>VtHlMTc8lR4</guid>
+    <title>i was right (again).</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_VtHlMTc8lR4.mp3" length="13174388" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_VtHlMTc8lR4.png"></itunes:image>
+    <description>Link to the YouTube Video: https://www.youtube.com/watch?v=VtHlMTc8lR4&#xA;Wanna learn to hack? Check out: https://stacksmash.io&#xA;&#xA;Kernel mode anti-cheat is problematic again and I hate it.&#xA;&#xA;https://pbs.twimg.com/media/GyDIMLhW4AAsiti?format=jpg&amp;name=large&#xA;https://archie-osu.github.io/2025/04/11/vanguard-research.html&#xA;https://reversing.info/posts/guardedregions&#xA;&#xA;🏫 MY COURSES&#xA;Sign-up for my FREE 3-Day C Course: https://lowlevel.academy&#xA;&#xA;🔥COME HANG OUT   &#xA;Check out my other stuff: https://lowlevel.tv</description>
+    <link>https://www.youtube.com/watch?v=VtHlMTc8lR4</link>
+    <pubDate>Mon, 11 Aug 2025 00:00:00 GMT</pubDate>
+    <itunes:duration>10:13</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>@LowLevelTV</itunes:author>
+    <itunes:subtitle>Link to the YouTube Video: https://www.youtube.com/watch?v=VtHlMTc8lR4&#xA;Wanna learn to hack? Check out: https://stacksmash.io&#xA;&#xA;Kernel mode anti-cheat is problematic again and I hate it.&#xA;&#xA;https://pbs.twimg.com/media/GyDIMLhW4AAsiti?format=jpg&amp;name=large&#xA;https://archie-osu.github.io/2025/04/11/vanguard-research.html&#xA;https://reversing.info/posts/guardedregions&#xA;&#xA;🏫 MY COURSES&#xA;Sign-up for my FREE 3-Day C Course: https://lowlevel.academy&#xA;&#xA;🔥COME HANG OUT   &#xA;Check out my other stuff: https://lowlevel.tv</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>G9mS9iFSmNs</guid>
+    <title>ONLY USE REACT (Flutter Sucks) - ITS INDUSTRY STANDARD | Prime Reacts</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_G9mS9iFSmNs.mp3" length="10716448" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_G9mS9iFSmNs.png"></itunes:image>
+    <description>Link to the YouTube Video: https://www.youtube.com/watch?v=G9mS9iFSmNs&#xA;Recorded live on twitch, GET IN &#xA;&#xA;https://twitch.tv/ThePrimeagen&#xA;&#xA;Reviewed Twitter thread: https://twitter.com/dabit3/status/1689968559852498944&#xA;Posted by: https://twitter.com/dabit3?s=20&#xA;&#xA;MY MAIN YT CHANNEL: Has well edited engineering videos&#xA;https://youtube.com/ThePrimeagen&#xA;&#xA;Discord&#xA;https://discord.gg/ThePrimeagen&#xA;&#xA;&#xA;Have something for me to read or react to?: https://www.reddit.com/r/ThePrimeagenReact/&#xA;&#xA;Hey I am sponsored by Turso, an edge database.  I think they are pretty neet.  Give them a try for free and if you want you can get a decent amount off (the free tier is the best (better than planetscale or any other))&#xA;https://turso.tech/deeznuts</description>
+    <link>https://www.youtube.com/watch?v=G9mS9iFSmNs</link>
+    <pubDate>Mon, 21 Aug 2023 00:00:00 GMT</pubDate>
+    <itunes:duration></itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>@ThePrimeTimeagen</itunes:author>
+    <itunes:subtitle>Link to the YouTube Video: https://www.youtube.com/watch?v=G9mS9iFSmNs&#xA;Recorded live on twitch, GET IN &#xA;&#xA;https://twitch.tv/ThePrimeagen&#xA;&#xA;Reviewed Twitter thread: https://twitter.com/dabit3/status/1689968559852498944&#xA;Posted by: https://twitter.com/dabit3?s=20&#xA;&#xA;MY MAIN YT CHANNEL: Has well edited engineering videos&#xA;https://youtube.com/ThePrimeagen&#xA;&#xA;Discord&#xA;https://discord.gg/ThePrimeagen&#xA;&#xA;&#xA;Have something for me to read or react to?: https://www.reddit.com/r/ThePrimeagenReact/&#xA;&#xA;Hey I am sponsored by Turso, an edge database.  I think they are pretty neet.  Give them a try for free and if you want you can get a decent amount off (the free tier is the best (better than planetscale or any other))&#xA;https://turso.tech/deeznuts</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>O-3gEsfEm0g</guid>
+    <title>Why Making a Debugger is So Hard! | The Standup (ft. Ryan Fleury)</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_O-3gEsfEm0g.mp3" length="125060996" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_O-3gEsfEm0g.png"></itunes:image>
+    <description>Link to the YouTube Video: https://www.youtube.com/watch?v=O-3gEsfEm0g&#xA;Ship Faster with Neon Postgres #ad &#xA;Neon comes with Branching, Schema Diff, and Instant Point-In-Time Recovery to help you ship fast and recover faster. Get the free plan at https://neon.com&#xA;&#xA;https://twitch.tv/ThePrimeagen - I Stream 5 days a Week&#xA;&#xA;https://twitter.com/terminaldotshop - Want to order coffee over SSH?&#xA;ssh terminal.shop&#xA;&#xA;Become Backend Dev: https://boot.dev/prime&#xA;(plus i make courses for them)&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis&#xA;&#xA;📍 Chapters:&#xA;&#xA;00:00:00 Intro&#xA;00:02:10 Printf Debugging&#xA;00:10:20 RAD Debugger Origins&#xA;00:25:00 PDB (Program Database) Limit&#xA;00:27:27 RAD Linker&#xA;00:28:40 Working for Epic&#xA;00:32:13 What the hell is MUMPS&#xA;00:33:28 D Sucks&#xA;00:34:45 Oodle Adjacent&#xA;00:35:40 How do steps work?&#xA;00:42:50  INT 3 Instruction/Trap&#xA;00:46:20 Step count&#xA;00:47:50 Overwrite and replace&#xA;00:49:42 The desire for user level INT 3 handling&#xA;01:00:39 Alternative to User level INT 3&#xA;01:03:10 Chrome Debugger complaints&#xA;01:07:51 RAD Debug features&#xA;01:16:52 Compatible languages&#xA;01:18:41 Gabe Newell annoucement strategy&#xA;01:19:37 Outro 1&#xA;01:20:01 Cleverer than Stack pointers&#xA;01:22:55 Prime pees on stream&#xA;01:24:20 Faking addresses and the shadow stack&#xA;01:27:50 Data breakpoints&#xA;01:28:38 Prime shoots his shot&#xA;01:32:46 TLDR&#xA;01:34:28 Debugging in VM langs&#xA;01:35:00 PUBE G&#xA;01:36:28 Outro 2</description>
+    <link>https://www.youtube.com/watch?v=O-3gEsfEm0g</link>
+    <pubDate>Thu, 21 Aug 2025 00:00:00 GMT</pubDate>
+    <itunes:duration>1:38:34</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>ThePrimeTimeagen</itunes:author>
+    <itunes:subtitle>Link to the YouTube Video: https://www.youtube.com/watch?v=O-3gEsfEm0g&#xA;Ship Faster with Neon Postgres #ad &#xA;Neon comes with Branching, Schema Diff, and Instant Point-In-Time Recovery to help you ship fast and recover faster. Get the free plan at https://neon.com&#xA;&#xA;https://twitch.tv/ThePrimeagen - I Stream 5 days a Week&#xA;&#xA;https://twitter.com/terminaldotshop - Want to order coffee over SSH?&#xA;ssh terminal.shop&#xA;&#xA;Become Backend Dev: https://boot.dev/prime&#xA;(plus i make courses for them)&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis&#xA;&#xA;📍 Chapters:&#xA;&#xA;00:00:00 Intro&#xA;00:02:10 Printf Debugging&#xA;00:10:20 RAD Debugger Origins&#xA;00:25:00 PDB (Program Database) Limit&#xA;00:27:27 RAD Linker&#xA;00:28:40 Working for Epic&#xA;00:32:13 What the hell is MUMPS&#xA;00:33:28 D Sucks&#xA;00:34:45 Oodle Adjacent&#xA;00:35:40 How do steps work?&#xA;00:42:50  INT 3 Instruction/Trap&#xA;00:46:20 Step count&#xA;00:47:50 Overwrite and replace&#xA;00:49:42 The desire for user level INT 3 handling&#xA;01:00:39 Alternative to User level INT 3&#xA;01:03:10 Chrome Debugger complaints&#xA;01:07:51 RAD Debug features&#xA;01:16:52 Compatible languages&#xA;01:18:41 Gabe Newell annoucement strategy&#xA;01:19:37 Outro 1&#xA;01:20:01 Cleverer than Stack pointers&#xA;01:22:55 Prime pees on stream&#xA;01:24:20 Faking addresses and the shadow stack&#xA;01:27:50 Data breakpoints&#xA;01:28:38 Prime shoots his shot&#xA;01:32:46 TLDR&#xA;01:34:28 Debugging in VM langs&#xA;01:35:00 PUBE G&#xA;01:36:28 Outro 2</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>tXJfS6jI9Z0</guid>
+    <title>2 Language Creators vs 2 Idiots | The Standup</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_tXJfS6jI9Z0.mp3" length="108224444" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_tXJfS6jI9Z0.png"></itunes:image>
+    <description>Link to the YouTube Video: https://www.youtube.com/watch?v=tXJfS6jI9Z0&#xA;When traffic spikes, Neon’s serverless Postgres autoscales to meet demand, without all that extra ops work. Get the free plan at https://neon.com&#xA;&#xA;https://twitch.tv/ThePrimeagen - I Stream 5 days a Week&#xA;&#xA;https://twitter.com/terminaldotshop - Want to order coffee over SSH?&#xA;ssh terminal.shop&#xA;&#xA;Become Backend Dev: https://boot.dev/prime&#xA;(plus i make courses for them)&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis&#xA;&#xA;📍 Chapters:&#xA;&#xA;00:00:00 - Intro&#xA;00:02:13 - neon.com #ad&#xA;00:03:23 - Why Functional Programming Failed?&#xA;00:10:20 - Erlang is Functional AND OOP&#xA;00:15:00 - The Ruby to Rust Pipeline&#xA;00:26:00 - Ginger Bill Rust Rant&#xA;00:29:53 - Are Macros Good or Evil?&#xA;00:43:30 - Printing in Rust VS Odin&#xA;00:48:00 - Mechanism Not Policy&#xA;00:57:45 - LSP Hater VS LSP Lover&#xA;01:04:20 - are Package Managers required?&#xA;01:21:10 - Advice to Future Language Creators</description>
+    <link>https://www.youtube.com/watch?v=tXJfS6jI9Z0</link>
+    <pubDate>Thu, 14 Aug 2025 00:00:00 GMT</pubDate>
+    <itunes:duration>1:24:30</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>ThePrimeTimeagen</itunes:author>
+    <itunes:subtitle>Link to the YouTube Video: https://www.youtube.com/watch?v=tXJfS6jI9Z0&#xA;When traffic spikes, Neon’s serverless Postgres autoscales to meet demand, without all that extra ops work. Get the free plan at https://neon.com&#xA;&#xA;https://twitch.tv/ThePrimeagen - I Stream 5 days a Week&#xA;&#xA;https://twitter.com/terminaldotshop - Want to order coffee over SSH?&#xA;ssh terminal.shop&#xA;&#xA;Become Backend Dev: https://boot.dev/prime&#xA;(plus i make courses for them)&#xA;&#xA;This is also the best way to support me is to support yourself becoming a better backend engineer.  &#xA;&#xA;Great News?  Want me to research and create video????: https://www.reddit.com/r/ThePrimeagen&#xA;&#xA;Kinesis Advantage 360: https://bit.ly/Prime-Kinesis&#xA;&#xA;📍 Chapters:&#xA;&#xA;00:00:00 - Intro&#xA;00:02:13 - neon.com #ad&#xA;00:03:23 - Why Functional Programming Failed?&#xA;00:10:20 - Erlang is Functional AND OOP&#xA;00:15:00 - The Ruby to Rust Pipeline&#xA;00:26:00 - Ginger Bill Rust Rant&#xA;00:29:53 - Are Macros Good or Evil?&#xA;00:43:30 - Printing in Rust VS Odin&#xA;00:48:00 - Mechanism Not Policy&#xA;00:57:45 - LSP Hater VS LSP Lover&#xA;01:04:20 - are Package Managers required?&#xA;01:21:10 - Advice to Future Language Creators</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>QgVR1dxy6zk</guid>
+    <title>it only took 2 lines of code...</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_QgVR1dxy6zk.mp3" length="12729572" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_QgVR1dxy6zk.png"></itunes:image>
+    <description>Link to the YouTube Video: https://www.youtube.com/watch?v=QgVR1dxy6zk&#xA;Docker is a great technology, but like any technology sometimes there are mistakes. Check out this crazy docker escape from Docker Desktop.&#xA;&#xA;Go check out over 1700 of chainguards CVE free images at https://go.lowlevel.tv/chainguard&#xA;&#xA;https://blog.qwertysecurity.com/Articles/blog3.html&#xA;&#xA;🏫 MY COURSES&#xA;Sign-up for my FREE 3-Day C Course: https://lowlevel.academy&#xA;&#xA;🧙‍♂️ HACK YOUR CAREER&#xA;Wanna learn to hack? Join my new CTF platform: https://stacksmash.io&#xA;&#xA;🔥COME HANG OUT   &#xA;Check out my other stuff: https://lowlevel.tv</description>
+    <link>https://www.youtube.com/watch?v=QgVR1dxy6zk</link>
+    <pubDate>Fri, 29 Aug 2025 00:00:00 GMT</pubDate>
+    <itunes:duration>9:20</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>@LowLevelTV</itunes:author>
+    <itunes:subtitle>Link to the YouTube Video: https://www.youtube.com/watch?v=QgVR1dxy6zk&#xA;Docker is a great technology, but like any technology sometimes there are mistakes. Check out this crazy docker escape from Docker Desktop.&#xA;&#xA;Go check out over 1700 of chainguards CVE free images at https://go.lowlevel.tv/chainguard&#xA;&#xA;https://blog.qwertysecurity.com/Articles/blog3.html&#xA;&#xA;🏫 MY COURSES&#xA;Sign-up for my FREE 3-Day C Course: https://lowlevel.academy&#xA;&#xA;🧙‍♂️ HACK YOUR CAREER&#xA;Wanna learn to hack? Join my new CTF platform: https://stacksmash.io&#xA;&#xA;🔥COME HANG OUT   &#xA;Check out my other stuff: https://lowlevel.tv</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>O9QD9an-0jU</guid>
+    <title>well this isn&#39;t great...</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_O9QD9an-0jU.mp3" length="10601228" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_O9QD9an-0jU.png"></itunes:image>
+    <description>Link to the YouTube Video: https://www.youtube.com/watch?v=O9QD9an-0jU&#xA;🏫 MY COURSES&#xA;Sign-up for my FREE 3-Day C Course: https://lowlevel.academy&#xA;&#xA;🧙‍♂️ HACK YOUR CAREER&#xA;Wanna learn to hack? Join my new CTF platform: https://stacksmash.io&#xA;&#xA;🔥COME HANG OUT   &#xA;Check out my other stuff: https://lowlevel.tv</description>
+    <link>https://www.youtube.com/watch?v=O9QD9an-0jU</link>
+    <pubDate>Thu, 28 Aug 2025 00:00:00 GMT</pubDate>
+    <itunes:duration>7:54</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>@LowLevelTV</itunes:author>
+    <itunes:subtitle>Link to the YouTube Video: https://www.youtube.com/watch?v=O9QD9an-0jU&#xA;🏫 MY COURSES&#xA;Sign-up for my FREE 3-Day C Course: https://lowlevel.academy&#xA;&#xA;🧙‍♂️ HACK YOUR CAREER&#xA;Wanna learn to hack? Join my new CTF platform: https://stacksmash.io&#xA;&#xA;🔥COME HANG OUT   &#xA;Check out my other stuff: https://lowlevel.tv</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <item>
+    <guid>JNW5fHJ-Nyo</guid>
+    <title>there&#39;s no way they actually released this</title>
+    <enclosure url="https://archive.org/download/manlas_tubecast/audio_Line Noise_JNW5fHJ-Nyo.mp3" length="18428252" type="audio/mpeg"></enclosure>
+    <itunes:image href="https://archive.org/download/manlas_tubecast/thumbnail_Line Noise_JNW5fHJ-Nyo.png"></itunes:image>
+    <description>Link to the YouTube Video: https://www.youtube.com/watch?v=JNW5fHJ-Nyo&#xA;https://pwner.gg/blog/2025-08-13-fortiweb-cve-2025-52970&#xA;&#xA;🏫 MY COURSES&#xA;Sign-up for my FREE 3-Day C Course: https://lowlevel.academy&#xA;&#xA;🧙‍♂️ HACK YOUR CAREER&#xA;Wanna learn to hack? Join: https://stacksmash.io&#xA;&#xA;🔥COME HANG OUT   &#xA;Check out my other stuff: https://lowlevel.tv</description>
+    <link>https://www.youtube.com/watch?v=JNW5fHJ-Nyo</link>
+    <pubDate>Tue, 26 Aug 2025 00:00:00 GMT</pubDate>
+    <itunes:duration>13:36</itunes:duration>
+    <itunes:explicit>no</itunes:explicit>
+    <itunes:author>@LowLevelTV</itunes:author>
+    <itunes:subtitle>Link to the YouTube Video: https://www.youtube.com/watch?v=JNW5fHJ-Nyo&#xA;https://pwner.gg/blog/2025-08-13-fortiweb-cve-2025-52970&#xA;&#xA;🏫 MY COURSES&#xA;Sign-up for my FREE 3-Day C Course: https://lowlevel.academy&#xA;&#xA;🧙‍♂️ HACK YOUR CAREER&#xA;Wanna learn to hack? Join: https://stacksmash.io&#xA;&#xA;🔥COME HANG OUT   &#xA;Check out my other stuff: https://lowlevel.tv</itunes:subtitle>
+    <itunes:summary></itunes:summary>
+  </item>
+  <language>English</language>
+  <copyright>manlas</copyright>
+  <itunes:author></itunes:author>
+  <itunes:subtitle>Follow your heart, actually</itunes:subtitle>
+  <itunes:summary>Follow your heart, actually</itunes:summary>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:category text="Technology"></itunes:category>
+  <itunes:owner>
+    <itunes:name></itunes:name>
+    <itunes:email></itunes:email>
+  </itunes:owner>
+</channel>
+</rss>

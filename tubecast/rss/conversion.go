@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 	"strconv"
@@ -23,12 +22,13 @@ func (metaStation *MetaStation) syncChannel(channelUsername string) (string, err
 
 	ids, err := metaStation.getLatestVideos(ctx, channelFeedUrl, 3)
 	if err != nil {
+		logError(err, "syncChannel - Get Latest Videos")
 		return "", err
 	}
 	// fmt.Println("Latest video urls to be uploaded: ", ids)
 	for _, id := range ids {
 		if _, err := metaStation.addItemToStation(ctx, id, channelUsername, channelFeedUrl); err != nil {
-			log.Printf("error downloading video %s, error: %v\n", id, err)
+			logError(err, "syncChannel - Add item to Station")
 		}
 	}
 	return metaStation.updateFeed()
@@ -212,16 +212,27 @@ func (metaStation *MetaStation) getLatestVideos(ctx context.Context, channelUrl 
 		"live_status!='is_upcoming'",
 		"--playlist-end",
 		fmt.Sprint(limit),
+		"--user-agent",
+		"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+		"--referer",
+		"https://www.youtube.com/",
+		"--sleep-interval",
+		"1",
+		"--max-sleep-interval",
+		"3",
+		"--format",
+		"worst", // Use lower quality to avoid blocked formats
 		channelUrl,
 	}
+
 	out, err := run(ctx, "yt-dlp", args...)
 	if err != nil {
 		if strings.Contains(err.Error(), "Premieres in") {
 			return nil, nil
 		}
+		logError(err, "Get Latest Videos")
 		return nil, err
 	}
-
 	ids := strings.Split(strings.TrimSpace(out), "\n")
 	videoIds := metaStation.filter(ids)
 	return videoIds, nil
@@ -237,6 +248,7 @@ func getVideoId(ctx context.Context, link string) (string, error) {
 		link,
 	)
 	if err != nil {
+		logError(err, "Get Video Id")
 		return "", err
 	}
 	return strings.TrimSpace(out), nil
@@ -252,6 +264,7 @@ func getVideoUsername(ctx context.Context, link string) (string, error) {
 		link,
 	)
 	if err != nil {
+		logError(err, "Get Video Username")
 		return "", err
 	}
 	return strings.TrimSpace(out), nil
@@ -267,6 +280,7 @@ func getVideoTitle(ctx context.Context, link string) (string, error) {
 		link,
 	)
 	if err != nil {
+		logError(err, "Get Video Title")
 		return "", err
 	}
 	return strings.TrimSpace(out), nil
@@ -282,6 +296,7 @@ func getVideoDescription(ctx context.Context, link string) (string, error) {
 		link,
 	)
 	if err != nil {
+		logError(err, "Get Video Description")
 		return "", err
 	}
 	return strings.TrimSpace(out), nil
@@ -297,6 +312,7 @@ func getVideoDuration(ctx context.Context, link string) (string, error) {
 		link,
 	)
 	if err != nil {
+		logError(err, "Get Video Duration")
 		return "", err
 	}
 	return strings.TrimSpace(out), nil
@@ -312,16 +328,20 @@ func isValidForDownload(ctx context.Context, link string) error {
 		link,
 	)
 	if err != nil {
+		logError(err, "Is Valid for Download")
 		return err
 	}
 
 	durationSeconds, err := strconv.Atoi(strings.TrimSpace(out))
 	if err != nil {
+		logError(err, "Is Valid for Download - duration Seconds")
 		return err
 	}
 	fiveHoursInSeconds := 5 * 60 * 60
 	if durationSeconds > fiveHoursInSeconds {
-		return errors.New("video needs to be shorter than 5 hours long!")
+		err = errors.New("video needs to be shorter than 5 hours long!")
+		logError(err, "Is Valid for Download - fiveHoursInSeconds")
+		return err
 	}
 	return nil
 }
@@ -340,6 +360,7 @@ func getVideoViews(ctx context.Context, link string) (uint32, error) {
 	}
 	n, err := strconv.Atoi(strings.TrimSpace(out))
 	if err != nil {
+		logError(err, "Get Video Views")
 		return 0, err
 	}
 	return uint32(n), nil
@@ -355,6 +376,7 @@ func getVideoPubDate(ctx context.Context, link string) (string, error) {
 		link,
 	)
 	if err != nil {
+		logError(err, "Get Video Pub Date")
 		return "", err
 	}
 	out = strings.TrimSpace(out)
@@ -377,10 +399,6 @@ func (metaStationItem *MetaStationItem) saveVideoThumbnail(ctx context.Context, 
 		strings.Split(localpath2, ".")[0]+".%(ext)s",
 		link,
 	)
-	if err == nil {
-		// fmt.Printf("thumbnail downloaded\n")
-
-	}
 	ConvertImageToCorrectFormat(localpath1, localpath2)
 	return err
 }
@@ -403,11 +421,8 @@ func (metaStationItem *MetaStationItem) saveAudio(ctx context.Context, title str
 		link,
 	)
 	if err != nil {
+		logError(err, "Save Audio")
 		return 0, err
-	}
-	if err == nil {
-		// fmt.Printf("audio downloaded\n")
-
 	}
 	if info, err := os.Stat(localpath); err != nil {
 		return 0, err

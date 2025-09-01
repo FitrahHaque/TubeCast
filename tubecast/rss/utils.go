@@ -9,6 +9,7 @@ import (
 	"image/draw"
 	"image/jpeg"
 	"image/png"
+	"log"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -351,4 +352,11 @@ func (cloud *Cloud) getShareableThumbnailUrl(id, title string) string {
 
 func (cloud *Cloud) getShareableAudioUrl(id, title string) string {
 	return cloud.ArchiveUrlPrefix + cloud.getAudioFilename(id, title)
+}
+
+func logError(err error, context string) {
+	f, _ := os.OpenFile("error.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	defer f.Close()
+	log.SetOutput(f)
+	log.Println(context, ": ", err)
 }
