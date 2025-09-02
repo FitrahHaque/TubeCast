@@ -135,6 +135,7 @@ type Usage struct {
 }
 
 type EpisodeInfo struct {
-	Title  string
-	Author string
+	Title   string
+	Author  string
+	PubDate string
 }

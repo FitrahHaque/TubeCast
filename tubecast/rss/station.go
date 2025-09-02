@@ -117,8 +117,9 @@ func (metaStation *MetaStation) getAllItems() []EpisodeInfo {
 	var out []EpisodeInfo
 	for _, item := range metaStation.Items {
 		out = append(out, EpisodeInfo{
-			Title:  item.Title,
-			Author: item.ITunesAuthor,
+			Title:   item.Title,
+			Author:  item.ITunesAuthor,
+			PubDate: item.PubDate,
 		})
 	}
 	return out

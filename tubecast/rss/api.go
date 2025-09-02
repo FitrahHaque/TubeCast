@@ -6,7 +6,9 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
+	"time"
 )
 
 func SyncChannel(title, channelID string) (string, error) {
@@ -99,7 +101,20 @@ func GetAllShowEpisodes(title string) ([]EpisodeInfo, error) {
 	if err != nil {
 		return nil, err
 	}
-	return metaStation.getAllItems(), nil
+	items := metaStation.getAllItems()
+	sort.Slice(items, func(i, j int) bool {
+		timeA, err := time.Parse(time.RFC1123, items[i].PubDate)
+		if err != nil {
+			logError(err, "Invalid Date conversion")
+			return false
+		}
+		timeB, err := time.Parse(time.RFC1123, items[j].PubDate)
+		if err != nil {
+			logError(err, "Invalid Date Conversion")
+		}
+		return timeA.After(timeB)
+	})
+	return items, nil
 }
 
 func GetFeedUrl(title string) string {
