@@ -11,6 +11,10 @@
 - You will find it in `Shows` (for Apple Podcasts) list if it does not appear right away.
 
 <div align="center">
+  <video src="donotopen/demo.mp4" width="600" controls></video>
+</div>
+
+<div align="center">
 <img src="donotopen/podcast-url.png" alt="Apple Podcast Follow" width="277" height="600"/><img src="donotopen/podcast-preview.png" alt="Apple Podcast Preview" width="277" height="600"/><img src="donotopen/castbox-preview.png" alt="Castbox for Android" width="277" height="600"/> 
 </div> 
 
