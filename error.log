@@ -1,0 +1,16 @@
+2026/06/13 20:19:34 Get Video Id :  could not execute the command. Error: WARNING: [youtube] Falling back to generic n function search
+         player = https://www.youtube.com/s/player/445213fb/player_es6.vflset/en_US/base.js
+WARNING: [youtube] m-bT5v5Tm7w: nsig extraction failed: Some formats may be missing
+         n = H_XACVJG650giWwCy1 ; player = https://www.youtube.com/s/player/445213fb/player_es6.vflset/en_US/base.js
+         Please report this issue on  https://github.com/yt-dlp/yt-dlp/issues?q= , filling out the appropriate issue template. Confirm you are on the latest version using  yt-dlp -U
+WARNING: [youtube] m-bT5v5Tm7w: nsig extraction failed: Some formats may be missing
+         n = L4vGGcZZXsu8F_ejgf ; player = https://www.youtube.com/s/player/445213fb/player_es6.vflset/en_US/base.js
+         Please report this issue on  https://github.com/yt-dlp/yt-dlp/issues?q= , filling out the appropriate issue template. Confirm you are on the latest version using  yt-dlp -U
+WARNING: [youtube] m-bT5v5Tm7w: nsig extraction failed: Some formats may be missing
+         n = _7ZAqBYvKcE7hxk5eb ; player = https://www.youtube.com/s/player/445213fb/player_es6.vflset/en_US/base.js
+         Please report this issue on  https://github.com/yt-dlp/yt-dlp/issues?q= , filling out the appropriate issue template. Confirm you are on the latest version using  yt-dlp -U
+WARNING: [youtube] m-bT5v5Tm7w: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+WARNING: Only images are available for download. use --list-formats to see them
+ERROR: [youtube] m-bT5v5Tm7w: Requested format is not available. Use --list-formats for a list of available formats
+
+

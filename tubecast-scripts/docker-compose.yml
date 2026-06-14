@@ -14,6 +14,6 @@ services:
         source: ./tubecast/station
         target: /app/tubecast/station
       - type: bind
-        source: ${HOME_DIR}/.config/internetarchive/ia.ini
+        source: ${HOME}/.config/internetarchive/ia.ini
         target: /root/.config/internetarchive/ia.ini
         read_only: true

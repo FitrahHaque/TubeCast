@@ -50,24 +50,14 @@ cd tubecast-scripts
 1. Set the `username`. It is used to create item identifier inside your Internet Archive, where all shows and their data will be hosted.\
 Item identifier looks like this: `<username>_tubecast`\
 If you want to host your feed on github pages, make sure to use the github username (small letters). It will be used to derive the url to your RSS feed.
-2. Set the `home directory`. It is used to fetch your ia configuration (IA-S3 Access key, Secret Key, and cookies). Here's how you can get it:
-- Go to your home directory
-```bash
-cd ~
-```
-- Print the home directory on the console
-```bash
-pwd
-```
-3. Copy the output and put it on the `HOME_DIR` environment variable inside `.env` file
-4. Set the `archive` to `Yes` if you want the feed to be hosted on archive (recommended). By default, it is set to `Yes`.\
+2. Set the `archive` to `Yes` if you want the feed to be hosted on archive (recommended). By default, it is set to `Yes`.\
 Your RSS Feed will look like this: `https://archive.org/download/<username>_tubecast/<show_title>.xml`
 
     However, if you want otherwise, set it anything else and make sure you have your github username, all in small letters set as the `username` environment variable.\
     Your RSS Feed will look like this: `https://<username>.github.io/<name_of_your_repo>/feed/<show_title>.xml`\
     Even if you host it on archive, you can still use the link to your github page as your feed (after pushing the commit every time, and using `/docs` as your host, of course).
 
-5. Change the filename `example.txt` to `.env`
+3. Change the filename `example.txt` to `.env`
 ```bash
 cp example.txt .env
 ```

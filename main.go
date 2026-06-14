@@ -579,21 +579,15 @@ func SetEnv(app *tview.Application, pages *tview.Pages) tview.Primitive {
 		SetLabel("USERNAME:         ").
 		SetFieldWidth(20).
 		SetPlaceholder("A Unique Handle")
-	homeIF := tview.NewInputField().
-		SetLabel("HOME_DIR:         ").
-		SetFieldWidth(20).
-		SetPlaceholder("Your Home Directory")
 	form := tview.NewForm()
 	form.
 		SetTitle(" Set Environment Variable ")
 	form.
 		AddFormItem(usernameIF).
-		AddFormItem(homeIF).
 		AddButton("save", func() {
 			username := usernameIF.GetText()
-			homeDir := homeIF.GetText()
-			if username == "" || homeDir == "" || !strings.HasPrefix(homeDir, "/") {
-				modal := ShowModal("username and home directory cannot be empty. Home directory needs to be from the root (absolute)", []string{"Try Again"}, func(_ int, _ string) {
+			if username == "" {
+				modal := ShowModal("Username cannot be empty", []string{"Try Again"}, func(_ int, _ string) {
 					pages.RemovePage("modal")
 				})
 				pages.AddPage("modal", modal, true, true)
@@ -609,8 +603,6 @@ func SetEnv(app *tview.Application, pages *tview.Pages) tview.Primitive {
 					for i, line := range lines {
 						if strings.HasPrefix(line, "USERNAME=") {
 							lines[i] = fmt.Sprintf("USERNAME=\"%s\"", username)
-						} else if strings.HasPrefix(line, "HOME_DIR=") {
-							lines[i] = fmt.Sprintf("HOME_DIR=\"%s\"", homeDir)
 						}
 					}
 					output := strings.Join(lines, "\n")
