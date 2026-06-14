@@ -14,137 +14,175 @@
 <img src="donotopen/podcast-url.png" alt="Apple Podcast Follow" width="277" height="600"/><img src="donotopen/podcast-preview.png" alt="Apple Podcast Preview" width="277" height="600"/><img src="donotopen/castbox-preview.png" alt="Castbox for Android" width="277" height="600"/> 
 </div> 
 
-## 📡 Quick‑Start
+## Quick Start
 
-The [`tubecast-scripts`](https://drive.google.com/file/d/1aAkkPFOyZulgHiwneI6GSi2wiICHdFd7/view?usp=sharing) folder contains everything you need to run **TubeCast**. Each shell script wraps the necessary `docker compose` calls so non‑technical users only have to run a single command per task.
+The [`tubecast-scripts`](https://drive.google.com/file/d/1aAkkPFOyZulgHiwneI6GSi2wiICHdFd7/view?usp=sharing) package runs TubeCast in Docker and opens an interactive terminal user interface (TUI). All show management is done from this interface.
 
----
+### Requirements
 
-### ✨ What’s inside
+- Docker Desktop on macOS or Windows, or Docker Engine with Compose on Linux.
+- An [Internet Archive account](https://archive.org/account/signup).
+- A terminal. On Windows, use WSL or another Bash-compatible terminal for the included `.sh` scripts.
 
-| File                     | Purpose                                                                                    |
-| ------------------------ | -------------------------------------------------------------------------------------------|
-| **`example.txt`**       | Template for your secrets (rename to `.env`).                                              |
-| **`docker-compose.yml`** | Defines the `tubecast` container + volumes.                                                |
-| **`init.sh`**            | One‑time setup: pulls the image, downloads the *ia* CLI.         |
-| **`sync.sh`**            | Runs the regular podcast sync (no extra flags).                                            |
-| **`create-show.sh`**     | Creates a new show.                                                                        |
-| **`sync-channel.sh`**    | Adds 3 latest videos from a YouTube channel and subscribes to the channel for later sync.  |
-| **`add-video.sh`**       | Adds a single YouTube video to a show.                                                     |
-| **`remove-video.sh`**    | Removes one video from a show.                                                             |
-| **`remove-show.sh`**     | Deletes an entire show.                                                                    |
+### Package Contents
 
----
+| File | Purpose |
+| --- | --- |
+| `example.txt` | Environment template. Copy it to `.env`. |
+| `docker-compose.yml` | Container, storage, and Internet Archive configuration mounts. |
+| `init.sh` | Pulls the TubeCast image and downloads the Internet Archive CLI. |
+| `run.sh` | Updates the image when possible and starts the TubeCast TUI. |
+| `tubecast/cover/` | Put show cover images here before creating a show. |
 
-## 🚀 Set-up
+### First-Time Setup
 
-> **Note**: You will need to use `terminal` (macOS), `command prompt` or `powershell` (windows) to be able to run them. Open the corresponding app and paste the commands as they are. Best to use `vscode`
+Unzip the package and enter its directory:
 
-Unzip this folder and go into the directory and open terminal
 ```bash
 cd tubecast-scripts
 ```
-### Set-up environment
 
-0. There is a file named `example.txt`. Open it.
-1. Set the `username`. It is used to create item identifier inside your Internet Archive, where all shows and their data will be hosted.\
-Item identifier looks like this: `<username>_tubecast`\
-If you want to host your feed on github pages, make sure to use the github username (small letters). It will be used to derive the url to your RSS feed.
-2. Set the `archive` to `Yes` if you want the feed to be hosted on archive (recommended). By default, it is set to `Yes`.\
-Your RSS Feed will look like this: `https://archive.org/download/<username>_tubecast/<show_title>.xml`
+Create your environment file:
 
-    However, if you want otherwise, set it anything else and make sure you have your github username, all in small letters set as the `username` environment variable.\
-    Your RSS Feed will look like this: `https://<username>.github.io/<name_of_your_repo>/feed/<show_title>.xml`\
-    Even if you host it on archive, you can still use the link to your github page as your feed (after pushing the commit every time, and using `/docs` as your host, of course).
-
-3. Change the filename `example.txt` to `.env`
 ```bash
 cp example.txt .env
 ```
----
 
-### Initialise the app
-Make init.sh executable
-```bash
-chmod +x init.sh
+Open `.env` and set a unique username:
+
+```dotenv
+USERNAME="yourname"
+ARCHIVE="Yes"
 ```
-Run the one‑time initializer
+
+The username becomes part of your Internet Archive item name: `yourname_tubecast`. Use lowercase letters without spaces.
+
+Make the scripts executable and initialize the package:
+
 ```bash
+chmod +x init.sh run.sh
 ./init.sh
 ```
-Now, you have to configure internet archive. Go to this link `https://archive.org/account/signup` and sign up with **EMAIL and PASSWORD** and verify. Then run the below command on your terminal:
+
+Configure the Internet Archive CLI using your verified account:
+
 ```bash
 ./ia configure
 ```
-Set up your email and password that you just created your archive account with. The password does not appear on the screen even if you type or paste it for security purposes. Type ENTER after providing your password.
 
-You are now all set!!!
----
+Your password is not displayed while you type it. The resulting configuration is stored at `~/.config/internetarchive/ia.ini` and mounted into the TubeCast container automatically.
 
-## 📜 Script reference
-
-These are commands that you will use to interact with the application. Follow the examples to create your own show.
-
-### 0. Cover Image
-1. If you want to add a cover to your show, provide an image in the format `.webp` or `.png` as the show cover. Make sure the the resolution is between `1400 x 1400` and `3000 x 3000` as per the Apple Podcast requirement. You can use the [this tool](https://www.resizepixel.com/) to resize the image.
-In order to include a cover image (optional)
-2. Inside your `tubecast-scripts` directory there's a folder named `tubecast` and inside that there's another folder named `cover`.
-3. The cover image name should follow this format: `cover_<show_title>.png` or `cover_<show_title>.webp`\
-So, the path to the cover image will look like this:\
-`./tubecast-scripts/tubecast/cover/cover_<show_title>.webp`
-
-### 1. `create-show.sh`
+### Start TubeCast
 
 ```bash
-./create-show.sh --title="Medicine" --description="Medical lectures"
-```
-It will create a show with the provided `title` and `description`. This is still not ready to use it as a feed for your podcast app. In the subsequent commands, you can use this show by the title.
-
-### 2. `sync-channel.sh`
-
-```bash
-./sync-channel.sh --title="Medicine" --channel-id="ThePrimeTimeagen"
-```
-The show by the `title` will subscribe to the channel and will fetch the latest 3 videos from the channel.\
-Upon success, you will see **a link pasted on the console.** \
-Now you can add this feed to a podcast app and listen to the audios. Wait a few minutes for it to be available. Internet Archive takes time to update. Convenience costs money :\(
-In the subsequent `sync` commands, the show will fetch the latest videos from the channel automatically.
-> Note: If you follow the show by the URL on your podcast app once, you don't need to do it everytime you update the url for any of the subsequent commands on this show, just like how you'd expect!
-### 3. `add-video.sh`
-
-```bash
-./add-video.sh --title="Medicine" --description="The Real Show" --video-url="https://youtu.be/xvFZjo5PgG0?si=-BV8fIKLdQDzdBJO"
-```
-You are required to provide the `video-url` of the video you wish to add to the show by the `title`. If the show does not exist, this command will create one, with the provided `description`.
-
-### 4. `remove-video.sh`
-
-```bash
-./remove-video.sh --title="Medicine" --video-url="https://youtu.be/xvFZjo5PgG0?si=-BV8fIKLdQDzdBJO"
-```
-You are required to provide the `video-url` of the video you wish to remove from the show by the `title`.
-
-### 5. `sync.sh`
-For all of your shows, it fetches latest 3 videos from the channels you are subscribed to.
-```bash
-./sync.sh
+./run.sh
 ```
 
-### 6. `remove-show.sh`
+The first launch may take a moment while Docker downloads the image.
 
-```bash
-./remove-show.sh --title="Medicine"
+## TUI Tutorial
+
+### Keyboard Controls
+
+| Key | Action |
+| --- | --- |
+| `Up` / `Down` | Move through menu items and form fields. |
+| `Enter` | Open the selected item, press a button, or confirm an action. |
+| `Tab` | Move between form fields and buttons. |
+| `Esc` | Return to the main menu from a form. |
+| `b` | Go back from a list that shows a Back option. |
+| `q` | Quit from the main menu. |
+
+The main menu also shows shortcuts: `v` for shows, `c` to create a show, `s` to subscribe, `a` to sync, `i` to add episodes, `d` to delete a show, and `q` to quit.
+
+For the Docker package, change `USERNAME` or `ARCHIVE` by editing the host `.env` file and restarting TubeCast. The TUI's **set env** screen is intended for native runs and does not persist after a temporary Docker container exits.
+
+### 1. Create a Show
+
+Before opening the TUI, put a `.png` or `.webp` cover image in `tubecast/cover/`. Podcast artwork should be square and between 1400x1400 and 3000x3000 pixels.
+
+Example:
+
+```text
+tubecast/cover/medicine.png
 ```
-It deletes the show completely, along with the archive data.
 
----
+In the TUI:
 
-## 🔧 Troubleshooting
+1. Select **create a show**.
+2. Enter the show title, for example `Medicine`.
+3. Enter a description.
+4. Enter the cover filename only, for example `medicine.png`.
+5. Select **save**.
+6. Select **COPY SHOW LINK** to copy the podcast feed URL.
 
-| Symptom                     | Fix                                                                      |
-| --------------------------- | ------------------------------------------------------------------------ |
-| `docker: command not found` | Install Docker Desktop (Mac/Win) or Docker Engine (Linux).               |
-| `ia: command not found`     | Rerun `./init.sh` or make sure `ia` binary is in this folder.            |
+Use the exact same show title in later actions. Show titles are case-sensitive.
+
+### 2. Subscribe to a YouTube Channel
+
+Subscribing adds the latest three videos from a channel and remembers the channel for future syncs.
+
+1. Select **subscribe**.
+2. Enter an existing show title.
+3. Enter the YouTube channel handle, such as `ThePrimeTimeagen` or `@ThePrimeTimeagen`.
+4. Select **Add** and wait for the downloads and uploads to finish.
+5. Copy the show link from the success message.
+
+### 3. Add Individual Episodes
+
+1. Select **add episodes**.
+2. Enter an existing show title.
+3. Enter one or more YouTube video URLs. Separate multiple URLs with commas.
+4. Select **Add** and wait for processing to finish.
+
+Example input:
+
+```text
+https://youtu.be/video1,https://youtu.be/video2
+```
+
+TubeCast downloads the audio and thumbnail, uploads them to Internet Archive, and updates the podcast feed.
+
+### 4. Sync Subscribed Channels
+
+Select **sync** from the main menu. TubeCast checks every channel subscribed to by every show and adds new videos from each channel's latest three results. Videos already in a show are skipped.
+
+### 5. Browse Shows and Copy a Feed URL
+
+1. Select **shows**.
+2. Select a show to view its episodes.
+3. Select **Copy link to clipboard** to copy the feed URL.
+4. Use your podcast app's **Follow a Show by URL** or equivalent option and paste the URL.
+
+You only need to follow the URL once. Future syncs update the same feed.
+
+### 6. Remove an Episode
+
+1. Open **shows** and select a show.
+2. Select the episode you want to remove.
+3. Choose **YES** in the confirmation dialog.
+
+This removes the episode files from Internet Archive and updates the feed.
+
+### 7. Delete a Show
+
+Select **delete a show**, then select the show to delete.
+
+**Warning:** selecting a show in this menu starts deletion immediately. It removes the local show data and its files from Internet Archive.
+
+### Stop TubeCast
+
+Select **quit** or press `q` from the main menu. Docker removes the temporary container, while your shows, feeds, and cover files remain in the `tubecast-scripts` directory.
+
+## Troubleshooting
+
+| Symptom | Fix |
+| --- | --- |
+| `docker: command not found` | Install and start Docker Desktop, or install Docker Engine and Compose. |
+| Internet Archive configuration not found | Run `./ia configure` and confirm `~/.config/internetarchive/ia.ini` exists. |
+| YouTube format or signature errors | Run `docker compose pull` to download the latest TubeCast image. |
+| Permission denied when running a script | Run `chmod +x init.sh run.sh`. |
+| A show is not visible in a podcast app yet | Wait a few minutes for Internet Archive and the podcast app to refresh their caches. |
 
 ---
 
