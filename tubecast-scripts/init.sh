@@ -7,7 +7,7 @@
 # 3) chmod +x ia                 (make it runnable)
 # 4) ./ia configure              (prompt for S3 keys)
 #
-# Usage:  ./init.sh
+# Usage: bash init.sh
 #
 set -e  # abort on any error
 set -u  # error on unset vars

@@ -30,7 +30,7 @@ The [`tubecast-scripts`](https://drive.google.com/file/d/1aAkkPFOyZulgHiwneI6GSi
 | --- | --- |
 | `example.txt` | Environment template. Copy it to `.env`. |
 | `docker-compose.yml` | Container, storage, and Internet Archive configuration mounts. |
-| `init.sh` | Pulls the TubeCast image and downloads the Internet Archive CLI. |
+| `init.sh` | Pulls the image, downloads the Internet Archive CLI, and makes the scripts executable. |
 | `run.sh` | Updates the image when possible and starts the TubeCast TUI. |
 | `tubecast/cover/` | Put show cover images here before creating a show. |
 
@@ -57,11 +57,37 @@ ARCHIVE="Yes"
 
 The username becomes part of your Internet Archive item name: `yourname_tubecast`. Use lowercase letters without spaces.
 
-Make the scripts executable and initialize the package:
+### Choose Where Feeds Are Hosted
+
+`ARCHIVE="Yes"` is the recommended setting. TubeCast uploads the feed, audio, cover, and episode thumbnails to Internet Archive.
+
+An Internet Archive feed URL looks like this:
+
+```text
+https://archive.org/download/<username>_tubecast/<show_title>.xml
+```
+
+Spaces in the show title are replaced with underscores in the XML filename.
+
+To host the XML feed through GitHub Pages instead, set `ARCHIVE` to anything other than `Yes`. TubeCast then writes feeds to `docs/feed/`, using this URL format:
+
+```text
+https://<github_username>.github.io/TubeCast/feed/<show_title>.xml
+```
+
+For GitHub Pages hosting:
+
+1. Set `USERNAME` to your lowercase GitHub username.
+2. Push the generated `docs/feed/` files to a GitHub repository named `TubeCast`.
+3. In the repository settings, configure GitHub Pages to publish from the `/docs` folder.
+4. Push the updated feed files after every TubeCast update.
+
+Audio and artwork still require Internet Archive hosting, so Internet Archive configuration is needed in both modes.
+
+Run the one-time initializer with Bash. It makes `run.sh` executable automatically:
 
 ```bash
-chmod +x init.sh run.sh
-./init.sh
+bash init.sh
 ```
 
 Configure the Internet Archive CLI using your verified account:
@@ -70,7 +96,39 @@ Configure the Internet Archive CLI using your verified account:
 ./ia configure
 ```
 
-Your password is not displayed while you type it. The resulting configuration is stored at `~/.config/internetarchive/ia.ini` and mounted into the TubeCast container automatically.
+Sign up using an email address and password, then verify the account before running this command. Enter the same email and password when prompted. Your password is not displayed while you type or paste it; press Enter after typing it.
+
+The resulting configuration is stored at `~/.config/internetarchive/ia.ini` and mounted into the TubeCast container automatically. Do not share this file because it contains credentials for your Internet Archive account.
+
+### Prepare Cover Artwork
+
+Place cover files inside the package's `tubecast/cover/` directory before creating a show:
+
+```text
+tubecast-scripts/
+└── tubecast/
+    └── cover/
+        └── cover_Medicine.png
+```
+
+Cover requirements:
+
+- Use `.png` or `.webp`.
+- Use a square image.
+- Use dimensions between 1400x1400 and 3000x3000 pixels to meet Apple Podcasts artwork requirements.
+- A descriptive filename such as `cover_<show_title>.png` or `cover_<show_title>.webp` is recommended.
+- The filename may contain spaces, but you must enter it exactly the same way in the TUI.
+
+If needed, an image resizing tool such as [ResizePixel](https://www.resizepixel.com/) can prepare the artwork before you place it in the folder.
+
+Example filenames:
+
+```text
+cover_Medicine.png
+cover_Tech Debt.webp
+```
+
+TubeCast copies and normalizes the selected image to the show's internal cover filename. Keep the source file in `tubecast/cover/` so it remains available to the Docker container.
 
 ### Start TubeCast
 
@@ -99,12 +157,12 @@ For the Docker package, change `USERNAME` or `ARCHIVE` by editing the host `.env
 
 ### 1. Create a Show
 
-Before opening the TUI, put a `.png` or `.webp` cover image in `tubecast/cover/`. Podcast artwork should be square and between 1400x1400 and 3000x3000 pixels.
+Prepare the cover image using the instructions above before opening the TUI.
 
 Example:
 
 ```text
-tubecast/cover/medicine.png
+tubecast/cover/cover_Medicine.png
 ```
 
 In the TUI:
@@ -112,7 +170,7 @@ In the TUI:
 1. Select **create a show**.
 2. Enter the show title, for example `Medicine`.
 3. Enter a description.
-4. Enter the cover filename only, for example `medicine.png`.
+4. Enter the cover filename only, for example `cover_Medicine.png`. Do not enter `tubecast/cover/` in the field.
 5. Select **save**.
 6. Select **COPY SHOW LINK** to copy the podcast feed URL.
 
@@ -127,6 +185,8 @@ Subscribing adds the latest three videos from a channel and remembers the channe
 3. Enter the YouTube channel handle, such as `ThePrimeTimeagen` or `@ThePrimeTimeagen`.
 4. Select **Add** and wait for the downloads and uploads to finish.
 5. Copy the show link from the success message.
+
+Internet Archive may need a few minutes before newly uploaded audio, artwork, and feeds become available. Podcast applications may also cache the previous feed for a while.
 
 ### 3. Add Individual Episodes
 
@@ -181,7 +241,7 @@ Select **quit** or press `q` from the main menu. Docker removes the temporary co
 | `docker: command not found` | Install and start Docker Desktop, or install Docker Engine and Compose. |
 | Internet Archive configuration not found | Run `./ia configure` and confirm `~/.config/internetarchive/ia.ini` exists. |
 | YouTube format or signature errors | Run `docker compose pull` to download the latest TubeCast image. |
-| Permission denied when running a script | Run `chmod +x init.sh run.sh`. |
+| Permission denied when running `run.sh` | Run `bash init.sh` once to restore the script permissions. |
 | A show is not visible in a podcast app yet | Wait a few minutes for Internet Archive and the podcast app to refresh their caches. |
 
 ---
