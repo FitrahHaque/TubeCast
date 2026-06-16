@@ -20,7 +20,7 @@
 
 ## Quick Start
 
-The [`tubecast-scripts`](https://drive.google.com/file/d/1aAkkPFOyZulgHiwneI6GSi2wiICHdFd7/view?usp=sharing) package runs TubeCast in Docker and opens an interactive terminal user interface (TUI). All show management is done from this interface.
+The [`tubecast-scripts`](https://drive.google.com/file/d/1CN6A85aoMsvUGzq6nQH12d6jPMYPStn3/view?usp=drive_link) package runs TubeCast in Docker and opens an interactive terminal user interface (TUI). All show management is done from this interface.
 
 ### Requirements
 
