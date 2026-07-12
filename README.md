@@ -10,6 +10,12 @@
 - Paste this show link on your podcast app: `https://archive.org/download/fitrahhaque_tubecast/bloop.xml`
 - You will find it in `Shows` (for Apple Podcasts) list if it does not appear right away.
 
+## Links
+
+- [Source Code](https://github.com/FitrahHaque/TubeCast)
+- [Demo Feed](https://archive.org/download/fitrahhaque_tubecast/bloop.xml)
+- [Run Package (.zip)](https://drive.google.com/file/d/1CN6A85aoMsvUGzq6nQH12d6jPMYPStn3/view?usp=drive_link)
+
 <div align="center">
   <video src="https://github.com/user-attachments/assets/6c2f3290-b444-4375-b250-e7e9f84b63b4" width="600" controls></video>
 </div>
@@ -20,7 +26,7 @@
 
 ## Quick Start
 
-The [`tubecast-scripts`](https://drive.google.com/file/d/1CN6A85aoMsvUGzq6nQH12d6jPMYPStn3/view?usp=drive_link) package runs TubeCast in Docker and opens an interactive terminal user interface (TUI). All show management is done from this interface.
+The [Run Package (.zip)](https://drive.google.com/file/d/1CN6A85aoMsvUGzq6nQH12d6jPMYPStn3/view?usp=drive_link) runs TubeCast in Docker and opens an interactive terminal user interface (TUI). All show management is done from this interface.
 
 ### Requirements
 
